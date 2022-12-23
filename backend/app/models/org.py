@@ -12,8 +12,10 @@ class Organization(db.Model):
     owner_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
 
     # Relationships
-    owner = relationship("User", back_populates="owned_organizations")
-    linked_channels = relationship("Channel", back_populates="linked_organization", cascade="all, delete")
+    organization_user = relationship("User", back_populates="user_organization")
+    organization_channel = relationship("Channel", back_populates="channel_organization", cascade="all, delete")
+    organization_dms = relationship("DMS", back_populates="dms_organization", cascade="all, delete")
+
 
     # TODO: Revisit following method
     def to_dict(self):

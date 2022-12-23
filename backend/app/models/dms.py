@@ -1,16 +1,15 @@
 from .db import db
 from sqlalchemy.orm import relationship
 
-class Channel(db.Model):
-    __tablename__ = 'channels'
+class DMS(db.Model):
+    __tablename__ = 'group_dms'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, nullable=False)
     organization_id = db.Column(db.Integer, db.ForeignKey("organizations.id"), nullable=False)
 
     # Relationships
-    channel_organization = relationship("Organization", back_populates="organization_channel")
-    channel_cm = relationship("ChannelMessage", back_populates="cm_channel", cascade="all, delete")
+    dms_organization = relationship("Organization", back_populates="organization_dms")
+    dms_dmMessage = relationship("DmMessage", back_populates="dmMessage_dms", cascade="all, delete")
 
     def to_dict(self):
         return {

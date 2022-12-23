@@ -20,7 +20,10 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     # Relationships
-    owned_organizations = relationship("Organization", back_populates="owner")
+    user_organization = relationship("Organization", back_populates="organization_user")
+    user_cm = relationship("ChannelMessage", back_populates="cm_user", cascade="all, delete")
+    user_dmMessage = relationship("DmMessage", back_populates="dmMessage_user", cascade="all, delete")
+    user_image = relationship("Image", back_populates="image_user", cascade="all, delete")
 
     # Methods
     @property
