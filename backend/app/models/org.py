@@ -5,7 +5,7 @@ class Organization(db.Model):
     __tablename__ = 'organizations'
 
     id = db.Column(db.Integer, primary_key=True)
-    organization_name = db.Column(db.String, nullable=False)
+    name = db.Column(db.String, nullable=False)
 
     # Relationships
     linked_channels = relationship("Channel", back_populates="linked_organization", cascade="all, delete")
@@ -18,6 +18,6 @@ class Organization(db.Model):
 
         return {
             'id': self.id,
-            'organization_name': self.organization_name,
+            'name': self.name,
             'channels': all_channels
         }
