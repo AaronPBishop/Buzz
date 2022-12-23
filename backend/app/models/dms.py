@@ -11,6 +11,7 @@ class DMS(db.Model):
     dms_organization = relationship("Organization", back_populates="organization_dms")
     dms_dmMessage = relationship("DmMessage", back_populates="dmMessage_dms", cascade="all, delete")
 
+# TODO: Revisit following method
     def to_dict(self):
         return {
             'id': self.id,

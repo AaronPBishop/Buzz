@@ -12,6 +12,7 @@ class Channel(db.Model):
     channel_organization = relationship("Organization", back_populates="organization_channel")
     channel_cm = relationship("ChannelMessage", back_populates="cm_channel", cascade="all, delete")
 
+# TODO: Revisit following method
     def to_dict(self):
         return {
             'id': self.id,

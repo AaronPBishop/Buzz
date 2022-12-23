@@ -14,6 +14,8 @@ class DmMessage(db.Model):
     dmMessage_user = relationship("User", back_populates="user_dmMessage")
     dmMessage_image = relationship("Image", back_populates="image_dmMessage", cascade="all, delete")
 
+    # TODO: Revisit following method
+
     def to_dict(self):
         return {
             'id': self.id,

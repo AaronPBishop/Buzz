@@ -14,6 +14,7 @@ class ChannelMessage(db.Model):
     cm_user = relationship("User", back_populates="user_cm")
     cm_image = relationship("Image", back_populates="image_cm", cascade="all, delete")
 
+# TODO: Revisit following method
     def to_dict(self):
         return {
             'id': self.id,
