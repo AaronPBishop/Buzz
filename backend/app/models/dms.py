@@ -1,7 +1,6 @@
 from .db import db
 from sqlalchemy.orm import relationship
 
-
 class DMS(db.Model):
     __tablename__ = 'group_dms'
 

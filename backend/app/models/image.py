@@ -10,7 +10,7 @@ class Image(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     channel_message_id = db.Column(
         db.Integer, db.ForeignKey("channel_messages.id"))
-    dm_message_id = db.Column(db.Integer, db.ForeignKey("dm_messages.id"))
+    dm_message_id = db.Column(db.Integer, db.ForeignKey("dmMessages.id"))
 
     # Relationships
     image_cm = relationship("ChannelMessage", back_populates="cm_image")

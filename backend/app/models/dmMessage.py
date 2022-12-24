@@ -1,7 +1,6 @@
 from .db import db
 from sqlalchemy.orm import relationship
 
-
 class DmMessage(db.Model):
     __tablename__ = 'dmMessages'
 
