@@ -7,6 +7,6 @@ Base = declarative_base()
 user_channels = db.Table(
     "user_channels",
     Base.metadata,
-    db.Column("user_id", db.Integer, ForeignKey("users.id"), primary_key=True),
-    db.Column("channel_id", db.Integer, ForeignKey("channels.id"), primary_key=True)
+    db.Column("user_id", db.Integer, ForeignKey("users.id"), primary_key=True, nullable=False),
+    db.Column("channel_id", db.Integer, ForeignKey("channels.id"), primary_key=True, nullable=False)
 )

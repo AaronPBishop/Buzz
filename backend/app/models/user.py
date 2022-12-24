@@ -20,10 +20,12 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     # Relationships
-    user_organization = relationship("Organization", back_populates="organization_user")
-    user_cm = relationship("ChannelMessage", back_populates="cm_user", cascade="all, delete")
-    user_dmMessage = relationship("DmMessage", back_populates="dmMessage_user", cascade="all, delete")
-    user_image = relationship("Image", back_populates="image_user", cascade="all, delete")
+    user_organization = relationship(
+        "Organization", back_populates="organization_user")
+    user_cm = relationship(
+        "ChannelMessage", back_populates="cm_user", cascade="all, delete")
+    user_dmMessage = relationship(
+        "DmMessage", back_populates="dmMessage_user", cascade="all, delete")
 
     # Methods
     @property
@@ -40,10 +42,13 @@ class User(db.Model, UserMixin):
     def to_dict(self):
         return {
             'id': self.id,
-            'username': self.username,
+            'username': self.user_name,
             'first_name': self.first_name,
             'last_name': self.last_name,
             'email': self.email,
             'bio': self.bio,
-            'profile_img': self.profile_img
+            'profile_img': self.profile_img,
+            'user_organizations': [organization.to_dict() for organization in self.user_organization],
+            'user_cms': [cm.to_dict() for cm in self.user_cm],
+            'user_DmMessages': [DmMessage.to_dict() for DmMessage in self.user_DmMessage],
         }

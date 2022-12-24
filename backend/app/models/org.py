@@ -2,6 +2,7 @@ from .db import db
 from sqlalchemy.orm import relationship
 from sqlalchemy.schema import ForeignKey
 
+
 class Organization(db.Model):
     __tablename__ = 'organizations'
 
@@ -12,20 +13,19 @@ class Organization(db.Model):
     owner_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
 
     # Relationships
-    organization_user = relationship("User", back_populates="user_organization")
-    organization_channel = relationship("Channel", back_populates="channel_organization", cascade="all, delete")
-    organization_dms = relationship("DMS", back_populates="dms_organization", cascade="all, delete")
+    organization_user = relationship(
+        "User", back_populates="user_organization")
+    organization_channel = relationship(
+        "Channel", back_populates="channel_organization", cascade="all, delete")
+    organization_dms = relationship(
+        "DMS", back_populates="dms_organization", cascade="all, delete")
 
-
-    # TODO: Revisit following method
     def to_dict(self):
-        all_channels = []
-
-        for channel in self.linked_channels:
-            all_channels.append(channel.to_dict())
-
         return {
             'id': self.id,
             'name': self.name,
-            'channels': all_channels
+            'owner_id': self.owner_id,
+            'organization_users': [user.to_dict() for user in self.organization_user],
+            'organization_channels': [channel.to_dict() for channel in self.organization_channel],
+            'organization_dms': [dms.to_dict() for dms in self.organization_dms],
         }
