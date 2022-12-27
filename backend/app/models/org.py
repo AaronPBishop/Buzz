@@ -8,6 +8,7 @@ class Organization(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
+    org_image = db.Column(db.String)
 
     # Foreign Key
     owner_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
