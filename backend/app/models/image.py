@@ -14,7 +14,6 @@ class Image(db.Model):
 
     # Relationships
     image_cm = relationship("ChannelMessage", back_populates="cm_image")
-    image_user = relationship("User", back_populates="user_image")
     image_dmMessage = relationship(
         "DmMessage", back_populates="dmMessage_image")
 
