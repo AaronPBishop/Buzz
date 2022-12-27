@@ -17,7 +17,7 @@ def validation_errors_to_error_messages(validation_errors):
             errorMessages.append(f'{field} : {error}')
     return errorMessages
 
-
+# ? User authentication ********************************************************
 @auth_routes.route('/')
 def authenticate():
     """
@@ -27,7 +27,7 @@ def authenticate():
         return current_user.to_dict()
     return {'errors': ['Unauthorized']}
 
-
+# ? User login *******************************************************************
 @auth_routes.route('/login', methods=['POST'])
 def login():
     """
@@ -44,7 +44,7 @@ def login():
         return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
-
+# ? User logout ******************************************************************
 @auth_routes.route('/logout')
 def logout():
     """
@@ -53,7 +53,7 @@ def logout():
     logout_user()
     return {'message': 'User logged out'}
 
-
+# ? User signup ******************************************************************
 @auth_routes.route('/signup', methods=['POST'])
 def sign_up():
     """
@@ -73,7 +73,7 @@ def sign_up():
         return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
-
+# ? User unauthorized ******************************************************************
 @auth_routes.route('/unauthorized')
 def unauthorized():
     """

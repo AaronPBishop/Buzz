@@ -4,7 +4,7 @@ from app.models import Organization, User, Channel, ChannelMessage, DmMessage, D
 
 org_routes = Blueprint('organizations', __name__)
 
-# ? Create a new organization
+# ? Create a new organization ************************************************************
 @org_routes.route('/', methods=['POST'])
 @login_required
 def create_organization():
@@ -22,7 +22,7 @@ def create_organization():
     return new_org.to_dict()
 
 
-# ? Get/Edit an organization
+# ? Get/Edit an organization ************************************************************
 @org_routes.route('/<org_id>', methods=['GET', 'PUT'])
 @login_required
 def get_edit_organization(org_id):
@@ -33,13 +33,13 @@ def get_edit_organization(org_id):
         return queried_organization.to_dict()
 
     queried_organization.name = req_data['name']
-    
+
     db.session.commit()
 
     return queried_organization.to_dict()
 
 
-# ? Delete an organization
+# ? Delete an organization ************************************************************
 @org_routes.route('/<org_id>/<user_id>', methods=['DELETE'])
 @login_required
 def delete_organization(org_id, user_id):
@@ -52,7 +52,7 @@ def delete_organization(org_id, user_id):
         return {'message': 'Successfully deleted'}, 200
 
 
-# ? Add a user to organization
+# ? Add a user to organization ********************************************************
 @org_routes.route('/new_user', methods=['POST'])
 @login_required
 def add_user():
