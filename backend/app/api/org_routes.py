@@ -33,6 +33,7 @@ def get_edit_organization(org_id):
         return queried_organization.to_dict()
 
     queried_organization.name = req_data['name']
+    queried_organization.org_image = req_data['org_image']
 
     db.session.commit()
 
