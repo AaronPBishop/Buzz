@@ -55,19 +55,20 @@ def delete_organization(org_id, user_id):
 
 # ? Add a user to organization ********************************************************
 @org_routes.route('/new_user', methods=['POST'])
-@login_required
+# @login_required
 def add_user():
     req_data = request.json
+   
 
     queried_org = Organization.query.get_or_404(req_data['orgId'])
     user_to_add = User.query.get_or_404(req_data['userId'])
 
-    if req_data['ownerId'] == queried_org.owner_id:
-        queried_org.organization_user.append(user_to_add)
-        user_to_add.user_organization.append(queried_org)
+    # if req_data['ownerId'] == queried_org.owner_id:
+    #     queried_org.organization_user.append(user_to_add)
+    #     user_to_add.user_organization.append(queried_org)
 
-        db.session.add(queried_org)
-        db.session.add(user_to_add)
-        db.session.commit()
+    db.session.add(queried_org)
+    db.session.add(user_to_add)
+    db.session.commit()
 
-        return queried_org.to_dict()
+    return queried_org.to_dict()
