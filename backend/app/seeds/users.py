@@ -3,11 +3,11 @@ from app.models import db, User, environment, SCHEMA
 
 def seed_users():
     demo = User(
-        first_name='Demo', last_name='User',user_name='Demo', email='demo@aa.io', password='password')
+        user_name='Demo', first_name='Demo', last_name='User',  email='demo@aa.io', bio="demo_user1", profile_img="https://images.unsplash.com/photo-1535378620166-273708d44e4c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1257&q=80", hashed_password='password')
     marnie = User(
-         first_name='Marnie', last_name='Student',user_name='marnie', email='marnie@aa.io', password='password')
+        user_name='marnie', first_name='Marnie', last_name='Stark',  email='marnie@aa.io', bio="demo_user2", profile_img="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80", hashed_password='password')
     bobbie = User(
-         first_name='Bobbie', last_name='Break',user_name='bobbie', email='bobbie@aa.io', password='password')
+        user_name='bobbie', first_name='Bobbie', last_name='Break',  email='bobbie@aa.io', bio="demou_user3", profile_img="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80", hashed_password='password')
 
     db.session.add(demo)
     db.session.add(marnie)
@@ -23,7 +23,8 @@ def seed_users():
 # it will reset the primary keys for you as well.
 def undo_users():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
+        db.session.execute(
+            f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
     else:
         db.session.execute("DELETE FROM users")
 

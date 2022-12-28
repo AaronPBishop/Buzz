@@ -64,9 +64,13 @@ def sign_up():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         user = User(
-            username=form.data['username'],
+            userName=form.data['user_name'],
+            firstName=form.data['first_name'],
+            lastName=form.data['last_name'],
             email=form.data['email'],
-            password=form.data['password']
+            bio=form.data['bio'],
+            profileImg=form.data['profile_img'],
+            password=form.data['password'],
         )
         db.session.add(user)
         db.session.commit()
@@ -74,29 +78,6 @@ def sign_up():
         return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
-# @auth_routes.route('/signup', methods=['GET','POST'])
-# def sign_up():
-#     """
-#     Creates a new user and logs them in
-#     """
-#     form = SignUpForm()
-#     form['csrf_token'].data = request.cookies['csrf_token']
-
-#     if request.method == "GET":
-#         return render_template("../template/test.html")
-
-
-#     if form.validate_on_submit():
-#         user = User(
-#             username=form.data['username'],
-#             email=form.data['email'],
-#             password=form.data['password']
-#         )
-#         db.session.add(user)
-#         db.session.commit()
-#         login_user(user)
-#         return user.to_dict()
-#     return render_template("test.html", form=form)
 
 # ? User unauthorized ******************************************************************
 @auth_routes.route('/unauthorized')

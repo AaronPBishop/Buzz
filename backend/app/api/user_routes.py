@@ -17,6 +17,7 @@ def get_user(id):
 @user_routes.route('/', methods=['POST'])
 def create_user():
     req_data= request.json
+    print(req_data)
 
     new_user = User(
         user_name= req_data['user_name'],

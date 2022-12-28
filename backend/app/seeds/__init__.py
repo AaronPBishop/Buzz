@@ -19,7 +19,7 @@ def seed():
         undo_users()
     seed_users()
     # Add other seed functions here
-    
+
 
 
 # Creates the `flask seed undo` command
