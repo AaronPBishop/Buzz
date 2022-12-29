@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_login import login_required
-from app.models import Organization, User, Channel, ChannelMessage, DmMessage, DMS, Image, db
+from app.models import Organization, User, User_Org_Association, Channel, ChannelMessage, DmMessage, DMS, Image, db
 
 org_routes = Blueprint('organizations', __name__)
 
@@ -30,8 +30,7 @@ def get_edit_organization(org_id):
     req_data = request.json
 
     if request.method == 'GET':
-        print()
-        return ["this works", queried_organization.to_dict()]
+        return queried_organization.to_dict()
 
     queried_organization.name = req_data['name']
     queried_organization.org_image = req_data['org_image']
@@ -60,16 +59,20 @@ def delete_organization(org_id, user_id):
 def add_user():
     req_data = request.json
 
-
     queried_org = Organization.query.get_or_404(req_data['orgId'])
     user_to_add = User.query.get_or_404(req_data['userId'])
 
-    # if req_data['ownerId'] == queried_org.owner_id:
-    #     queried_org.organization_user.append(user_to_add)
-    #     user_to_add.user_organization.append(queried_org)
+    association = User_Org_Association()
 
-    db.session.add(queried_org)
-    db.session.add(user_to_add)
+    association.organization_id = queried_org.id
+    association.user_id = user_to_add.id
+    association.parent = queried_org
+    association.child = user_to_add
+
+    queried_org.organization_user.append(association)
+    user_to_add.user_organization.append(association)
+
+    db.session.add(association)
     db.session.commit()
 
     return queried_org.to_dict()

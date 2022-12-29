@@ -1,5 +1,4 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-from .user_organizations import user_organizations
 from .user_dms import user_dms
 from .user_channels import user_channels
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -24,7 +23,7 @@ class User(db.Model, UserMixin):
 
     # Relationships
     user_organization = relationship(
-        "Organization", secondary=user_organizations, back_populates="organization_user")
+        "User_Org_Association", back_populates="child")
     user_cm = relationship(
         "ChannelMessage", back_populates="cm_user", cascade="all, delete")
     user_dmMessage = relationship(
@@ -55,7 +54,7 @@ class User(db.Model, UserMixin):
             'email': self.email,
             'bio': self.bio,
             'profile_img': self.profile_img,
-            'user_organizations': [organization.to_dict() for organization in self.user_organization],
+            'user_organizations': [org.org_to_dict() for org in self.user_organization],
             'user_channels': [channel.to_dict() for channel in self.user_channel],
             'user_cms': [cm.to_dict() for cm in self.user_cm],
             'user_dms': [dms.to_dict() for dms in self.user_dms],
