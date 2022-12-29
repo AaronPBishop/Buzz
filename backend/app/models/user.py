@@ -1,4 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .user_organizations import user_organizations
+from .user_dms import user_dms
+from .user_channels import user_channels
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from sqlalchemy.orm import relationship
@@ -21,11 +24,15 @@ class User(db.Model, UserMixin):
 
     # Relationships
     user_organization = relationship(
-        "Organization", back_populates="organization_user")
+        "Organization", secondary=user_organizations, back_populates="organization_user")
     user_cm = relationship(
         "ChannelMessage", back_populates="cm_user", cascade="all, delete")
     user_dmMessage = relationship(
         "DmMessage", back_populates="dmMessage_user", cascade="all, delete")
+    user_channel = relationship(
+        "Channel", secondary=user_channels ,back_populates="channel_user")
+    user_dms = relationship(
+        "DMS", secondary=user_dms, back_populates="dms_user")
 
     # Methods
     @property
@@ -49,6 +56,8 @@ class User(db.Model, UserMixin):
             'bio': self.bio,
             'profile_img': self.profile_img,
             'user_organizations': [organization.to_dict() for organization in self.user_organization],
+            'user_channels': [channel.to_dict() for channel in self.user_channel],
             'user_cms': [cm.to_dict() for cm in self.user_cm],
+            'user_dms': [dms.to_dict() for dms in self.user_dms],
             'user_DmMessages': [DmMessage.to_dict() for DmMessage in self.user_dmMessage],
         }

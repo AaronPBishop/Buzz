@@ -1,4 +1,5 @@
 from .db import db
+from .user_dms import user_dms
 from sqlalchemy.orm import relationship
 
 class DMS(db.Model):
@@ -13,11 +14,14 @@ class DMS(db.Model):
         "Organization", back_populates="organization_dms")
     dms_dmMessage = relationship(
         "DmMessage", back_populates="dmMessage_dms", cascade="all, delete")
+    dms_user = relationship(
+        "User", secondary=user_dms, back_populates="user_dms")
 
     def to_dict(self):
         return {
             'id': self.id,
             'organization_id': self.organization_id,
             'dms_organizations': [organization.to_dict() for organization in self.dms_organization],
+            'dms_users': [user.to_dict() for user in self.dms_user],
             'dms_dmMessages': [dmMessage.to_dict() for dmMessage in self.dms_dmMessage],
         }

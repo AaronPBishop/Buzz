@@ -24,13 +24,14 @@ def create_organization():
 
 # ? Get/Edit an organization ************************************************************
 @org_routes.route('/<org_id>', methods=['GET', 'PUT'])
-@login_required
+# @login_required
 def get_edit_organization(org_id):
     queried_organization = Organization.query.get_or_404(org_id)
     req_data = request.json
 
     if request.method == 'GET':
-        return queried_organization.to_dict()
+        print()
+        return ["this works", queried_organization.to_dict()]
 
     queried_organization.name = req_data['name']
     queried_organization.org_image = req_data['org_image']
@@ -53,12 +54,12 @@ def delete_organization(org_id, user_id):
         return {'message': 'Successfully deleted'}, 200
 
 
-# ? Add a user to organization ********************************************************
+# * Add a user to an organization ********************************************************
 @org_routes.route('/new_user', methods=['POST'])
 # @login_required
 def add_user():
     req_data = request.json
-   
+
 
     queried_org = Organization.query.get_or_404(req_data['orgId'])
     user_to_add = User.query.get_or_404(req_data['userId'])

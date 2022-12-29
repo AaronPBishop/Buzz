@@ -1,4 +1,5 @@
 from .db import db
+from .user_organizations import user_organizations
 from sqlalchemy.orm import relationship
 from sqlalchemy.schema import ForeignKey
 
@@ -15,7 +16,7 @@ class Organization(db.Model):
 
     # Relationships
     organization_user = relationship(
-        "User", back_populates="user_organization")
+        "User", secondary=user_organizations, back_populates="user_organization")
     organization_channel = relationship(
         "Channel", back_populates="channel_organization", cascade="all, delete")
     organization_dms = relationship(
@@ -30,3 +31,6 @@ class Organization(db.Model):
             'organization_channels': [channel.to_dict() for channel in self.organization_channel],
             'organization_dms': [dms.to_dict() for dms in self.organization_dms],
         }
+
+    # def print_relationship(self):
+    #     return self.organization_user
