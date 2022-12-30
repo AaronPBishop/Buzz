@@ -21,7 +21,7 @@ class User(db.Model, UserMixin):
     profile_img = db.Column(db.String)
     hashed_password = db.Column(db.String(255), nullable=False)
 
-    # Relationships
+    #! Relationships
     user_organization = relationship(
         "User_Org_Association", back_populates="child")
     user_cm = relationship(
@@ -33,7 +33,7 @@ class User(db.Model, UserMixin):
     user_dms = relationship(
         "DMS", secondary=user_dms, back_populates="dms_user")
 
-    # Methods
+    #! Methods
     @property
     def password(self):
         return self.hashed_password

@@ -10,10 +10,10 @@ class Organization(db.Model):
     name = db.Column(db.String, nullable=False)
     org_image = db.Column(db.String)
 
-    # Foreign Key
+    #! Foreign Key
     owner_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
 
-    # Relationships
+    #! Relationships
     organization_user = relationship("User_Org_Association", back_populates="parent")
     organization_channel = relationship(
         "Channel", back_populates="channel_organization", cascade="all, delete")

@@ -4,7 +4,7 @@ from app.models import Organization, User, db
 
 user_routes = Blueprint('users', __name__)
 
-# * Get a user ************************************************************
+# * Get a user ***************************************************************
 @user_routes.route('/<int:user_id>')
 # @login_required
 def get_user(user_id):

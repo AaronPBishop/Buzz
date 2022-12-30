@@ -1,10 +1,10 @@
 from flask import Blueprint, request
 from flask_login import login_required
-from app.models import Organization, User, User_Org_Association, Channel, ChannelMessage, DmMessage, DMS, Image, db
+from app.models import Organization, User, User_Org_Association, Channel, db
 
 org_routes = Blueprint('organizations', __name__)
 
-# ? Create a new organization ************************************************************
+# * Create a new organization ************************************************************
 @org_routes.route('/', methods=['POST'])
 @login_required
 def create_organization():
@@ -22,7 +22,7 @@ def create_organization():
     return new_org.to_dict()
 
 
-# ? Get/Edit an organization ************************************************************
+# * Get/Edit an organization ************************************************************
 @org_routes.route('/<org_id>', methods=['GET', 'PUT'])
 # @login_required
 def get_edit_organization(org_id):
@@ -40,7 +40,7 @@ def get_edit_organization(org_id):
     return queried_organization.to_dict()
 
 
-# ? Delete an organization ************************************************************
+# * Delete an organization ************************************************************
 @org_routes.route('/<org_id>/<user_id>', methods=['DELETE'])
 @login_required
 def delete_organization(org_id, user_id):
