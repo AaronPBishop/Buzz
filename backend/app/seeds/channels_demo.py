@@ -2,12 +2,12 @@ from app.models import db, Channel, environment, SCHEMA
 
 
 def seed_channels():
-    orgs = [{
+    channels = [{
         "name": "coding_bros", "organization_id": 1}, {
         "name": "programer_elite", "organization_id": 2}, {
         "name": "no_more_assessments", "organization_id": 3}]
 
-    db.session.add_all([Channel(**channel) for channel in orgs])
+    db.session.add_all([Channel(**channel) for channel in channels])
 
     db.session.commit()
 

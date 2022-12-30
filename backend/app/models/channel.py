@@ -11,14 +11,14 @@ class Channel(db.Model):
     organization_id = db.Column(db.Integer, db.ForeignKey(
         "organizations.id"), nullable=False)
 
-    # Relationships
+    #! Relationships
     channel_organization = relationship(
         "Organization", back_populates="organization_channel")
     channel_cm = relationship(
         "ChannelMessage", back_populates="cm_channel", cascade="all, delete")
     channel_user = relationship(
         "User", secondary=user_channels, back_populates="user_channel")
-    
+
 
     def to_dict(self):
         return {

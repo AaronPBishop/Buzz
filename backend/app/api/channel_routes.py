@@ -4,7 +4,7 @@ from app.models import User, Channel, ChannelMessage, DmMessage, DMS, Image, db
 
 channels_routes = Blueprint('channels', __name__)
 
-# * Get a channel ************************************************************
+# * Get a channel **************************************************************
 @channels_routes.route('/<id>')
 @login_required
 def get_channel(id):
@@ -31,7 +31,7 @@ def create_channel():
 
 
 
-# * Edit a channel ************************************************************
+# * Edit a channel ****************************************************************
 @channels_routes.route('/<id>/<requestorId>', methods=['PUT'])
 @login_required
 def edit_channel(id, requestorId):
@@ -51,7 +51,7 @@ def edit_channel(id, requestorId):
         return queried_user.to_dict()
 
 
-# * Delete a channel ************************************************************
+# * Delete a channel ****************************************************************
 @channels_routes.route('/<id>/<requestorId>')
 @login_required
 def delete_channel(id, requestorId):

@@ -9,7 +9,7 @@ class DMS(db.Model):
     organization_id = db.Column(db.Integer, db.ForeignKey(
         "organizations.id"), nullable=False)
 
-    # Relationships
+    #! Relationships
     dms_organization = relationship(
         "Organization", back_populates="organization_dms")
     dms_dmMessage = relationship(

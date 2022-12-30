@@ -11,7 +11,7 @@ class ChannelMessage(db.Model):
         "channels.id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
 
-    # Relationships
+    #! Relationships
     cm_channel = relationship("Channel", back_populates="channel_cm")
     cm_user = relationship("User", back_populates="user_cm")
     cm_image = relationship(
