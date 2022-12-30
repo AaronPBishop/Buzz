@@ -30,7 +30,6 @@ def create_channel():
     return new_user.to_dict()
 
 
-
 # * Edit a channel ****************************************************************
 @channels_routes.route('/<id>/<requestorId>', methods=['PUT'])
 @login_required
@@ -62,3 +61,7 @@ def delete_channel(id, requestorId):
         db.session.commit()
 
         return {'message': 'Successfully deleted'}, 200
+
+# * Add users to channel ****************************************************************
+
+# * Remove users from channel **********************************************************

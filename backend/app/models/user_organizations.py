@@ -10,11 +10,12 @@ class User_Org_Association(db.Model):
 
     parent = relationship("Organization", back_populates="organization_user")
     child = relationship("User", back_populates="user_organization")
-    
+
     def org_to_dict(self):
         return {
-            'organization_id': self.parent.id, 
-            'organization_name': self.parent.name
+            'organization_id': self.parent.id,
+            'organization_name': self.parent.name,
+            'organization_owner': self.parent.owner_id
         }
 
     def user_to_dict(self):

@@ -88,7 +88,7 @@ def react_root(path):
         return app.send_from_directory('public', 'favicon.ico')
     return app.send_static_file('index.html')
 
-
+# ! create custom error handling html page to render below.
 @app.errorhandler(404)
 def not_found(e):
     return app.send_static_file('index.html')

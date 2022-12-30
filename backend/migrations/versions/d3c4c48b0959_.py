@@ -1,8 +1,8 @@
-"""migrations
+"""empty message
 
-Revision ID: 2f0ae148e370
+Revision ID: d3c4c48b0959
 Revises: 
-Create Date: 2022-12-29 21:20:24.792900
+Create Date: 2022-12-30 09:39:17.238130
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '2f0ae148e370'
+revision = 'd3c4c48b0959'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -71,9 +71,9 @@ def upgrade():
     op.create_table('dmMessages',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('message', sa.String(length=3000), nullable=True),
-    sa.Column('dm_id', sa.Integer(), nullable=False),
+    sa.Column('dms_id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['dm_id'], ['group_dms.id'], ),
+    sa.ForeignKeyConstraint(['dms_id'], ['group_dms.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

@@ -24,6 +24,7 @@ class Organization(db.Model):
         return {
             'id': self.id,
             'name': self.name,
+            'image': self.org_image,
             'owner_id': self.owner_id,
             'organization_users': [user.user_to_dict() for user in self.organization_user],
             'organization_channels': [channel.to_dict() for channel in self.organization_channel],

@@ -5,14 +5,16 @@ from app.models import Organization, User, User_Org_Association, Channel, db
 org_routes = Blueprint('organizations', __name__)
 
 # * Create a new organization ************************************************************
+# ? THIS ROUTE WORKS!!!!!!
 @org_routes.route('/', methods=['POST'])
-@login_required
+# @login_required
 def create_organization():
     req_data = request.json
 
     new_org = Organization(
         name=req_data['name'],
-        owner_id=req_data['userId']
+        owner_id=req_data['userId'],
+        org_image=req_data['orgImage']
     )
 
     db.session.add(new_org)
@@ -28,32 +30,35 @@ def create_organization():
 def get_edit_organization(org_id):
     queried_organization = Organization.query.get_or_404(org_id)
     req_data = request.json
-
+# ? THIS GET ROUTE WORKS!!!!!!
     if request.method == 'GET':
         return queried_organization.to_dict()
-
+# ! postman requires both name and org_image to be sent, if not it errors
     queried_organization.name = req_data['name']
     queried_organization.org_image = req_data['org_image']
 
-    db.session.commit()
-
-    return queried_organization.to_dict()
+    if queried_organization.name or queried_organization.org_image:
+        db.session.commit()
+        return queried_organization.to_dict()
 
 
 # * Delete an organization ************************************************************
 @org_routes.route('/<org_id>/<user_id>', methods=['DELETE'])
-@login_required
+# @login_required
 def delete_organization(org_id, user_id):
     queried_organization = Organization.query.get_or_404(org_id)
+    # queried_association = User_Org_Association.query.get_or_404(org_id, user_id)
 
-    if queried_organization.owner_id == user_id:
+# ! unable to delete due to table association primary key limit
+    if queried_organization.owner_id == int(user_id):
         db.session.delete(queried_organization)
+        # db.session.delete(queried_association)
         db.session.commit()
-
         return {'message': 'Successfully deleted'}, 200
-
+    return 'didnt work'
 
 # * Add a user to an organization ********************************************************
+# ? THIS ROUTE WORKS!!!!!!
 @org_routes.route('/new_user', methods=['POST'])
 # @login_required
 def add_user():
