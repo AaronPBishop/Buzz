@@ -3,7 +3,11 @@ from app.models import db, DMS, environment, SCHEMA
 
 def seed_dm_channels():
     dm_channels = [{
-        "organization_id": 1}]
+        "organization_id": 1},
+        {"organization_id": 2},
+        {"organization_id": 3},
+        {"organization_id": 4},
+        {"organization_id": 1}]
 
     db.session.add_all([DMS(**dm_channel) for dm_channel in dm_channels])
 

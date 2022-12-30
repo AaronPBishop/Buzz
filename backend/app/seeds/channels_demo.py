@@ -5,7 +5,8 @@ def seed_channels():
     channels = [{
         "name": "coding_bros", "organization_id": 1}, {
         "name": "programer_elite", "organization_id": 2}, {
-        "name": "no_more_assessments", "organization_id": 3}]
+        "name": "no_more_assessments", "organization_id": 3}, {
+        "name": "everyDay_coding", "organization_id": 4}]
 
     db.session.add_all([Channel(**channel) for channel in channels])
 

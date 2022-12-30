@@ -1,6 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required
 from app.models import Organization, User, db
+from werkzeug.security import generate_password_hash
 
 user_routes = Blueprint('users', __name__)
 
@@ -31,8 +32,9 @@ def create_user():
         email=req_data['email'],
         bio=req_data['bio'],
         profile_img=req_data['profile_img'],
-        password=req_data['password'],
+        hashed_password=req_data['password'],
     )
+    
     db.session.add(new_user)
     db.session.commit()
 
@@ -40,21 +42,19 @@ def create_user():
 
 
 # * Edit a user ************************************************************
-# ! THIS DOESNT WORK. must unhash password. error says AttributeError: 'tuple' object has no attribute 'encode'
+# ? THIS ROUTE WORKS!!!!!!
 @user_routes.route('/<id>', methods=['PUT'])
 # @login_required
 def edit_user(id):
     queried_user = User.query.get_or_404(id)
     req_data = request.json
 
-    # if queried_user.id == requestorId:
-    queried_user.user_name = req_data['user_name'],
-    queried_user.first_name = req_data['first_name'],
-    queried_user.last_name = req_data['last_name'],
-    queried_user.email = req_data['email'],
-    queried_user.bio = req_data['bio'],
-    queried_user.profile_img = req_data['profile_img'],
-    queried_user.password = req_data['password'],
+    for key, val in req_data.items():
+        if key != None and key != "password":
+            setattr(queried_user, key, val)
+
+        if key != None and key == 'hashed_password':
+            setattr(queried_user, key, generate_password_hash(val))
 
     db.session.commit()
     return queried_user.to_dict()
