@@ -1,8 +1,10 @@
 from .db import db
-from .user_channels import user_channels
+from .user_channels import User_Channel_Association
 from sqlalchemy.orm import relationship
 
 # ! Channel owner???
+
+
 class Channel(db.Model):
     __tablename__ = 'channels'
 
@@ -17,8 +19,7 @@ class Channel(db.Model):
     channel_cm = relationship(
         "ChannelMessage", back_populates="cm_channel", cascade="all, delete")
     channel_user = relationship(
-        "User", secondary=user_channels, back_populates="user_channel")
-
+        "User_Channel_Association", back_populates="parent")
 
     def to_dict(self):
         return {

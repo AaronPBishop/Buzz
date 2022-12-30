@@ -1,4 +1,4 @@
-from backend.app.models.user_channels import User_Channel_Association
+from app.models.user_channels import User_Channel_Association
 from flask import Blueprint, request
 from flask_login import login_required
 from app.models import User, Channel, ChannelMessage, DmMessage, DMS, Image, db
@@ -20,11 +20,11 @@ def get_channel(id):
 @channels_routes.route('/', methods=['POST'])
 # @login_required
 def create_channel():
-    req_data= request.json
+    req_data = request.json
     print(req_data)
 
     new_channel = Channel(
-        name= req_data['name'],
+        name=req_data['name'],
         # ! organization_id to be populated from the session orgId
         organization_id=req_data['organization_id']
     )
@@ -35,19 +35,21 @@ def create_channel():
     return new_channel.to_dict()
 
 
-# * Edit a channel ****************************************************************
-# ! add users and remove users within this route. Only owner can remove users though.
+# * Edit a channel and delete a channel user ****************************************************************
+# ? THIS ROUTE WORKS!!!!!!!
 @channels_routes.route('/<int:id>', methods=['PUT'])
 # @login_required
 def edit_channel(id):
     queried_channel = Channel.query.get_or_404(id)
-    req_data= request.json
+    req_data = request.json
 
-    # if queried_channel.owner_id == requestorId:
-    queried_channel.name= req_data['name']
-    queried_channel.organization_id = req_data['orgId']
-    # queried_channel.channel_user = req_data['users']
-
+    for key, val in req_data.items():
+        if key != None and key == 'userId':
+            for user in queried_channel.channel_user:
+                if user.user_id == val:
+                    db.session.delete(user)
+        if key != None and key == 'name':
+            setattr(queried_channel, "name", val)
     db.session.commit()
     return queried_channel.to_dict()
 
@@ -67,6 +69,7 @@ def delete_channel(id):
 
 
 # * Add users to channel[GENERAL CHANNEL MEMEBER] ****************************************************************
+# ? THIS ROUTE WORKS!!!!!!!
 @channels_routes.route('/new_user', methods=['POST'])
 # @login_required
 def add_user_to_channel():
@@ -85,10 +88,6 @@ def add_user_to_channel():
     queried_channel.channel_user.append(association)
     user_to_add.user_channel.append(association)
 
-    # if queried_channel.owner_id == requestorId:
-    # queried_channel.name= req_data['name']
-    # queried_channel.organization_id = req_data['orgId']
-    # queried_channel.channel_user = req_data['users']
     db.session.add(association)
     db.session.commit()
 

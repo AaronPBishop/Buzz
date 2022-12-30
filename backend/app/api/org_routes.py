@@ -24,38 +24,42 @@ def create_organization():
     return new_org.to_dict()
 
 
-# * Get/Edit an organization ************************************************************
+# * Get/Edit and remove a user from an organization ************************************************************
+# ? THIS ROUTE WORKS!!!!!!
 @org_routes.route('/<org_id>', methods=['GET', 'PUT'])
 # @login_required
 def get_edit_organization(org_id):
     queried_organization = Organization.query.get_or_404(org_id)
     req_data = request.json
-# ? THIS GET ROUTE WORKS!!!!!!
     if request.method == 'GET':
         return queried_organization.to_dict()
-# ! postman requires both name and org_image to be sent, if not it errors
-    queried_organization.name = req_data['name']
-    queried_organization.org_image = req_data['org_image']
 
-    if queried_organization.name or queried_organization.org_image:
-        db.session.commit()
-        return queried_organization.to_dict()
+    for key, val in req_data.items():
+        if key != None and key == 'userId':
+            for user in queried_organization.organization_user:
+                if user.user_id == val:
+                    db.session.delete(user)
+        if key != None and key != 'userId':
+            setattr(queried_organization, key, val)
+
+    db.session.commit()
+    return queried_organization.to_dict()
 
 
 # * Delete an organization ************************************************************
-@org_routes.route('/<org_id>/<user_id>', methods=['DELETE'])
+# ? THIS GET ROUTE WORKS!!!!!!
+@org_routes.route('/<org_id>', methods=['DELETE'])
 # @login_required
-def delete_organization(org_id, user_id):
+def delete_organization(org_id):
     queried_organization = Organization.query.get_or_404(org_id)
-    # queried_association = User_Org_Association.query.get_or_404(org_id, user_id)
+#! if queried_organization.owner_id == int(user_id):
+    for assoc_user in queried_organization.organization_user:
+        db.session.delete(assoc_user)
 
-# ! unable to delete due to table association primary key limit
-    if queried_organization.owner_id == int(user_id):
-        db.session.delete(queried_organization)
-        # db.session.delete(queried_association)
-        db.session.commit()
-        return {'message': 'Successfully deleted'}, 200
-    return 'didnt work'
+    db.session.delete(queried_organization)
+    db.session.commit()
+    return {'message': 'Successfully deleted'}, 200
+
 
 # * Add a user to an organization ********************************************************
 # ? THIS ROUTE WORKS!!!!!!

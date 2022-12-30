@@ -21,7 +21,6 @@ class DMS(db.Model):
         return {
             'id': self.id,
             'organization_id': self.organization_id,
-            'dms_organizations': [organization.to_dict() for organization in self.dms_organization],
             'dms_users': [user.to_dict() for user in self.dms_user],
             'dms_dmMessages': [dmMessage.to_dict() for dmMessage in self.dms_dmMessage],
         }
