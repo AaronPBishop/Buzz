@@ -62,12 +62,12 @@ def add_user():
     queried_org = Organization.query.get_or_404(req_data['orgId'])
     user_to_add = User.query.get_or_404(req_data['userId'])
 
-    association = User_Org_Association()
-
-    association.organization_id = queried_org.id
-    association.user_id = user_to_add.id
-    association.parent = queried_org
-    association.child = user_to_add
+    association = User_Org_Association(
+        organization_id=queried_org.id,
+        user_id=user_to_add.id,
+        parent=queried_org,
+        child=user_to_add
+    )
 
     queried_org.organization_user.append(association)
     user_to_add.user_organization.append(association)
