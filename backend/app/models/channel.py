@@ -2,7 +2,7 @@ from .db import db
 from .user_channels import user_channels
 from sqlalchemy.orm import relationship
 
-
+# ! Channel owner???
 class Channel(db.Model):
     __tablename__ = 'channels'
 
@@ -25,6 +25,6 @@ class Channel(db.Model):
             'id': self.id,
             'name': self.name,
             'organization_id': self.organization_id,
-            'channel_users': [user.to_dict() for user in self.channel_user],
+            'channel_users': [user.user_to_dict() for user in self.channel_user],
             'channel_cm': [cm.to_dict() for cm in self.channel_cm]
         }

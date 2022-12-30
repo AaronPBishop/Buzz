@@ -55,7 +55,7 @@ class User(db.Model, UserMixin):
             'bio': self.bio,
             'profile_img': self.profile_img,
             'user_organizations': [org.org_to_dict() for org in self.user_organization],
-            'user_channels': [channel.to_dict() for channel in self.user_channel],
+            'user_channels': [channel.ch_to_dict() for channel in self.user_channel],
             'user_cms': [cm.to_dict() for cm in self.user_cm],
             'user_dms': [dms.to_dict() for dms in self.user_dms],
             'user_DmMessages': [DmMessage.to_dict() for DmMessage in self.user_dmMessage],
