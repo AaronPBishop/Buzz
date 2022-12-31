@@ -1,6 +1,7 @@
 from .db import db
-from .user_dms import user_dms
+from .user_dms import User_DMS_Association
 from sqlalchemy.orm import relationship
+
 
 class DMS(db.Model):
     __tablename__ = 'group_dms'
@@ -15,12 +16,12 @@ class DMS(db.Model):
     dms_dmMessage = relationship(
         "DmMessage", back_populates="dmMessage_dms", cascade="all, delete")
     dms_user = relationship(
-        "User", secondary=user_dms, back_populates="user_dms")
+        "User_DMS_Association", back_populates="parent")
 
     def to_dict(self):
         return {
             'id': self.id,
             'organization_id': self.organization_id,
-            'dms_users': [user.to_dict() for user in self.dms_user],
+            'dms_users': [user.user_to_dict() for user in self.dms_user],
             'dms_dmMessages': [dmMessage.to_dict() for dmMessage in self.dms_dmMessage],
         }

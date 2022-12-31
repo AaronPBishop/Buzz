@@ -8,5 +8,5 @@ from .dmMessage import DmMessage
 from .dms import DMS
 from .image import Image
 from .user_organizations import User_Org_Association
-from .user_dms import user_dms
+from .user_dms import User_DMS_Association
 from .user_channels import User_Channel_Association

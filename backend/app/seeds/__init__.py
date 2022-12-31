@@ -5,8 +5,6 @@ from .channels_demo import seed_channels, undo_channels
 from .channel_msgs_demo import seed_channel_messages, undo_channel_messages
 from .dmMessages_demo import seed_dmMessages, undo_dmMessages
 from .dm_channels_demo import seed_dm_channels, undo_dm_channels
-
-# Todo functions listed below are pending file seeding configuration *************************
 from .imges_demo import seed_images, undo_images
 
 from app.models.db import db, environment, SCHEMA
@@ -30,9 +28,7 @@ def seed():
         undo_dm_channels()
         undo_channel_messages()
         undo_dmMessages()
-
-    # Todo functions listed below are pending file seeding configuration ****************************
-        # undo_images()
+        undo_images()
 
 
     seed_users()
@@ -41,9 +37,7 @@ def seed():
     seed_dm_channels()
     seed_channel_messages()
     seed_dmMessages()
-
-# Todo functions listed below are pending file seeding configuration ******************************
-    # seed_images()
+    seed_images()
 
 
 # Creates the `flask seed undo` command
@@ -55,6 +49,4 @@ def undo():
     undo_dm_channels()
     undo_channel_messages()
     undo_dmMessages()
-
-# Todo functions listed below are pending file seeding configuration *********************************
-    # undo_images()
+    undo_images()

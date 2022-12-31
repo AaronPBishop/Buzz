@@ -15,7 +15,7 @@ class User_Channel_Association(db.Model):
         return {
             'channel_id': self.parent.id,
             'channel_name': self.parent.name,
-            'channel_owner': self.parent.organization_id
+            'organization_id': self.parent.organization_id
         }
 
     def user_to_dict(self):
