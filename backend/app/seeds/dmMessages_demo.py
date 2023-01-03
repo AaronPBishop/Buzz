@@ -233,7 +233,7 @@ def seed_dmMessages():
 def undo_dmMessages():
     if environment == "production":
         db.session.execute(
-            f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
+            f"TRUNCATE table {SCHEMA}.dmMessages RESTART IDENTITY CASCADE;")
     else:
         db.session.execute("DELETE FROM dmMessages")
 
