@@ -2,67 +2,87 @@ from app.models import db, Channel, environment, SCHEMA
 
 
 def seed_channels():
-    channels = [{
-        "name": "coding_bros", "organization_id": 1}, {
-        "name": "programer_elite", "organization_id": 2}, {
-        "name": "no_more_assessments", "organization_id": 3}, {
-        "name": "everyDay_coding", "organization_id": 4}, {
-        "name": "Leathery Colicwood",
-        "organization_id": 5
-    }, {
+    channels = [
+    #     {
+    #     "name": "coding_bros", "organization_id": 1}, {
+    #     "name": "programer_elite", "organization_id": 2}, {
+    #     "name": "no_more_assessments", "organization_id": 3}, {
+    #     "name": "everyDay_coding", "organization_id": 4}, {
+    #     "name": "Leathery Colicwood",
+    #     "organization_id": 5
+    #      }
+    {
         "name": "Teal Lovegrass",
-        "organization_id": 6
+        "organization_id": 6,
+        "owner_id": 1
     }, {
         "name": "Cup Lichen",
-        "organization_id": 7
+        "organization_id": 7,
+        "owner_id": 1
     }, {
         "name": "Jones' Selenia",
-        "organization_id": 8
+        "organization_id": 8,
+        "owner_id": 1
     }, {
         "name": "Texas Grama",
-        "organization_id": 9
+        "organization_id": 9,
+        "owner_id": 1
     }, {
         "name": "Truckee Cryptantha",
-        "organization_id": 10
+        "organization_id": 10,
+        "owner_id": 1
     }, {
         "name": "Japanese Pagoda Tree",
-        "organization_id": 11
+        "organization_id": 11,
+        "owner_id": 1
     }, {
         "name": "Largeseed Bittercress",
-        "organization_id": 12
+        "organization_id": 12,
+        "owner_id": 1
     }, {
         "name": "Sapota",
-        "organization_id": 13
+        "organization_id": 13,
+        "owner_id": 1
     }, {
         "name": "Hillside Broomrape",
-        "organization_id": 14
+        "organization_id": 14,
+        "owner_id": 1
     }, {
         "name": "Biennial Cinquefoil",
-        "organization_id": 15
+        "organization_id": 15,
+        "owner_id": 1
     }, {
         "name": "Campylopus Moss",
-        "organization_id": 16
+        "organization_id": 16,
+        "owner_id": 1
     }, {
         "name": "Siskiyou False Rue Anemone",
-        "organization_id": 17
+        "organization_id": 17,
+        "owner_id": 1
     }, {
         "name": "European Plum",
-        "organization_id": 18
+        "organization_id": 18,
+        "owner_id": 1
     }, {
         "name": "Palmer's Penstemon",
-        "organization_id": 19
+        "organization_id": 19,
+        "owner_id": 1
     }, {
         "name": "Rydberg's Wildrye",
-        "organization_id": 20
+        "organization_id": 20,
+        "owner_id": 1
     }, {
         "name": "Beach Strawberry",
-        "organization_id": 21
+        "organization_id": 21,
+        "owner_id": 1
     }, {
         "name": "Rose Bluet",
-        "organization_id": 22
+        "organization_id": 22,
+        "owner_id": 1
     }, {
         "name": "Garcinia",
-        "organization_id": 23
+        "organization_id": 23,
+        "owner_id": 1
     }]
 
     db.session.add_all([Channel(**channel) for channel in channels])

@@ -1,7 +1,7 @@
 from app.models.user_channels import User_Channel_Association
 from flask import Blueprint, request
 from flask_login import login_required
-from app.models import User, Channel, ChannelMessage, DmMessage, DMS, Image, db
+from app.models import User, Channel, ChannelMessage, DmMessage, Image, db
 
 channels_routes = Blueprint('channels', __name__)
 

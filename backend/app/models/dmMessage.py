@@ -6,7 +6,7 @@ class DmMessage(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     message = db.Column(db.String(3000))
-    dmMessage_channel_id = db.Column(db.Integer, db.ForeignKey("group_dms.id"), nullable=False)
+    dmMessage_channel_id = db.Column(db.Integer, db.ForeignKey("dmMessage_channels.id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
 
     #! Relationships
