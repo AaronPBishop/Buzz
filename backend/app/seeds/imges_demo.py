@@ -4,8 +4,8 @@ from app.models import db, Image, environment, SCHEMA
 def seed_images():
     images = [{
         "url": "http://dummyimage.com/220x110.png/5fa4dd/ffffff", "user_id": 1, "channel_message_id": 2, "dm_message_id": None}, {"url": "http://dummyimage.com/207x100.png/5fa2dd/ffffff", "user_id": 2, "channel_message_id": None, "dm_message_id": 1},
-        # {"url": "http://dummyimage.com/174x100.png/cc0000/ffffff",
-        #     "user_id": 000, "channel_message_id": 000, "dm_message_id": 000},
+        {"url": "http://dummyimage.com/174x100.png/cc0000/ffffff",
+            "user_id": 3, "channel_message_id": None, "dm_message_id": 2},
         # {"url": "http://dummyimage.com/217x100.png/ff4444/ffffff",
         #     "user_id": 000, "channel_message_id": 000, "dm_message_id": 000},
         # {"url": "http://dummyimage.com/136x100.png/dddddd/000000",

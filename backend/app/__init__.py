@@ -11,6 +11,10 @@ from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.org_routes import org_routes
 from .api.channel_routes import channels_routes
+from .api.dmMessage_channel_routes import dmMessage_channels_routes
+from .api.dmMessage_routes import dmMessage_routes
+from .api.channelMessage_routes import channelMessage_routes
+from .api.image_routes import image_routes
 
 from .seeds import seed_commands
 from .config import Config
@@ -33,6 +37,10 @@ app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(org_routes, url_prefix='/api/organizations')
 app.register_blueprint(channels_routes, url_prefix='/api/channels')
+app.register_blueprint(dmMessage_channels_routes, url_prefix='/api/dmMessage_channels')
+app.register_blueprint(dmMessage_routes, url_prefix='/api/dmMessage')
+app.register_blueprint(channelMessage_routes, url_prefix='/api/channelMessage')
+app.register_blueprint(image_routes, url_prefix='/api/image')
 
 db.init_app(app)
 Migrate(app, db)

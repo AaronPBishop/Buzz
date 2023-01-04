@@ -1,5 +1,6 @@
 from app.models import db, DmMessage, environment, SCHEMA
 
+
 def seed_dmMessages():
     dmMessages = [{
         "message": "Hey Bro!", "dmMessage_channel_id": 1, "user_id": 2},

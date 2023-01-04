@@ -7,6 +7,8 @@ channels_routes = Blueprint('channels', __name__)
 
 # * Get a channel **************************************************************
 # ? THIS ROUTE WORKS!!!!!!!
+
+
 @channels_routes.route('/<int:id>')
 # @login_required
 def get_channel(id):
@@ -21,12 +23,12 @@ def get_channel(id):
 # @login_required
 def create_channel():
     req_data = request.json
-    print(req_data)
 
     new_channel = Channel(
         name=req_data['name'],
         # ! organization_id to be populated from the session orgId
-        organization_id=req_data['organization_id']
+        organization_id=req_data['organization_id'],
+        owner_id=req_data['ownerId'],
     )
 
     db.session.add(new_channel)

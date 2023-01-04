@@ -26,7 +26,7 @@ def create_organization():
 
 # * Get/Edit and remove a user from an organization ************************************************************
 # ? THIS ROUTE WORKS!!!!!!
-@org_routes.route('/<org_id>', methods=['GET', 'PUT'])
+@org_routes.route('/<int:org_id>', methods=['GET', 'PUT'])
 # @login_required
 def get_edit_organization(org_id):
     queried_organization = Organization.query.get_or_404(org_id)

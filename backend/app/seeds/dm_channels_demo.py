@@ -1,22 +1,27 @@
 from app.models import db, DmMessage_Channel, environment, SCHEMA
 
+
 def seed_dm_channels():
     dm_channels = [{
         "organization_id": 1, "owner_id": 1},
         {"organization_id": 2, "owner_id": 1},
         {"organization_id": 3, "owner_id": 1},
         {"organization_id": 4, "owner_id": 1},
-        {"organization_id": 5, "owner_id": 1}, 
-        {"organization_id": 6, "owner_id": 1}, 
-        {"organization_id": 7, "owner_id": 1}, 
-        {"organization_id": 8, "owner_id": 1}, 
-        {"organization_id": 9, "owner_id": 1}, 
-        {"organization_id": 10, "owner_id": 1}, 
-        {"organization_id": 11, "owner_id": 1}, 
-        {"organization_id": 12, "owner_id": 1}, 
+        {"organization_id": 5, "owner_id": 1},
+        {"organization_id": 6, "owner_id": 1},
+        {"organization_id": 7, "owner_id": 1},
+        {"organization_id": 8, "owner_id": 1},
+        {"organization_id": 9, "owner_id": 1},
+        {"organization_id": 10, "owner_id": 1},
+        {"organization_id": 11, "owner_id": 1},
+        {"organization_id": 4, "owner_id": 1},
+        {"organization_id": 12, "owner_id": 1},
+        {"organization_id": 9, "owner_id": 1},
+        {"organization_id": 10, "owner_id": 1},
         {"organization_id": 13, "owner_id": 1}]
 
-    db.session.add_all([DmMessage_Channel(**dm_channel) for dm_channel in dm_channels])
+    db.session.add_all([DmMessage_Channel(**dm_channel)
+                       for dm_channel in dm_channels])
 
     db.session.commit()
 

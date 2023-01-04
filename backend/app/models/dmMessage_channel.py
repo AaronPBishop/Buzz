@@ -19,7 +19,7 @@ class DmMessage_Channel(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'owner_id': self.dmMessage_channel_user.id,
+            'owner_id': self.owner_id,
             'organization_id': self.organization_id,
             'dmMessage_channel_users': [user.user_to_dict() for user in self.dmMessage_channel_user],
             'dmMessage_channel_dmMessages': [dmMessage.to_dict() for dmMessage in self.dmMessage_channel_dmMessage]
