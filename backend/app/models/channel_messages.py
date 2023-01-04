@@ -22,6 +22,7 @@ class ChannelMessage(db.Model):
             'id': self.id,
             'message': self.message,
             'channel_id': self.channel_id,
+            'user_name': self.cm_user.user_name,
             'user_id': self.user_id,
             'cm_images': [image.to_dict() for image in self.cm_image]
         }

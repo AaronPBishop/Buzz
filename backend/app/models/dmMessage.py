@@ -6,7 +6,7 @@ class DmMessage(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     message = db.Column(db.String(3000))
-    dms_id = db.Column(db.Integer, db.ForeignKey("group_dms.id"), nullable=False)
+    dmMessage_channel_id = db.Column(db.Integer, db.ForeignKey("group_dms.id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
 
     #! Relationships
@@ -18,10 +18,9 @@ class DmMessage(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
+            'user_name': self.dmMessage_user.user_name,
             'message': self.message,
-            'dm_id': self.dms_id,
+            'dmMessage_channel_id': self.dmMessage_channel_id,
             'user_id': self.user_id,
-            'dmMessage_dms': [dms.to_dict() for dms in self.dmMessage_dms],
-            'dmMessage_users': [user.to_dict() for user in self.dmMessage_user],
-            'dmMessage_images': [image.to_dict() for image in self.dmMessage_image],
-            }
+            'dmMessage_images': [image.to_dict() for image in self.dmMessage_image]
+        }
