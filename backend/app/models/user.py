@@ -1,6 +1,4 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-from .user_channels import User_Channel_Association
-from .user_dms import User_DMS_Association
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from sqlalchemy.orm import relationship
@@ -30,8 +28,10 @@ class User(db.Model, UserMixin):
         "DmMessage", back_populates="dmMessage_user", cascade="all, delete")
     user_channel = relationship(
         "User_Channel_Association", back_populates="child")
-    user_dms = relationship(
-        "User_DMS_Association", back_populates="child")
+    user_dmMessage_channel = relationship(
+        "User_DmMessage_Channel", back_populates="child")
+    owned_channels = relationship("Channel", back_populates="channel_owner")
+    owned_dmMessage_channels = relationship("DmMessage_Channel", back_populates="dmMessage_channel_owner")
 
     #! Methods
     @property
@@ -57,6 +57,6 @@ class User(db.Model, UserMixin):
             'user_organizations': [org.org_to_dict() for org in self.user_organization],
             'user_channels': [channel.ch_to_dict() for channel in self.user_channel],
             'user_cms': [cm.to_dict() for cm in self.user_cm],
-            'user_dms': [dms.dms_to_dict() for dms in self.user_dms],
-            'user_DmMessages': [DmMessage.to_dict() for DmMessage in self.user_dmMessage],
+            'user_dmMessage_channels': [dms.dmMessage_channel_to_dict() for dms in self.user_dmMessage_channel],
+            'user_dmMessages': [dmMessage.to_dict() for dmMessage in self.user_dmMessage]
         }

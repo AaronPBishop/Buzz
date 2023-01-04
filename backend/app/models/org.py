@@ -17,8 +17,8 @@ class Organization(db.Model):
     organization_user = relationship("User_Org_Association", back_populates="parent")
     organization_channel = relationship(
         "Channel", back_populates="channel_organization", cascade="all, delete")
-    organization_dms = relationship(
-        "DMS", back_populates="dms_organization", cascade="all, delete")
+    organization_dmMessage_channel = relationship(
+        "DmMessage_Channel", back_populates="dmMessage_channel_organization", cascade="all, delete")
 
     def to_dict(self):
         return {
@@ -28,5 +28,5 @@ class Organization(db.Model):
             'owner_id': self.owner_id,
             'organization_users': [user.user_to_dict() for user in self.organization_user],
             'organization_channels': [channel.to_dict() for channel in self.organization_channel],
-            'organization_dms': [dms.to_dict() for dms in self.organization_dms],
+            'organization_dmMessage_channels': [dmMessage.to_dict() for dmMessage in self.organization_dmMessage_channel],
         }

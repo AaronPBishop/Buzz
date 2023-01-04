@@ -1,5 +1,4 @@
-from app.models import db, DMS, environment, SCHEMA
-
+from app.models import db, DmMessage_Channel, environment, SCHEMA
 
 def seed_dm_channels():
     dm_channels = [{
@@ -9,7 +8,7 @@ def seed_dm_channels():
         {"organization_id": 4},
         {"organization_id": 5}, {"organization_id": 6}, {"organization_id": 7}, {"organization_id": 8}, {"organization_id": 9}, {"organization_id": 10}, {"organization_id": 11}, {"organization_id": 12}, {"organization_id": 13}, {"organization_id": 14}, {"organization_id": 15}, {"organization_id": 16}, {"organization_id": 17}, {"organization_id": 18}, {"organization_id": 19}, {"organization_id": 20}, {"organization_id": 21}, {"organization_id": 22}, {"organization_id": 23}]
 
-    db.session.add_all([DMS(**dm_channel) for dm_channel in dm_channels])
+    db.session.add_all([DmMessage_Channel(**dm_channel) for dm_channel in dm_channels])
 
     db.session.commit()
 
@@ -23,8 +22,8 @@ def seed_dm_channels():
 def undo_dm_channels():
     if environment == "production":
         db.session.execute(
-            f"TRUNCATE table {SCHEMA}.group_dms RESTART IDENTITY CASCADE;")
+            f"TRUNCATE table {SCHEMA}.dmMessage_channels RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute("DELETE FROM group_dms")
+        db.session.execute("DELETE FROM dmMessage_channels")
 
     db.session.commit()

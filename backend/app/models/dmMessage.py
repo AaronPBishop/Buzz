@@ -10,7 +10,7 @@ class DmMessage(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
 
     #! Relationships
-    dmMessage_dms = relationship("DMS", back_populates="dms_dmMessage")
+    dmMessage_dmMessage_channel = relationship("DmMessage_Channel", back_populates="dmMessage_channel_dmMessage")
     dmMessage_user = relationship("User", back_populates="user_dmMessage")
     dmMessage_image = relationship("Image", back_populates="image_dmMessage", cascade="all, delete")
 
