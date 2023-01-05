@@ -60,3 +60,15 @@ class User(db.Model, UserMixin):
             'user_dmMessage_channels': [dms.dmMessage_channel_to_dict() for dms in self.user_dmMessage_channel],
             'user_dmMessages': [dmMessage.to_dict() for dmMessage in self.user_dmMessage]
         }
+# pending testing
+    def basic_dict(self):
+        return {
+            'id': self.id,
+            'username': self.user_name,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'email': self.email,
+            'bio': self.bio,
+            'profile_img': self.profile_img,
+        }
+

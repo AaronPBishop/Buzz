@@ -31,3 +31,19 @@ class Channel(db.Model):
             'channel_users': [user.user_to_dict() for user in self.channel_user],
             'channel_cm': [cm.to_dict() for cm in self.channel_cm]
         }
+# pending testing
+
+    def basic_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'channel_users': [user.user_to_dict() for user in self.channel_user],
+            'channel_cm': [cm.to_dict() for cm in self.channel_cm]
+        }
+# pending testing
+
+    def org_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+        }

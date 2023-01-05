@@ -6,6 +6,7 @@ org_routes = Blueprint('organizations', __name__)
 
 # * Create a new organization ************************************************************
 # ? THIS ROUTE WORKS!!!!!!
+
 @org_routes.route('/', methods=['POST'])
 # @login_required
 def create_organization():
@@ -20,27 +21,29 @@ def create_organization():
     db.session.add(new_org)
     db.session.commit()
 
-    # TODO Verify auto-returned status code is 203
-    return new_org.to_dict()
+    return new_org.basic_dict()
 
 
 # * Get/Edit and remove a user from an organization ************************************************************
 # ? THIS ROUTE WORKS!!!!!!
 @org_routes.route('/<int:org_id>', methods=['GET', 'PUT'])
-# @login_required
+@login_required
 def get_edit_organization(org_id):
     queried_organization = Organization.query.get_or_404(org_id)
     req_data = request.json
-    if request.method == 'GET':
-        return queried_organization.to_dict()
+    if request.method == 'GET' and req_data.userId == queried_organization.owner_id:
+        return queried_organization.owner_dict()
+    if request.method == 'GET' and req_data.userId != queried_organization.owner_id:
+        return queried_organization.basic_dict()
 
-    for key, val in req_data.items():
-        if key != None and key == 'userId':
-            for user in queried_organization.organization_user:
-                if user.user_id == val:
-                    db.session.delete(user)
-        if key != None and key != 'userId':
-            setattr(queried_organization, key, val)
+    if request.method == "PUT":
+        for key, val in req_data.items():
+            if key != None and key == 'userId':
+                for user in queried_organization.organization_user:
+                    if user.user_id == val:
+                        db.session.delete(user)
+            if key != None and key != 'userId':
+                setattr(queried_organization, key, val)
 
     db.session.commit()
     return queried_organization.to_dict()
@@ -49,7 +52,7 @@ def get_edit_organization(org_id):
 # * Delete an organization ************************************************************
 # ? THIS GET ROUTE WORKS!!!!!!
 @org_routes.route('/<org_id>', methods=['DELETE'])
-# @login_required
+@login_required
 def delete_organization(org_id):
     queried_organization = Organization.query.get_or_404(org_id)
 #! if queried_organization.owner_id == int(user_id):
@@ -64,7 +67,7 @@ def delete_organization(org_id):
 # * Add a user to an organization ********************************************************
 # ? THIS ROUTE WORKS!!!!!!
 @org_routes.route('/new_user', methods=['POST'])
-# @login_required
+@login_required
 def add_user():
     req_data = request.json
 
@@ -84,4 +87,4 @@ def add_user():
     db.session.add(association)
     db.session.commit()
 
-    return queried_org.to_dict()
+    return queried_org.add_user()
