@@ -96,7 +96,7 @@ const channelReducer = (state = initialState, action) => {
 
     switch (action) {
         case 'POPULATE_CHANNEL_DATA': {
-            for (key in action.payload) currentState[key] = action.payload[key];
+            for (let key in action.payload) currentState[key] = action.payload[key];
 
             return currentState;
         };
