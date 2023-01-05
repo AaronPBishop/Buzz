@@ -4,11 +4,14 @@ const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
 
 
+// ACTION CREATORS
+
+
 const setUser = (user) => {
-  return {
-    type: SET_USER,
-    payload: user
-  };
+    return {
+      type: SET_USER,
+      payload: user
+    };
 };
 
 const removeUser = () => {
@@ -16,6 +19,10 @@ const removeUser = () => {
     type: REMOVE_USER
   };
 };
+
+
+// THUNKS
+
 
 export const authenticate = () => async (dispatch) => {
   const request = await fetch('/api/auth/', {
@@ -30,6 +37,7 @@ export const authenticate = () => async (dispatch) => {
     dispatch(setUser(data));
   };
 }
+
 
 export const login = (email, password) => async (dispatch) => {
   const request = await fetch('/api/auth/login', {
@@ -56,6 +64,7 @@ export const login = (email, password) => async (dispatch) => {
     return ['An error occurred. Please try again.']
   };
 };
+
 
 export const logout = () => async (dispatch) => {
   const request = await fetch('/api/auth/logout', {
@@ -95,6 +104,9 @@ export const signUp = (username, firstName, lastName, email, password) => async 
     return ['An error occurred. Please try again.']
   };
 };
+
+
+// REDUCER
 
 const sessionReducer = (state = initialState, action) => {
   const currentState = { ...state };
