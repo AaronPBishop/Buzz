@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
-import NavBar from './components/NavBar';
+import SplashPage from './components/SplashPage';
 
 import { authenticate } from './store/sessionReducer';
 
@@ -13,7 +13,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       await dispatch(authenticate());
       setLoaded(true);
     })();
@@ -26,8 +26,8 @@ function App() {
       <Switch>
 
         <Route path='/'>
-           {/*Change to Login/Signup splash page*/}
-          <NavBar />
+          {/*Change to Login/Signup splash page*/}
+          <SplashPage />
         </Route>
 
         <Route path='/login' exact={true}>
