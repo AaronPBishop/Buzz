@@ -10,7 +10,7 @@ user_routes = Blueprint('users', __name__)
 @user_routes.route('/<int:user_id>')
 # @login_required
 def get_user(user_id):
-    queried_user = User.query.get_or_404(user_id).to_dict()
+    queried_user = User.query.get_or_404(user_id).basic_dict()
 # ! fix rendering when user not found.
     if queried_user:
         return queried_user
@@ -34,11 +34,11 @@ def create_user():
         profile_img=req_data['profile_img'],
         hashed_password=req_data['password'],
     )
-    
+
     db.session.add(new_user)
     db.session.commit()
 
-    return new_user.to_dict()
+    return new_user.basic_dict()
 
 
 # * Edit a user ************************************************************
@@ -57,7 +57,7 @@ def edit_user(id):
             setattr(queried_user, key, generate_password_hash(val))
 
     db.session.commit()
-    return queried_user.to_dict()
+    return queried_user.basic_dict()
 
 
 # * Delete a user ************************************************************

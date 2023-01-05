@@ -24,3 +24,13 @@ class DmMessage(db.Model):
             'user_id': self.user_id,
             'dmMessage_images': [image.to_dict() for image in self.dmMessage_image]
         }
+
+
+    def basic_dict(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'user_name': self.dmMessage_user.user_name,
+            'message': self.message,
+            'dmMessage_images': [image.to_dict() for image in self.dmMessage_image]
+        }

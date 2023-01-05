@@ -25,3 +25,9 @@ class Image(db.Model):
             'channel_message_id': self.channel_message_id,
             'dm_message_id': self.dm_message_id
         }
+
+    def basic_dict(self):
+        return {
+            'id': self.id,
+            'url': self.url,
+        }

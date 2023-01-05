@@ -18,5 +18,8 @@ class User_Org_Association(db.Model):
             'organization_owner': self.parent.owner_id
         }
 
+    def user_to_dict_basic(self):
+        return self.child.basic_dict()
+
     def user_to_dict(self):
-        return self.child.to_dict()
+        return self.child.basic_dict()
