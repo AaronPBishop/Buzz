@@ -3,6 +3,7 @@ from app.models import db, Organization, environment, SCHEMA
 
 def seed_organizations():
     orgs = [{
+        "name": "BUZZ", "org_image": "image", "owner_id": 1}, {
         "name": "AAA", "org_image": "image", "owner_id": 1}, {"name": "Avengers", "org_image": "image", "owner_id": 2}, {"name": "App Academy", "org_image": "image", "owner_id": 3}, {"name": "Jaxnation", "org_image": "http://dummyimage.com/128x100.png/5fa2dd/ffffff", "owner_id": 1},
         {"name": "Twitterlist",
             "org_image": "http://dummyimage.com/177x100.png/5fa2dd/ffffff", "owner_id": 2},
