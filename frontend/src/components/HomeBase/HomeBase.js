@@ -5,7 +5,7 @@ const HomeBase = () => {
             display: 'flex',
             justifyContent: 'space-between'
         }}>
-            
+
             <div>
                 {/* SEARCH/PROFILE COMPONENT CONTAINER */}
             </div>

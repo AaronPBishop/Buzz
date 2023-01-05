@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import LoginForm from './components/auth/LoginForm';
-import SignUpForm from './components/auth/SignUpForm';
-import SplashPage from './components/SplashPage';
+import LoginForm from './components/auth/LoginForm.js';
+import SignUpForm from './components/auth/SignUpForm.js';
+import SplashPage from './components/SplashPage/SplashPage.js';
 import HomeBase from './components/HomeBase/HomeBase.js';
 
 import { authenticate } from './store/sessionReducer';
 
-function App() {
+const App = () => {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
 
@@ -26,8 +26,7 @@ function App() {
     <BrowserRouter>
       <Switch>
 
-        <Route path='/'>
-          {/*Change to Login/Signup splash page*/}
+        <Route path='/' exact={true}>
           <SplashPage />
         </Route>
 
@@ -46,6 +45,6 @@ function App() {
       </Switch>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

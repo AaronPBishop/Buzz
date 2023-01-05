@@ -27,7 +27,7 @@ const SignUpForm = () => {
     };
   };
 
-  if (user) return <Redirect to='/' />;
+  if (user) return <Redirect to='/home' />;
 
   return (
     <form onSubmit={onSignUp}>
