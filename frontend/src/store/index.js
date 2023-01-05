@@ -3,10 +3,14 @@ import thunk from 'redux-thunk';
 
 import sessionReducer from './sessionReducer.js'
 import organizationReducer from './organizationReducer.js';
+import channelReducer from './channelReducer.js';
+import dmMessageChannelReducer from './dmMessageChannelReducer.js';
 
 const rootReducer = combineReducers({
   session: sessionReducer,
-  organization: organizationReducer
+  organization: organizationReducer,
+  channel: channelReducer,
+  dmMessageChannel: dmMessageChannelReducer
 });
 
 let enhancer;
