@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import LoginForm from './components/auth/LoginForm.js';
-import SignUpForm from './components/auth/SignUpForm.js';
 import SplashPage from './components/SplashPage/SplashPage.js';
 import HomeBase from './components/HomeBase/HomeBase.js';
 
@@ -28,14 +26,6 @@ const App = () => {
 
         <Route path='/' exact={true}>
           <SplashPage />
-        </Route>
-
-        <Route path='/login' exact={true}>
-          <LoginForm />
-        </Route>
-
-        <Route path='/sign-up' exact={true}>
-          <SignUpForm />
         </Route>
 
         <Route path='/home' exact={true} >
