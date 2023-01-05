@@ -1,1 +1,11 @@
-/* TODO Add site wide styles */
+html {
+    font-family: 'Roboto', sans-serif;
+    
+    background: linear-gradient(rgb(240, 210, 10), rgb(155, 140, 0));
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+
+    overflow-y: hidden;
+}

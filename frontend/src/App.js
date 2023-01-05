@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar';
+import HomeBase from './components/HomeBase/HomeBase.js';
 
 import { authenticate } from './store/sessionReducer';
 
@@ -25,7 +26,7 @@ function App() {
     <BrowserRouter>
       <Switch>
 
-        <Route path='/'>
+        <Route path='/' exact={true}>
            {/*Change to Login/Signup splash page*/}
           <NavBar />
         </Route>
@@ -39,7 +40,7 @@ function App() {
         </Route>
 
         <Route path='/home' exact={true} >
-          {/*Add Base Component*/}
+          <HomeBase />
         </Route>
 
       </Switch>
