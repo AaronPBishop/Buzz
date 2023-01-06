@@ -15,7 +15,7 @@ class Organization(db.Model):
 
     #! Relationships
     organization_user = relationship(
-        "User_Org_Association", back_populates="parent")
+        "User_Org_Association", back_populates="parent", cascade="all, delete")
     organization_channel = relationship(
         "Channel", back_populates="channel_organization", cascade="all, delete")
     organization_dmMessage_channel = relationship(

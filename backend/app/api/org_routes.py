@@ -40,7 +40,7 @@ def get_edit_organization(org_id):
         for key, val in req_data.items():
             if key != None and key == 'userId':
                 for user in queried_organization.organization_user:
-                    if user.id == val:
+                    if user.user_id == int(val):
                         db.session.delete(user)
             if key != None and key != 'userId':
                 setattr(queried_organization, key, val)

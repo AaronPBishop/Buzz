@@ -49,8 +49,9 @@ def edit_dmMessage_channel(id):
     for key, val in req_data.items():
         if key != None and key == 'userId':
             for user in queried_dmMessage_channel.dmMessage_channel_user:
-                if user.id == val:
+                if user.user_id == int(val):
                     db.session.delete(user)
+
     db.session.commit()
     return queried_dmMessage_channel.to_dict()
 
@@ -64,6 +65,7 @@ def delete_dmMessage_channel(id):
     queried_dmMessage_channel = DmMessage_Channel.query.get_or_404(id)
 
     # if queried_user.id == requestorId:
+        
     db.session.delete(queried_dmMessage_channel)
     db.session.commit()
 

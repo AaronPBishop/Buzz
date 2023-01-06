@@ -20,7 +20,7 @@ class Channel(db.Model):
     channel_cm = relationship(
         "ChannelMessage", back_populates="cm_channel", cascade="all, delete")
     channel_user = relationship(
-        "User_Channel_Association", back_populates="parent")
+        "User_Channel_Association", back_populates="parent", cascade="all, delete")
 
     def to_dict(self):
         return {

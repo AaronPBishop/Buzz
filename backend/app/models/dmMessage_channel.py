@@ -18,7 +18,7 @@ class DmMessage_Channel(db.Model):
     dmMessage_channel_dmMessage = relationship(
         "DmMessage", back_populates="dmMessage_dmMessage_channel", cascade="all, delete")
     dmMessage_channel_user = relationship(
-        "User_DmMessage_Channel", back_populates="parent")
+        "User_DmMessage_Channel", back_populates="parent", cascade="all, delete")
 
     def to_dict(self):
         return {

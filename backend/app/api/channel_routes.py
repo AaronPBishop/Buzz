@@ -48,10 +48,11 @@ def edit_channel(id):
     for key, val in req_data.items():
         if key != None and key == 'userId':
             for user in queried_channel.channel_user:
-                if user.user_id == val:
+                if user.user_id == int(val):
                     db.session.delete(user)
         if key != None and key == 'name':
             setattr(queried_channel, "name", val)
+
     db.session.commit()
     return queried_channel.to_dict()
 
