@@ -7,7 +7,7 @@ const HomeBase = () => {
         }}>
 
             <div>
-                {/* SEARCH/PROFILE COMPONENT CONTAINER */}
+                {/* top navbar -> SEARCH/PROFILE COMPONENT CONTAINER */}
             </div>
 
             <div>

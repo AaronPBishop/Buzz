@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request, render_template
-from app.models import User, db
+from app.models import User, db, Organization, User_Org_Association
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
@@ -55,8 +55,7 @@ def logout():
 def sign_up():
     form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-
-    print(form)
+    queried_org = Organization.query.get_or_404(1)
 
     if form.validate_on_submit():
         user = User(
@@ -68,6 +67,18 @@ def sign_up():
         )
 
         db.session.add(user)
+
+        association = User_Org_Association(
+        organization_id=queried_org.id,
+        user_id=user.id,
+        parent=queried_org,
+        child=user
+    )
+
+        queried_org.organization_user.append(association)
+        user.user_organization.append(association)
+
+        db.session.add(association)
         db.session.commit()
 
         login_user(user)
