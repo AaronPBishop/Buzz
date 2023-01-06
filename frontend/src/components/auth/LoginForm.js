@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../store/sessionReducer';
+import './Form.css'
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -29,26 +30,8 @@ const LoginForm = () => {
   if (user) return <Redirect to='/home' />;
 
   return (
-    <form onSubmit={onLogin}
-      style={{
-        border: '2px rgb(240, 210, 10) solid',
-        borderRadius: '20px',
-        display: 'flex',
-        flexDirection: 'column',
-        marginTop: '20vh',
-        height: '40vh',
-        justifyContent: 'center'
-        // width: '20vw',
-      }}>
-      <div
-        style={{
-          color: 'rgb(240, 210, 10)',
-          fontSize: '20px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          // marginBottom: '30px',
-          margin: '0 auto 30px auto',
-        }}>
+    <form onSubmit={onLogin} className='formWrapper'>
+      <div className='formTitle'>
         Log In
       </div>
       <div>
@@ -56,63 +39,31 @@ const LoginForm = () => {
           <div key={ind}>{error}</div>
         ))}
       </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          padding: '0 10px 10px'
-        }}>
+      <div className='fieldWrapper'>
         <label htmlFor='email'
-          style={{
-            color: 'yellow',
-
-          }}></label>
+        ></label>
         <input
           name='email'
           type='text'
           placeholder='Email'
           value={email}
           onChange={updateEmail}
-          style={{
-            width: '200px',
-            height: '20px',
-            borderRadius: '8px',
-          }}
+          className='inputFields'
         />
       </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          padding: '0 10px 10px'
-        }}>
+      <div className='fieldWrapper'>
         <label htmlFor='password'
-          style={{
-            color: 'yellow'
-          }}></label>
+        ></label>
         <input
           name='password'
           type='password'
           placeholder='Password'
           value={password}
           onChange={updatePassword}
-          style={{
-            width: '200px',
-            height: '20px',
-            borderRadius: '8px'
-          }}
+          className='inputFields'
         />
       </div>
-      <button type='submit'
-        style={{
-          borderRadius: '8px',
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          height: '30px',
-          width: '150px',
-          background: 'rgb(240, 210, 10)',
-          cursor: 'pointer'
-        }}>Login</button>
+      <button type='submit' className='submitButton'>Login</button>
     </form>
   );
 };
