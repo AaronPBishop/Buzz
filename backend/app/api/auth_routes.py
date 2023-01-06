@@ -72,7 +72,7 @@ def sign_up():
         organization_id=queried_org.id,
         user_id=user.id,
         parent=queried_org,
-        child=user_to_add
+        child=user
     )
 
         queried_org.organization_user.append(association)
