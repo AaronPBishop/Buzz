@@ -6,7 +6,7 @@ from app.models import User, DmMessage_Channel, db
 dmMessage_channels_routes = Blueprint('dmMessage_channels', __name__)
 
 # * Get a dmMessage_channel **************************************************************
-# ? THIS ROUTE WORKS!!!!!!!
+
 
 @dmMessage_channels_routes.route('/<int:id>')
 # @login_required
@@ -17,7 +17,7 @@ def get_dmMessage_channel(id):
 
 
 # * Create a dmMessage_channel ************************************************************
-# ? THIS ROUTE WORKS!!!!!!!
+
 
 @dmMessage_channels_routes.route('/', methods=['POST'])
 # @login_required
@@ -37,43 +37,8 @@ def create_dmMessage_channel():
     return new_dmMessage_channel.to_dict()
 
 
-# * Remove a dmMessage_channel user ****************************************************************
-# ? THIS ROUTE WORKS!!!!!!!
-
-@dmMessage_channels_routes.route('/<int:id>', methods=['PUT'])
-# @login_required
-def edit_dmMessage_channel(id):
-    queried_dmMessage_channel = DmMessage_Channel.query.get_or_404(id)
-    req_data = request.json
-
-    for key, val in req_data.items():
-        if key != None and key == 'userId':
-            for user in queried_dmMessage_channel.dmMessage_channel_user:
-                if user.user_id == int(val):
-                    db.session.delete(user)
-
-    db.session.commit()
-    return queried_dmMessage_channel.to_dict()
-
-
-# * Delete a dmMessage_channel ****************************************************************
-# ? THIS ROUTE WORKS!!!!!!!
-
-@dmMessage_channels_routes.route('/<int:id>', methods=['DELETE'])
-# @login_required
-def delete_dmMessage_channel(id):
-    queried_dmMessage_channel = DmMessage_Channel.query.get_or_404(id)
-
-    # if queried_user.id == requestorId:
-        
-    db.session.delete(queried_dmMessage_channel)
-    db.session.commit()
-
-    return {'message': 'Successfully deleted'}, 200
-
-
 # * Add users to dmMessage_channel ****************************************************************
-# ? THIS ROUTE WORKS!!!!!!!
+
 
 @dmMessage_channels_routes.route('/new_user', methods=['POST'])
 # @login_required
@@ -98,3 +63,36 @@ def add_user_to_dmMessage_channel():
     db.session.commit()
 
     return queried_dmMessage_channel.to_dict()
+
+# * Remove a dmMessage_channel user ****************************************************************
+
+
+@dmMessage_channels_routes.route('/<int:id>', methods=['PUT'])
+# @login_required
+def edit_dmMessage_channel(id):
+    queried_dmMessage_channel = DmMessage_Channel.query.get_or_404(id)
+    req_data = request.json
+
+    for key, val in req_data.items():
+        if key != None and key == 'userId':
+            for user in queried_dmMessage_channel.dmMessage_channel_user:
+                if user.user_id == int(val):
+                    db.session.delete(user)
+
+    db.session.commit()
+    return queried_dmMessage_channel.basic_dict()
+
+# * Delete a dmMessage_channel ****************************************************************
+
+
+@dmMessage_channels_routes.route('/<int:id>', methods=['DELETE'])
+# @login_required
+def delete_dmMessage_channel(id):
+    queried_dmMessage_channel = DmMessage_Channel.query.get_or_404(id)
+
+    # if queried_user.id == requestorId:
+
+    db.session.delete(queried_dmMessage_channel)
+    db.session.commit()
+
+    return {'message': 'Successfully deleted'}, 200
