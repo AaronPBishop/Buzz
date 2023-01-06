@@ -20,7 +20,6 @@ class DmMessage_Channel(db.Model):
     dmMessage_channel_user = relationship(
         "User_DmMessage_Channel", back_populates="parent", cascade="all, delete")
 
-    #? Methods
     def to_dict(self):
         return {
             'id': self.id,
@@ -30,7 +29,7 @@ class DmMessage_Channel(db.Model):
             'dmMessage_channel_dmMessages': [dmMessage.to_dict() for dmMessage in self.dmMessage_channel_dmMessage]
         }
 
-
+# pending testing
     def basic_dict(self):
         return {
             'id': self.id,
@@ -38,6 +37,8 @@ class DmMessage_Channel(db.Model):
             'dmMessage_channel_dmMessages': [dmMessage.to_dict() for dmMessage in self.dmMessage_channel_dmMessage]
         }
 
+
+# pending testing
 
     def org_dict(self):
         return {

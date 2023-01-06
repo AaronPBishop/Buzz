@@ -5,6 +5,7 @@ from app.models import ChannelMessage, db
 channelMessage_routes = Blueprint('channelMessage', __name__)
 
 # * Get a channelMessage **************************************************************
+# ? THIS ROUTE WORKS!!!!!!!
 
 @channelMessage_routes.route('/<int:id>')
 # @login_required
@@ -13,6 +14,7 @@ def get_channelMessage(id):
     return queried_channelMessage.to_dict()
 
 # * Create a channelMessage **************************************************************
+# ? THIS ROUTE WORKS!!!!!!!
 
 @channelMessage_routes.route('/', methods=['POST'])
 # @login_required
@@ -30,7 +32,7 @@ def create_channelMessage():
     return new_channelMessage.to_dict()
 
 # * Edit a channelMessage ****************************************************************
-
+# ? THIS ROUTE WORKS!!!!!!!
 @channelMessage_routes.route('/<int:id>', methods=['PUT'])
 # @login_required
 def edit_channelMessage(id):
@@ -41,9 +43,10 @@ def edit_channelMessage(id):
             setattr(queried_channelMessage, key, val)
     db.session.commit()
 
-    return queried_channelMessage.basic_dict()
+    return queried_channelMessage.to_dict()
 
 # * Delete a channelMessage ****************************************************************
+# ? THIS ROUTE WORKS!!!!!!!
 
 @channelMessage_routes.route('/<int:id>', methods=['DELETE'])
 # @login_required

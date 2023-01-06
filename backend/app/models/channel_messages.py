@@ -18,8 +18,6 @@ class ChannelMessage(db.Model):
     cm_image = relationship(
         "Image", back_populates="image_cm", cascade="all, delete")
 
-    #? Methods
-
     def to_dict(self):
         return {
             'id': self.id,

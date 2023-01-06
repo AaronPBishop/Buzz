@@ -5,7 +5,7 @@ from app.models import Organization, User, User_Org_Association, Channel, db
 org_routes = Blueprint('organizations', __name__)
 
 # * Create a new organization ************************************************************
-
+# ? THIS ROUTE WORKS!!!!!!
 
 @org_routes.route('/', methods=['POST'])
 # @login_required
@@ -25,19 +25,16 @@ def create_organization():
 
 
 # * Get/Edit and remove a user from an organization ************************************************************
-
+# ? THIS ROUTE WORKS!!!!!!
 @org_routes.route('/<int:org_id>', methods=['GET', 'PUT'])
-# @login_required
+@login_required
 def get_edit_organization(org_id):
     queried_organization = Organization.query.get_or_404(org_id)
     req_data = request.json
-    if request.method == "GET":
-        return queried_organization.to_dict()
-
-    # if request.method == 'GET' and req_data.userId == queried_organization.owner_id:
-    #     return queried_organization.owner_dict()
-    # if request.method == 'GET' and req_data.userId != queried_organization.owner_id:
-    #     return queried_organization.to_dict()
+    if request.method == 'GET' and req_data.userId == queried_organization.owner_id:
+        return queried_organization.owner_dict()
+    if request.method == 'GET' and req_data.userId != queried_organization.owner_id:
+        return queried_organization.basic_dict()
 
     if request.method == "PUT":
         for key, val in req_data.items():
@@ -53,7 +50,7 @@ def get_edit_organization(org_id):
 
 
 # * Delete an organization ************************************************************
-
+# ? THIS GET ROUTE WORKS!!!!!!
 @org_routes.route('/<org_id>', methods=['DELETE'])
 @login_required
 def delete_organization(org_id):
@@ -68,7 +65,7 @@ def delete_organization(org_id):
 
 
 # * Add a user to an organization ********************************************************
-
+# ? THIS ROUTE WORKS!!!!!!
 @org_routes.route('/new_user', methods=['POST'])
 @login_required
 def add_user():

@@ -22,8 +22,6 @@ class Channel(db.Model):
     channel_user = relationship(
         "User_Channel_Association", back_populates="parent", cascade="all, delete")
 
-    #? Methods
-
     def to_dict(self):
         return {
             'id': self.id,
@@ -33,7 +31,7 @@ class Channel(db.Model):
             'channel_users': [user.user_to_dict() for user in self.channel_user],
             'channel_cm': [cm.to_dict() for cm in self.channel_cm]
         }
-
+# pending testing
 
     def basic_dict(self):
         return {
@@ -42,7 +40,7 @@ class Channel(db.Model):
             'channel_users': [user.user_to_dict() for user in self.channel_user],
             'channel_cm': [cm.to_dict() for cm in self.channel_cm]
         }
-
+# pending testing
 
     def org_dict(self):
         return {

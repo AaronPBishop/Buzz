@@ -6,7 +6,7 @@ from app.models import DmMessage, db
 dmMessage_routes = Blueprint('dmMessage', __name__)
 
 # * Get a dmMessage **************************************************************
-
+# ? THIS ROUTE WORKS!!!!!!!
 
 @dmMessage_routes.route('/<int:id>')
 # @login_required
@@ -15,7 +15,7 @@ def get_dmMessage(id):
     return queried_dmMessage.to_dict()
 
 # * Create a dmMessage **************************************************************
-
+# ? THIS ROUTE WORKS!!!!!!!
 
 @dmMessage_routes.route('/', methods=['POST'])
 # @login_required
@@ -33,7 +33,7 @@ def create_dmMessage():
     return new_dmMessage.to_dict()
 
 # * Edit a dmMessage ****************************************************************
-
+# ? THIS ROUTE WORKS!!!!!!!
 @dmMessage_routes.route('/<int:id>', methods=['PUT'])
 # @login_required
 def edit_dmMessage(id):
@@ -47,6 +47,7 @@ def edit_dmMessage(id):
     return queried_dmMessage.to_dict()
 
 # * Delete a dmMessage ****************************************************************
+# ? THIS ROUTE WORKS!!!!!!!
 
 
 @dmMessage_routes.route('/<int:id>', methods=['DELETE'])
