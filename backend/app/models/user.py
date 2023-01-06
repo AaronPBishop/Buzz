@@ -33,7 +33,7 @@ class User(db.Model, UserMixin):
     owned_channels = relationship("Channel", back_populates="channel_owner")
     owned_dmMessage_channels = relationship("DmMessage_Channel", back_populates="dmMessage_channel_owner")
 
-    #! Methods
+    #? Methods
     @property
     def password(self):
         return self.hashed_password
@@ -60,7 +60,7 @@ class User(db.Model, UserMixin):
             'user_dmMessage_channels': [dms.dmMessage_channel_to_dict() for dms in self.user_dmMessage_channel],
             'user_dmMessages': [dmMessage.to_dict() for dmMessage in self.user_dmMessage]
         }
-# pending testing
+
     def basic_dict(self):
         return {
             'id': self.id,
@@ -71,4 +71,3 @@ class User(db.Model, UserMixin):
             'bio': self.bio,
             'profile_img': self.profile_img,
         }
-

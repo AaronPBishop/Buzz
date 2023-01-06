@@ -6,7 +6,7 @@ from app.models import Image, db
 image_routes = Blueprint('image', __name__)
 
 # * Get a dmMessage **************************************************************
-# ? THIS ROUTE WORKS!!!!!!!
+
 
 @image_routes.route('/<int:id>')
 # @login_required
@@ -15,7 +15,7 @@ def get_image(id):
     return queried_image.to_dict()
 
 # * Create a dmMessage **************************************************************
-# ? THIS ROUTE WORKS!!!!!!!
+
 
 @image_routes.route('/', methods=['POST'])
 # @login_required
@@ -34,7 +34,7 @@ def create_image():
     return new_image.to_dict()
 
 # * Edit a dmMessage ****************************************************************
-# ? THIS ROUTE WORKS!!!!!!!
+
 @image_routes.route('/<int:id>', methods=['PUT'])
 # @login_required
 def edit_image(id):
@@ -48,7 +48,7 @@ def edit_image(id):
     return queried_image.to_dict()
 
 # * Delete a dmMessage ****************************************************************
-# ? THIS ROUTE WORKS!!!!!!!
+
 
 @image_routes.route('/<int:id>', methods=['DELETE'])
 # @login_required

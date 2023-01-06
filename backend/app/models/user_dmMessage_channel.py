@@ -11,6 +11,7 @@ class User_DmMessage_Channel(db.Model):
     parent = relationship("DmMessage_Channel", back_populates="dmMessage_channel_user")
     child = relationship("User", back_populates="user_dmMessage_channel")
 
+# ? Methods
     def dmMessage_channel_to_dict(self):
         return {
             'dmMessage_channel_id': self.parent.id,

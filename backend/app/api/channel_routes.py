@@ -6,7 +6,7 @@ from app.models import User, Channel, ChannelMessage, DmMessage, Image, db
 channels_routes = Blueprint('channels', __name__)
 
 # * Get a channel **************************************************************
-# ? THIS ROUTE WORKS!!!!!!!
+
 
 
 @channels_routes.route('/<int:id>')
@@ -18,7 +18,7 @@ def get_channel(id):
 
 
 # * Create a channel ************************************************************
-# ? THIS ROUTE WORKS!!!!!!!
+
 @channels_routes.route('/', methods=['POST'])
 # @login_required
 def create_channel():
@@ -38,7 +38,7 @@ def create_channel():
 
 
 # * Edit a channel and delete a channel user ****************************************************************
-# ? THIS ROUTE WORKS!!!!!!!
+
 @channels_routes.route('/<int:id>', methods=['PUT'])
 # @login_required
 def edit_channel(id):
@@ -58,7 +58,7 @@ def edit_channel(id):
 
 
 # * Delete a channel ****************************************************************
-# ? THIS ROUTE WORKS!!!!!!!
+
 @channels_routes.route('/<int:id>', methods=['DELETE'])
 # @login_required
 def delete_channel(id):
@@ -72,7 +72,7 @@ def delete_channel(id):
 
 
 # * Add users to channel[GENERAL CHANNEL MEMEBER] ****************************************************************
-# ? THIS ROUTE WORKS!!!!!!!
+
 @channels_routes.route('/new_user', methods=['POST'])
 # @login_required
 def add_user_to_channel():

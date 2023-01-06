@@ -17,6 +17,7 @@ class Image(db.Model):
     image_dmMessage = relationship(
         "DmMessage", back_populates="dmMessage_image")
 
+#? Methods
     def to_dict(self):
         return {
             'id': self.id,

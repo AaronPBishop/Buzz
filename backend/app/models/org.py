@@ -32,22 +32,13 @@ class Organization(db.Model):
             'organization_dmMessage_channels': [dmMessage.to_dict() for dmMessage in self.organization_dmMessage_channel],
         }
 
-# pending testing
+# ? Methods
+
     def basic_dict(self):
         return {
             'id': self.id,
             'name': self.name,
             'image': self.org_image,
-        }
-# pending testing
-    def owner_dict(self):
-        return {
-            'id': self.id,
-            'name': self.name,
-            'image': self.org_image,
-            'organization_users': [user.user_to_dict_basic() for user in self.organization_user],
-            'organization_channels': [channel.org_dict() for channel in self.organization_channel],
-            'organization_dmMessage_channels': [dmMessage.org_dict() for dmMessage in self.organization_dmMessage_channel],
         }
 
 

@@ -11,6 +11,8 @@ class User_Channel_Association(db.Model):
     parent = relationship("Channel", back_populates="channel_user")
     child = relationship("User", back_populates="user_channel")
 
+
+# ? Methods
     def ch_to_dict(self):
         return {
             'channel_id': self.parent.id,
