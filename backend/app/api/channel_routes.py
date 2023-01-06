@@ -78,6 +78,7 @@ def delete_channel(id):
 def add_user_to_channel():
     req_data = request.json
 
+    
     queried_channel = Channel.query.get_or_404(req_data['channelId'])
     user_to_add = User.query.get_or_404(req_data['userId'])
 

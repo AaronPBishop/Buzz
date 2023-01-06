@@ -21,6 +21,7 @@ class Organization(db.Model):
     organization_dmMessage_channel = relationship(
         "DmMessage_Channel", back_populates="dmMessage_channel_organization", cascade="all, delete")
 
+# ? Methods
     def to_dict(self):
         return {
             'id': self.id,
@@ -32,7 +33,6 @@ class Organization(db.Model):
             'organization_dmMessage_channels': [dmMessage.to_dict() for dmMessage in self.organization_dmMessage_channel],
         }
 
-# ? Methods
 
     def basic_dict(self):
         return {
