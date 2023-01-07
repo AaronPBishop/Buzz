@@ -38,13 +38,13 @@ export const createOrgThunk = (name, ownerId, img) => async (dispatch) => {
 };
 
 
-export const addUserToOrgThunk = (orgId, userToAddId) => async (dispatch) => {
+export const addUserToOrgThunk = (orgId, userToAddEmail) => async (dispatch) => {
     const request = await fetch(`/api/organizations/new_user`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
             orgId,
-            userId: userToAddId
+            email: userToAddEmail
         })
     });
 
