@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import SplashPage from './components/SplashPage/SplashPage.js';
-import HomeBase from './components/HomeBase/HomeBase.js';
+import BaseContainer from './components/BaseContainer/BaseContainer.js';
 
 import { authenticate } from './store/sessionReducer';
 
@@ -29,7 +29,7 @@ const App = () => {
         </Route>
 
         <Route path='/home' exact={true} >
-          <HomeBase />
+          <BaseContainer />
         </Route>
 
       </Switch>

@@ -8,4 +8,13 @@ html {
     background-repeat: no-repeat;
 
     overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+
+    margin: auto;
+    flex-wrap: wrap;
 }

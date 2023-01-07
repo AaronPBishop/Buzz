@@ -30,75 +30,84 @@ const SignUpForm = () => {
   if (user) return <Redirect to='/home' />;
 
   return (
-    <form onSubmit={onSignUp}>
+    <form onSubmit={onSignUp} className='formWrapper'>
+      <div className='formTitle'>
+        Sign Up
+      </div>
       <div>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
         ))}
       </div>
 
-      <div>
-        <label>User Name</label>
+      <div className='fieldWrapper'>
         <input
           type='text'
           name='username'
           onChange={e => setUsername(e.target.value)}
+          placeholder='Username'
           value={username}
+          className='inputFields'
         ></input>
       </div>
 
-      <div>
-        <label>First Name</label>
+      <div className='fieldWrapper'>
         <input
           type='text'
           name='firstName'
           onChange={e => setFirstName(e.target.value)}
+          placeholder='First Name'
           value={firstName}
+          className='inputFields'
         ></input>
       </div>
 
-      <div>
-        <label>Last Name</label>
+      <div className='fieldWrapper'>
         <input
           type='text'
           name='lastName'
           onChange={e => setLastName(e.target.value)}
+          placeholder='Last Name'
           value={lastName}
+          className='inputFields'
         ></input>
       </div>
 
-      <div>
-        <label>Email</label>
+      <div className='fieldWrapper'>
         <input
           type='text'
           name='email'
           onChange={e => setEmail(e.target.value)}
+          placeholder='Email'
           value={email}
+          className='inputFields'
         ></input>
       </div>
 
-      <div>
-        <label>Password</label>
+      <div className='fieldWrapper'>
         <input
           type='password'
           name='password'
           onChange={e => setPassword(e.target.value)}
+          placeholder='Password'
           value={password}
+          className='inputFields'
         ></input>
       </div>
 
-      <div>
-        <label>Repeat Password</label>
+      <div className='fieldWrapper'>
         <input
           type='password'
           name='repeat_password'
           onChange={e => setRepeatPassword(e.target.value)}
+          placeholder='Repeat Password'
           value={repeatPassword}
           required={true}
+          className='inputFields'
         ></input>
       </div>
 
-      <button type='submit'>Sign Up</button>
+      <button type='submit' className='submitButton'>Sign Up</button>
     </form>
   );
 };

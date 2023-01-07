@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../store/sessionReducer';
+import './Form.css'
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -29,33 +30,40 @@ const LoginForm = () => {
   if (user) return <Redirect to='/home' />;
 
   return (
-    <form onSubmit={onLogin}>
+    <form onSubmit={onLogin} className='formWrapper'>
+      <div className='formTitle'>
+        Log In
+      </div>
       <div>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
         ))}
       </div>
-      <div>
-        <label htmlFor='email'>Email</label>
+      <div className='fieldWrapper'>
+        <label htmlFor='email'
+        ></label>
         <input
           name='email'
           type='text'
           placeholder='Email'
           value={email}
           onChange={updateEmail}
+          className='inputFields'
         />
       </div>
-      <div>
-        <label htmlFor='password'>Password</label>
+      <div className='fieldWrapper'>
+        <label htmlFor='password'
+        ></label>
         <input
           name='password'
           type='password'
           placeholder='Password'
           value={password}
           onChange={updatePassword}
+          className='inputFields'
         />
-        <button type='submit'>Login</button>
       </div>
+      <button type='submit' className='submitButton'>Login</button>
     </form>
   );
 };
