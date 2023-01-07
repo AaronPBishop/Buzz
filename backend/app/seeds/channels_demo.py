@@ -5,7 +5,7 @@ def seed_channels():
     channels = [
         {
             "name": "coding_bros", "organization_id": 1,
-            "owner_id": 1, "is_public":  True}, {
+            "owner_id": 1, "is_public":  False}, {
             "name": "programer_elite", "organization_id": 2,
             "owner_id": 1, "is_public":  True}, {
             "name": "no_more_assessments", "organization_id": 3,
@@ -19,7 +19,7 @@ def seed_channels():
         {
             "name": "Teal Lovegrass",
             "organization_id": 6,
-            "owner_id": 1, "is_public": True
+            "owner_id": 1, "is_public": False
         }, {
             "name": "Cup Lichen",
             "organization_id": 7,
