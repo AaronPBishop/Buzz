@@ -14,7 +14,7 @@ const messagesReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case 'POPULATE_CURRENT_MESSAGES': {
-            currentState.currentMessages = action.payload;
+            currentState.currentMessages = action.payload.sort((a, b) => a.id - b.id);
 
             return currentState;
         };
