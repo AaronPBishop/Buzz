@@ -6,7 +6,6 @@ const REMOVE_USER = 'session/REMOVE_USER';
 
 // ACTION CREATORS
 
-
 const setUser = (user) => {
     return {
       type: SET_USER,
@@ -33,7 +32,7 @@ export const authenticate = () => async (dispatch) => {
     const data = await request.json();
 
     if (data.errors) return;
-  
+
     dispatch(setUser(data));
   };
 }
@@ -48,8 +47,8 @@ export const login = (email, password) => async (dispatch) => {
       password
     })
   });
-  
-  
+
+
   if (request.ok) {
     const data = await request.json();
 
@@ -89,7 +88,7 @@ export const signUp = (username, firstName, lastName, email, password) => async 
       password
     }),
   });
-  
+
   if (request.ok) {
     const data = await request.json();
 
