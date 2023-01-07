@@ -7,18 +7,16 @@ image_routes = Blueprint('image', __name__)
 
 # * Get a dmMessage **************************************************************
 
-
 @image_routes.route('/<int:id>')
-# @login_required
+@login_required
 def get_image(id):
     queried_image = Image.query.get_or_404(id)
     return queried_image.to_dict()
 
 # * Create a dmMessage **************************************************************
 
-
 @image_routes.route('/', methods=['POST'])
-# @login_required
+@login_required
 def create_image():
     req_data = request.json
 
@@ -36,7 +34,7 @@ def create_image():
 # * Edit a dmMessage ****************************************************************
 
 @image_routes.route('/<int:id>', methods=['PUT'])
-# @login_required
+@login_required
 def edit_image(id):
     queried_image = Image.query.get_or_404(id)
     req_data = request.json
@@ -49,9 +47,8 @@ def edit_image(id):
 
 # * Delete a dmMessage ****************************************************************
 
-
 @image_routes.route('/<int:id>', methods=['DELETE'])
-# @login_required
+@login_required
 def delete_image(id):
     queried_image = Image.query.get_or_404(id)
 

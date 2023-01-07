@@ -6,9 +6,8 @@ org_routes = Blueprint('organizations', __name__)
 
 # * Create a new organization ************************************************************
 
-
 @org_routes.route('/', methods=['POST'])
-# @login_required
+@login_required
 def create_organization():
     req_data = request.json
 
@@ -27,7 +26,7 @@ def create_organization():
 # * Get/Edit and remove a user from an organization ************************************************************
 
 @org_routes.route('/<int:org_id>', methods=['GET', 'PUT'])
-# @login_required
+@login_required
 def get_edit_organization(org_id):
     queried_organization = Organization.query.get_or_404(org_id)
     req_data = request.json
@@ -69,7 +68,7 @@ def delete_organization(org_id):
 # * Add a user to an organization ********************************************************
 
 @org_routes.route('/new_user', methods=['POST'])
-# @login_required
+@login_required
 def add_user():
     req_data = request.json
     queried_org = Organization.query.get_or_404(req_data['orgId'])

@@ -10,7 +10,7 @@ channels_routes = Blueprint('channels', __name__)
 
 
 @channels_routes.route('/<int:id>')
-# @login_required
+@login_required
 def get_channel(id):
     queried_channel = Channel.query.get_or_404(id)
 
@@ -20,7 +20,7 @@ def get_channel(id):
 # * Create a channel ************************************************************
 
 @channels_routes.route('/', methods=['POST'])
-# @login_required
+@login_required
 def create_channel():
     req_data = request.json
 
@@ -40,7 +40,7 @@ def create_channel():
 # * Edit a channel and delete a channel user ****************************************************************
 
 @channels_routes.route('/<int:id>', methods=['PUT'])
-# @login_required
+@login_required
 def edit_channel(id):
     queried_channel = Channel.query.get_or_404(id)
     req_data = request.json
@@ -60,7 +60,7 @@ def edit_channel(id):
 # * Delete a channel ****************************************************************
 
 @channels_routes.route('/<int:id>', methods=['DELETE'])
-# @login_required
+@login_required
 def delete_channel(id):
     queried_channel = Channel.query.get_or_404(id)
 
@@ -74,11 +74,11 @@ def delete_channel(id):
 # * Add users to channel[GENERAL CHANNEL MEMEBER] ****************************************************************
 
 @channels_routes.route('/new_user', methods=['POST'])
-# @login_required
+@login_required
 def add_user_to_channel():
     req_data = request.json
 
-    
+
     queried_channel = Channel.query.get_or_404(req_data['channelId'])
     user_to_add = User.query.get_or_404(req_data['userId'])
 

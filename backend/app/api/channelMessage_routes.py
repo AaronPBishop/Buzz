@@ -15,7 +15,7 @@ def get_channelMessage(id):
 # * Create a channelMessage **************************************************************
 
 @channelMessage_routes.route('/', methods=['POST'])
-# @login_required
+@login_required
 def create_channelMessage():
     req_data = request.json
 
@@ -32,7 +32,7 @@ def create_channelMessage():
 # * Edit a channelMessage ****************************************************************
 
 @channelMessage_routes.route('/<int:id>', methods=['PUT'])
-# @login_required
+@login_required
 def edit_channelMessage(id):
     queried_channelMessage = ChannelMessage.query.get_or_404(id)
     req_data = request.json
@@ -46,7 +46,7 @@ def edit_channelMessage(id):
 # * Delete a channelMessage ****************************************************************
 
 @channelMessage_routes.route('/<int:id>', methods=['DELETE'])
-# @login_required
+@login_required
 def delete_channelMessage(id):
     queried_channelMessage = ChannelMessage.query.get_or_404(id)
 

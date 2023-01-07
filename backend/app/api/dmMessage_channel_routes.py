@@ -6,10 +6,10 @@ from app.models import User, DmMessage_Channel, db
 dmMessage_channels_routes = Blueprint('dmMessage_channels', __name__)
 
 # * Get a dmMessage_channel **************************************************************
-# ? THIS ROUTE WORKS!!!!!!!
+
 
 @dmMessage_channels_routes.route('/<int:id>')
-# @login_required
+@login_required
 def get_dmMessage_channel(id):
     queried_dmMessage_channel = DmMessage_Channel.query.get_or_404(id)
 
@@ -17,10 +17,10 @@ def get_dmMessage_channel(id):
 
 
 # * Create a dmMessage_channel ************************************************************
-# ? THIS ROUTE WORKS!!!!!!!
+
 
 @dmMessage_channels_routes.route('/', methods=['POST'])
-# @login_required
+@login_required
 def create_dmMessage_channel():
     req_data = request.json
 
@@ -38,10 +38,10 @@ def create_dmMessage_channel():
 
 
 # * Remove a dmMessage_channel user ****************************************************************
-# ? THIS ROUTE WORKS!!!!!!!
+
 
 @dmMessage_channels_routes.route('/<int:id>', methods=['PUT'])
-# @login_required
+@login_required
 def edit_dmMessage_channel(id):
     queried_dmMessage_channel = DmMessage_Channel.query.get_or_404(id)
     req_data = request.json
@@ -57,15 +57,14 @@ def edit_dmMessage_channel(id):
 
 
 # * Delete a dmMessage_channel ****************************************************************
-# ? THIS ROUTE WORKS!!!!!!!
 
 @dmMessage_channels_routes.route('/<int:id>', methods=['DELETE'])
-# @login_required
+@login_required
 def delete_dmMessage_channel(id):
     queried_dmMessage_channel = DmMessage_Channel.query.get_or_404(id)
 
     # if queried_user.id == requestorId:
-        
+
     db.session.delete(queried_dmMessage_channel)
     db.session.commit()
 
@@ -73,10 +72,9 @@ def delete_dmMessage_channel(id):
 
 
 # * Add users to dmMessage_channel ****************************************************************
-# ? THIS ROUTE WORKS!!!!!!!
 
 @dmMessage_channels_routes.route('/new_user', methods=['POST'])
-# @login_required
+@login_required
 def add_user_to_dmMessage_channel():
     req_data = request.json
 

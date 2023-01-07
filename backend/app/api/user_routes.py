@@ -7,9 +7,8 @@ user_routes = Blueprint('users', __name__)
 
 # * Get a user ***************************************************************
 
-
 @user_routes.route('/<int:user_id>')
-# @login_required
+@login_required
 def get_user(user_id):
     queried_user = User.query.get_or_404(user_id).to_dict()
 
@@ -56,7 +55,7 @@ def get_user(user_id):
 # * Edit a user ************************************************************
 
 @user_routes.route('/<id>', methods=['PUT'])
-# @login_required
+@login_required
 def edit_user(id):
     queried_user = User.query.get_or_404(id)
     req_data = request.json
@@ -75,7 +74,7 @@ def edit_user(id):
 # * Delete a user ************************************************************
 
 @user_routes.route('/<id>', methods=['DELETE'])
-# @login_required
+@login_required
 def delete_user(id):
     queried_user = User.query.get_or_404(id)
 
@@ -84,4 +83,3 @@ def delete_user(id):
     db.session.commit()
 
     return {'message': 'Successfully deleted'}, 200
-

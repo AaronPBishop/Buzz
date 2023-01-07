@@ -7,18 +7,16 @@ dmMessage_routes = Blueprint('dmMessage', __name__)
 
 # * Get a dmMessage **************************************************************
 
-
 @dmMessage_routes.route('/<int:id>')
-# @login_required
+@login_required
 def get_dmMessage(id):
     queried_dmMessage = DmMessage.query.get_or_404(id)
     return queried_dmMessage.to_dict()
 
 # * Create a dmMessage **************************************************************
 
-
 @dmMessage_routes.route('/', methods=['POST'])
-# @login_required
+@login_required
 def create_dmMessage():
     req_data = request.json
 
@@ -35,7 +33,7 @@ def create_dmMessage():
 # * Edit a dmMessage ****************************************************************
 
 @dmMessage_routes.route('/<int:id>', methods=['PUT'])
-# @login_required
+@login_required
 def edit_dmMessage(id):
     queried_dmMessage = DmMessage.query.get_or_404(id)
     req_data = request.json
@@ -48,9 +46,8 @@ def edit_dmMessage(id):
 
 # * Delete a dmMessage ****************************************************************
 
-
 @dmMessage_routes.route('/<int:id>', methods=['DELETE'])
-# @login_required
+@login_required
 def delete_dmMessage(id):
     queried_dmMessage = DmMessage.query.get_or_404(id)
 
