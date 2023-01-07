@@ -10,7 +10,7 @@ export const populateCurrMessages = (messagesArr) => {
 
 
 const messagesReducer = (state = initialState, action) => {
-    const currentState = { ...initialState };
+    const currentState = { ...state };
 
     switch (action.type) {
         case 'POPULATE_CURRENT_MESSAGES': {
