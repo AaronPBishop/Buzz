@@ -8,6 +8,7 @@ class Channel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
+    is_public = db.Column(db.Boolean, nullable=False)
 
     owner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     organization_id = db.Column(db.Integer, db.ForeignKey(
@@ -22,17 +23,17 @@ class Channel(db.Model):
     channel_user = relationship(
         "User_Channel_Association", back_populates="parent", cascade="all, delete")
 
-    #? Methods
+    # ? Methods
     def to_dict(self):
         return {
             'id': self.id,
             'name': self.name,
+            'isPublic': self.is_public,
             'owner_id': self.channel_owner.id,
             'organization_id': self.organization_id,
             'channel_users': [user.user_to_dict() for user in self.channel_user],
             'channel_cm': [cm.to_dict() for cm in self.channel_cm]
         }
-
 
     def basic_dict(self):
         return {
@@ -41,7 +42,6 @@ class Channel(db.Model):
             'channel_users': [user.user_to_dict() for user in self.channel_user],
             'channel_cm': [cm.to_dict() for cm in self.channel_cm]
         }
-
 
     def org_dict(self):
         return {

@@ -29,6 +29,7 @@ def create_channel():
         # ! organization_id to be populated from the session orgId
         organization_id=req_data['organization_id'],
         owner_id=req_data['ownerId'],
+        is_public= req_data['isPublic']
     )
 
     db.session.add(new_channel)
@@ -74,7 +75,7 @@ def delete_channel(id):
 # * Add users to channel[GENERAL CHANNEL MEMEBER] ****************************************************************
 
 @channels_routes.route('/new_user', methods=['POST'])
-@login_required
+# @login_required
 def add_user_to_channel():
     req_data = request.json
 
