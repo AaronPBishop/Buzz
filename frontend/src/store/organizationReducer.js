@@ -103,7 +103,7 @@ const organizationReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case 'POPULATE_ORG_DATA': {
-            currentState[action.payload.name] = action.payload;
+            for (let key in action.payload) currentState[key] = action.payload[key];
 
             return currentState;
         };
