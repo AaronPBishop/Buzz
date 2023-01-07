@@ -1,6 +1,3 @@
-import React from 'react';
-
-import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 
 import LogInForm from '../auth/LoginForm.js';
@@ -9,9 +6,6 @@ import SignUpForm from '../auth/SignUpForm.js';
 import './styles.css';
 
 const SplashPage = () => {
-  const history = useHistory();
-
-
   const [clickedLogIn, setClickedLogIn] = useState(false);
   const [clickedSignUp, setClickedSignUp] = useState(false);
 

@@ -18,3 +18,24 @@ html {
     margin: auto;
     flex-wrap: wrap;
 }
+
+.selected {
+    font-weight: bold;
+    color: yellow;
+}
+
+.expand-btn {
+    background-image: url('./chevron-down-solid.svg');
+    background-position-x: center;
+    background-position-y: 0.2vh;
+    background-size: 1.5vh;
+    background-repeat: no-repeat;
+}
+
+.collapse-btn {
+    background-image: url('./chevron-up-solid.svg');
+    background-position-x: center;
+    background-position-y: 0.2vh;
+    background-size: 1.5vh;
+    background-repeat: no-repeat;
+}

@@ -1,13 +1,6 @@
-import { useSelector, useDispatch } from "react-redux";
+import OrgContainer from "../Organization/OrgContainer.js";
 
 const BaseContainer = () => {
-    const dispatch = useDispatch();
-
-    const user = useSelector(state => state.session.user);
-    const organization = useSelector(state => state.organization);
-    const channel = useSelector(state => state.channel);
-    const dmMessageChannel = useSelector(state => state.dmMessageChannel);
-
     /***************************************************************
     Red borders outline the dimensions of parent containers.
     Once you have added your component, remove the borders/comments.
@@ -36,17 +29,16 @@ const BaseContainer = () => {
                 <div
                 className='flex-center'
                 style={{
-                    border: '2px solid red',
                     borderBottomLeftRadius: '8px',
-                    height: '90vh',
+                    height: '91vh',
                     width: '20vw',
                     backgroundColor: 'black',
                     color: 'white'
                 }}>
                     <div 
                     className='flex-center'
-                    style={{height: '29.7vh', width: 'inherit', border: '1px solid red', overflowY: 'auto'}}>
-                        ORGANIZATIONS
+                    style={{height: '29.7vh', width: 'inherit', overflowY: 'auto'}}>
+                        <OrgContainer />
                     </div>
 
                     <div 

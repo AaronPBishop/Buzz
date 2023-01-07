@@ -94,7 +94,7 @@ export const addUserToChannelThunk = (channelId, userToAddId) => async (dispatch
 const channelReducer = (state = initialState, action) => {
     const currentState = { ...state };
 
-    switch (action) {
+    switch (action.type) {
         case 'POPULATE_CHANNEL_DATA': {
             for (let key in action.payload) currentState[key] = action.payload[key];
 

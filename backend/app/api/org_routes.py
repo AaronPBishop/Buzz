@@ -30,12 +30,9 @@ def create_organization():
 def get_edit_organization(org_id):
     queried_organization = Organization.query.get_or_404(org_id)
     req_data = request.json
+
     if request.method == 'GET':
         return queried_organization.to_dict()
-    # if request.method == 'GET' and req_data.userId == queried_organization.owner_id:
-    #     return queried_organization.owner_dict()
-    # if request.method == 'GET' and req_data.userId != queried_organization.owner_id:
-    #     return queried_organization.to_dict()
 
     if request.method == "PUT":
         for key, val in req_data.items():
