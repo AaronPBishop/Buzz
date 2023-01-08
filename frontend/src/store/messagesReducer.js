@@ -42,35 +42,44 @@ export const clearChannelMessageData = () => {
     };
 };
 
-//*  Channel Messages
 
-export const createChannelMessageThunk =
-    (userId, channelId, message) => async dispatch => {
-        const request = await fetch("/api/channelMessage", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                message: message,
-                last_update: Date(),
-                channel_id: channelId,
-                user_id: userId,
-            }),
-        });
-        const response = await request.json();
-    }
 // THUNKS
 
-export const editChannelMessageThunk =
-    (channelMessageId, channelMessageToEdit) => async dispatch => {
-        const request = await fetch(`/api/channelMessage/${channelMessageId}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                message: channelMessageToEdit,
-                last_update: Date(),
-            }),
-        });
-    };
+//*  Channel Messages
+
+export const createChannelMessageThunk = (userId, channelId, message) => async dispatch => {
+    const request = await fetch("/api/channelMessage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            message: message,
+            last_update: Date(),
+            channel_id: channelId,
+            user_id: userId,
+        }),
+    });
+ 
+    const response = await request.json();
+
+    dispatch(addMessage(response));
+};
+
+
+export const editChannelMessageThunk = (channelMessageId, channelMessageToEdit) => async dispatch => {
+    const request = await fetch(`/api/channelMessage/${channelMessageId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            message: channelMessageToEdit,
+            last_update: Date()
+        })
+    });
+
+    const response = await request.json();
+
+    dispatch(addMessage(response));
+};
+
 
 export const deleteChannelMessageDataThunk = channelMessageId => async () => {
     await fetch(`/api/channelMessage/${channelMessageId}`, {
@@ -78,39 +87,38 @@ export const deleteChannelMessageDataThunk = channelMessageId => async () => {
     });
 };
 
-//* dmMessages
+//*  DM Messages
 
-export const createDmMessageThunk =
-    (userId, dmMessage_channelId, message) => async dispatch => {
-        const request = await fetch("/api/dmMessage", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                message: message,
-                last_update: Date(),
-                dmMessage_channel_id: dmMessage_channelId,
-                user_id: userId,
-            }),
-        });
-        const response = await request.json();
-
-        dispatch(populateCurrMessages(response));
-    };
-
-export const editDmMessageThunk =
-    (dmMessageId, dmMessageToEdit) => async dispatch => {
-        const request = await fetch(`/api/dmMessage/${dmMessageId}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                message: dmMessageToEdit,
-                last_update: Date(),
-            }),
-        });
+export const createDmMessageThunk = (userId, dmMessage_channelId, message) => async dispatch => {
+    const request = await fetch("/api/dmMessage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            message: message,
+            last_update: Date(),
+            dmMessage_channel_id: dmMessage_channelId,
+            user_id: userId,
+        })
+    });
 
     const response = await request.json();
 
-    dispatch(populateCurrMessages(response));
+    dispatch(addMessage(response));
+};
+
+export const editDmMessageThunk = (dmMessageId, dmMessageToEdit) => async dispatch => {
+    const request = await fetch(`/api/dmMessage/${dmMessageId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            message: dmMessageToEdit,
+            last_update: Date(),
+        }),
+    });
+
+    const response = await request.json();
+
+    dispatch(addMessage(response));
 };
 
 
