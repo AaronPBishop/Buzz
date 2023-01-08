@@ -1,25 +1,21 @@
-const initialState = { 
-    viewingChannel: false, 
-    viewingDm: false, 
+const initialState = {
+    viewingChannel: false,
+    viewingDm: false,
     currChannelId: null,
-    currentMessages: [] 
+    currentMessages: [],
 };
 
-
-// ACTION CREATORS
-
-export const setViewingChannel = (currChannelId) => {
+export const setViewingChannel = currChannelId => {
     return {
-        type: 'SET_VIEWING_CHANNEL',
-        payload: currChannelId
+        type: "SET_VIEWING_CHANNEL",
+        payload: currChannelId,
     };
 };
 
-
-export const setViewingDm = (currChannelId) => {
+export const setViewingDm = currChannelId => {
     return {
-        type: 'SET_VIEWING_DM',
-        payload: currChannelId
+        type: "SET_VIEWING_DM",
+        payload: currChannelId,
     };
 };
 
@@ -46,86 +42,94 @@ export const clearChannelMessageData = () => {
     };
 };
 
+//*  Channel Messages
 
+export const createChannelMessageThunk =
+    (userId, channelId, message) => async dispatch => {
+        const request = await fetch("/api/channelMessage", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                message: message,
+                last_update: Date(),
+                channel_id: channelId,
+                user_id: userId,
+            }),
+        });
+        const response = await request.json();
+    }
 // THUNKS
 
-export const createChannelMessageThunk = (ownerId, channelId, message) => async (dispatch) => {
-    const request = await fetch("/api/channelMessage", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            message: message,
-            last_update: Date(),
-            channel_id: channelId,
-            user_id: ownerId
-        })
+export const editChannelMessageThunk =
+    (channelMessageId, channelMessageToEdit) => async dispatch => {
+        const request = await fetch(`/api/channelMessage/${channelMessageId}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                message: channelMessageToEdit,
+                last_update: Date(),
+            }),
+        });
+    };
+
+export const deleteChannelMessageDataThunk = channelMessageId => async () => {
+    await fetch(`/api/channelMessage/${channelMessageId}`, {
+        method: "DELETE",
     });
+};
+
+//* dmMessages
+
+export const createDmMessageThunk =
+    (userId, dmMessage_channelId, message) => async dispatch => {
+        const request = await fetch("/api/dmMessage", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                message: message,
+                last_update: Date(),
+                dmMessage_channel_id: dmMessage_channelId,
+                user_id: userId,
+            }),
+        });
+        const response = await request.json();
+
+        dispatch(populateCurrMessages(response));
+    };
+
+export const editDmMessageThunk =
+    (dmMessageId, dmMessageToEdit) => async dispatch => {
+        const request = await fetch(`/api/dmMessage/${dmMessageId}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                message: dmMessageToEdit,
+                last_update: Date(),
+            }),
+        });
 
     const response = await request.json();
-    
+
     dispatch(populateCurrMessages(response));
 };
 
 
-export const editChannelMessageThunk = (channelMessageIdToEdit, channelMessageToEdit) => async (dispatch) => {
-    const request = await fetch(`/api/channelMessage/${channelMessageIdToEdit}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            message: channelMessageToEdit,
-            last_update: Date()
-        })
+export const deleteDmMessageDataThunk = dmMessageId => async () => {
+    await fetch(`/api/dmMessage/${dmMessageId}`, {
+        method: "DELETE",
     });
-
-    const response = await request.json();
-
-    dispatch(populateCurrMessages(response));
 };
 
-
-export const createDmMessageThunk = (userId, dmChannelId, message) => async (dispatch) => {
-    const request = await fetch("/api/dmMessage/", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-            userId: userId,
-            dmMessage_channelId: dmChannelId,
-            message: message
-        })
-    });
-
-    const response = await request.json();
-    
-    dispatch(addMessage(response));
-};
-
-
-// REDUCER
+//! REDUCER
 
 const messagesReducer = (state = initialState, action) => {
     const currentState = { ...state };
 
     switch (action.type) {
-        case 'SET_VIEWING_CHANNEL': {
-            currentState.viewingChannel = true;
-            currentState.viewingDm = false;
-
-            currentState.currChannelId = action.payload;
-
-            return currentState;
-        };
-        
-        case 'SET_VIEWING_DM': {
-            currentState.viewingChannel = false;
-            currentState.viewingDm = true;
-
-            currentState.currChannelId = action.payload;
-
-            return currentState;
-        };
-
-        case 'POPULATE_CURRENT_MESSAGES': {
-            currentState.currentMessages = action.payload
+        case "POPULATE_CURRENT_MESSAGES": {
+            currentState.currentMessages = action.payload.sort(
+                (a, b) => a.id - b.id
+            );
 
             return currentState;
         };

@@ -63,17 +63,19 @@ def sign_up():
             first_name=form.data['first_name'],
             last_name=form.data['last_name'],
             email=form.data['email'],
-            password=form.data['password']
+            password=form.data['password'],
+            bio=form.data['bio'],
+            profile_img=form.data['profile_img']
         )
 
         db.session.add(user)
 
         association = User_Org_Association(
-        organization_id=queried_org.id,
-        user_id=user.id,
-        parent=queried_org,
-        child=user
-    )
+            organization_id=queried_org.id,
+            user_id=user.id,
+            parent=queried_org,
+            child=user
+        )
 
         queried_org.organization_user.append(association)
         user.user_organization.append(association)
