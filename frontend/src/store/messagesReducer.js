@@ -46,7 +46,7 @@ export const clearChannelMessageData = () => {
 
 export const createChannelMessageThunk =
     (userId, channelId, message) => async dispatch => {
-        const request = fetch("/api/channelMessage", {
+        const request = await fetch("/api/channelMessage", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -57,12 +57,12 @@ export const createChannelMessageThunk =
             }),
         });
         const response = await request.json();
-
+    }
 // THUNKS
 
 export const editChannelMessageThunk =
     (channelMessageId, channelMessageToEdit) => async dispatch => {
-        const request = fetch(`/api/channelMessage/${channelMessageId}`, {
+        const request = await fetch(`/api/channelMessage/${channelMessageId}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -82,7 +82,7 @@ export const deleteChannelMessageDataThunk = channelMessageId => async () => {
 
 export const createDmMessageThunk =
     (userId, dmMessage_channelId, message) => async dispatch => {
-        const request = fetch("/api/dmMessage", {
+        const request = await fetch("/api/dmMessage", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -99,7 +99,7 @@ export const createDmMessageThunk =
 
 export const editDmMessageThunk =
     (dmMessageId, dmMessageToEdit) => async dispatch => {
-        const request = fetch(`/api/dmMessage/${dmMessageId}`, {
+        const request = await fetch(`/api/dmMessage/${dmMessageId}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -113,8 +113,6 @@ export const editDmMessageThunk =
     dispatch(populateCurrMessages(response));
 };
 
-        dispatch(populateCurrMessages(response));
-    };
 
 export const deleteDmMessageDataThunk = dmMessageId => async () => {
     await fetch(`/api/dmMessage/${dmMessageId}`, {
