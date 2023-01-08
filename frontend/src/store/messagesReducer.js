@@ -90,14 +90,14 @@ export const deleteChannelMessageDataThunk = channelMessageId => async () => {
 //*  DM Messages
 
 export const createDmMessageThunk = (userId, dmMessage_channelId, message) => async dispatch => {
-    const request = await fetch("/api/dmMessage", {
+    const request = await fetch("/api/dmMessage/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             message: message,
             last_update: Date(),
-            dmMessage_channel_id: dmMessage_channelId,
-            user_id: userId,
+            dmMessage_channelId: dmMessage_channelId,
+            userId: userId
         })
     });
 
@@ -134,11 +134,24 @@ const messagesReducer = (state = initialState, action) => {
     const currentState = { ...state };
 
     switch (action.type) {
-        case "POPULATE_CURRENT_MESSAGES": {
-            currentState.currentMessages = action.payload.sort(
-                (a, b) => a.id - b.id
-            );
+        case "SET_VIEWING_CHANNEL": {
+            currentState.viewingChannel = true;
+            currentState.viewingDm = false;
+            currentState.currChannelId = action.payload;
 
+            return currentState;
+        };
+
+        case "SET_VIEWING_DM": {
+            currentState.viewingChannel = false;
+            currentState.viewingDm = true;
+            currentState.currChannelId = action.payload;
+
+            return currentState;
+        };
+
+        case "POPULATE_CURRENT_MESSAGES": {
+            currentState.currentMessages = action.payload;
             return currentState;
         };
 
