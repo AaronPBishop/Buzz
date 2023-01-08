@@ -65,7 +65,8 @@ const BaseContainer = () => {
                     <div className='flex-center'>
                         <div
                         style={{
-                            background: 'linear-gradient(rgb(240, 210, 10), rgb(155, 140, 0))',
+                            background: 'rgb(200, 200, 0)',
+                            border: '4px solid rgb(30, 30, 30)',
                             borderRadius: '12px',
                             height: '70vh',
                             width: '78vw',
