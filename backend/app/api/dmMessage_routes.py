@@ -20,8 +20,6 @@ def get_dmMessage(id):
 def create_dmMessage():
     req_data = request.json
 
-    queried_dmMessage_channel = DmMessage_Channel.query.get_or_404(req_data['dmMessage_channelId'])
-
     new_dmMessage = DmMessage(
         message=req_data['message'],
         dmMessage_channel_id=req_data['dmMessage_channelId'],
@@ -31,7 +29,7 @@ def create_dmMessage():
     db.session.add(new_dmMessage)
     db.session.commit()
     
-    return queried_dmMessage_channel.to_dict()
+    return new_dmMessage.to_dict()
 
 # * Edit a dmMessage ****************************************************************
 

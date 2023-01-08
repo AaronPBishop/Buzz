@@ -32,6 +32,14 @@ export const populateCurrMessages = messagesArr => {
 };
 
 
+export const addMessage = (msg) => {
+    return {
+        type: "ADD_MESSAGE",
+        payload: msg
+    };
+};
+
+
 export const clearChannelMessageData = () => {
     return {
         type: "CLEAR_CHANNEL_MESSAGE_DATA",
@@ -88,7 +96,7 @@ export const createDmMessageThunk = (userId, dmChannelId, message) => async (dis
 
     const response = await request.json();
     
-    dispatch(populateCurrMessages(response));
+    dispatch(addMessage(response));
 };
 
 
@@ -118,6 +126,12 @@ const messagesReducer = (state = initialState, action) => {
 
         case 'POPULATE_CURRENT_MESSAGES': {
             currentState.currentMessages = action.payload
+
+            return currentState;
+        };
+
+        case 'ADD_MESSAGE': {
+            currentState.currentMessages.push(action.payload);
 
             return currentState;
         };
