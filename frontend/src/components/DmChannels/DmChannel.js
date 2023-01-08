@@ -51,7 +51,7 @@ const DmChannel = ({ messages, users, ownerId, id, isSelected }) => {
         }}
         style={{
             textAlign: 'center',
-            fontSize: '16px',
+            fontSize: '14px',
             marginTop: '1vh',
             padding: '0.8vh',
             cursor: 'pointer',
