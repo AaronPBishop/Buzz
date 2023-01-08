@@ -25,7 +25,7 @@ const Message = ({ message }) => {
                         style={{
                             display: "flex",
                         }}>
-{message.message}
+                            {message.message}
                         </p>
                 </div>
             </div>

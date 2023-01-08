@@ -1,3 +1,10 @@
 #message-input:focus {
-    outline: 2px solid yellow;
+    outline: 1.6px solid yellow;
+}
+
+#message-input::placeholder {
+    font-style: italic;
+    
+    position: relative;
+    left: 0.5vw;
 }

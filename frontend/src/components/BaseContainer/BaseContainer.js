@@ -12,14 +12,14 @@ const BaseContainer = () => {
     ****************************************************************/
 
     return (
-        <div style={{borderRadius: '8px', boxShadow: '0px 0px 8px 2px black'}}>
+        <div style={{borderRadius: '8px', boxShadow: '0px 0px 6px 1.5px black'}}>
             <div
             // Navbar parent container
             style={{
                 borderTopLeftRadius: '8px',
                 borderTopRightRadius: '8px',
                 backgroundColor: 'black',
-                height: '6vh'
+                height: '7vh'
             }}>
                 {/* Top Navbar -> SEARCH/PROFILE COMPONENT CONTAINER */}
             </div>
@@ -50,7 +50,7 @@ const BaseContainer = () => {
 
                     <div 
                     className='flex-center'
-                    style={{height: '29.7vh', width: 'inherit', borderBottom: '2px solid rgb(30, 30, 30)', overflowY: 'auto'}}>
+                    style={{height: '29.7vh', width: 'inherit', borderBottom: '2px solid rgb(30, 30, 30)', borderBottomLeftRadius: '8px', overflowY: 'auto'}}>
                         <DmChannelContainer />
                     </div>
                 </div>
@@ -80,7 +80,7 @@ const BaseContainer = () => {
                         <div
                         style={{
                             backgroundColor: 'black',
-                            marginTop: '0.5vh',
+                            marginTop: '0.4vh',
                             height: '18vh',
                             width: '76vw',
                             color: 'white'

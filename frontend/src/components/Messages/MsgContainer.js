@@ -7,6 +7,7 @@ import { populateCurrMessages } from "../../store/messagesReducer";
 
 const MsgContainer = () => {
     const dispatch = useDispatch();
+    const msgRef = useRef();
 
     const messageState = useSelector(state => state.messages);
     const messages = useSelector(state => state.messages.currentMessages);
@@ -21,10 +22,12 @@ const MsgContainer = () => {
         dispatch(populateCurrMessages(messages));
     }, [totalMessages]);
 
+    useEffect(() => msgRef.current.scrollIntoView(false), [totalMessages]);
+
     if (!messages) <div className="flex-center">Loading...</div>;
 
     return (
-        <div>
+        <div ref={msgRef}>
             {
                 messages.map((msgEl, i) => <Message message={msgEl} key={i} />)
             }
