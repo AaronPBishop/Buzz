@@ -52,7 +52,6 @@ def edit_image(id):
 def delete_image(id):
     queried_image = Image.query.get_or_404(id)
 
-    # if queried_user.id == requestorId:
     db.session.delete(queried_image)
     db.session.commit()
 

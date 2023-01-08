@@ -1,12 +1,12 @@
 from .db import db
 from sqlalchemy.orm import relationship
 
-
 class ChannelMessage(db.Model):
     __tablename__ = 'channel_messages'
 
     id = db.Column(db.Integer, primary_key=True)
     message = db.Column(db.String(3000))
+    last_update = db.Column(db.String)
 
     channel_id = db.Column(db.Integer, db.ForeignKey(
         "channels.id"), nullable=False)

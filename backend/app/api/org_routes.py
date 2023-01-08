@@ -87,7 +87,7 @@ def add_user():
             new_user.user_organization.append(association)
 
             db.session.add(association)
-            
+
     db.session.commit()
 
     return queried_org.add_user()

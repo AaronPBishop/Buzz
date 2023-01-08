@@ -22,7 +22,8 @@ def create_channelMessage():
     new_channelMessage = ChannelMessage(
         message=req_data['message'],
         channel_id=req_data['channelId'],
-        user_id=req_data['userId']
+        user_id=req_data['userId'],
+        last_update=req_data['dateUpdated']
     )
 
     db.session.add(new_channelMessage)
