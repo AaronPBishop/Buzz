@@ -4,11 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Send } from '@styled-icons/boxicons-solid/Send';
 import { Delete } from '@styled-icons/fluentui-system-filled/Delete';
 
+import { createDmMessageThunk } from '../../store/messagesReducer.js';
+
 import './styles.css';
 
 const MessagingBox = () => {
     const dispatch = useDispatch();
 
+    const user = useSelector(state => state.session.user);
     const messageState = useSelector(state => state.messages);
 
     const [input, setInput] = useState('');
@@ -57,8 +60,8 @@ const MessagingBox = () => {
             <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                 <Send
                 onClick={() => {
-                    if (messageState.viewingChannel) dispatch({/* channel message thunk - (input, messageState.currChannelId) */});
-                    if (messageState.viewingDm) dispatch({/* dm channel message thunk - (input, messageState.currChannelId) */});
+                    // if (messageState.viewingChannel) dispatch();
+                    if (messageState.viewingDm) dispatch(createDmMessageThunk(user.id, messageState.currChannelId, input));
                 }}
                 style={{
                     marginRight: '2vw',

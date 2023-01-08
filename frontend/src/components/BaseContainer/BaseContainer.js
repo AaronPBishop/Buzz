@@ -1,6 +1,7 @@
 import OrgContainer from "../Organization/OrgContainer.js";
 import DmChannelContainer from "../DmChannels/DmChannelContainer.js";
 import MessagingBox from "../MessagingBox/MessagingBox.js";
+import MsgContainer from '../Messages/MsgContainer.js';
 
 const BaseContainer = () => {
     /***************************************************************
@@ -17,9 +18,7 @@ const BaseContainer = () => {
             style={{
                 borderTopLeftRadius: '8px',
                 borderTopRightRadius: '8px',
-                border: '2px solid red',
                 backgroundColor: 'black',
-                width: '98.7vw',
                 height: '6vh'
             }}>
                 {/* Top Navbar -> SEARCH/PROFILE COMPONENT CONTAINER */}
@@ -39,19 +38,19 @@ const BaseContainer = () => {
                 }}>
                     <div 
                     className='flex-center'
-                    style={{height: '29.7vh', width: 'inherit', overflowY: 'auto'}}>
+                    style={{height: '29.7vh', width: 'inherit', borderTop: '2px solid rgb(30, 30, 30)', overflowY: 'auto'}}>
                         <OrgContainer />
                     </div>
 
                     <div 
                     className='flex-center'
-                    style={{height: '29.7vh', width: 'inherit', border: '1px solid red', overflowY: 'auto'}}>
-                        CHANNELS
+                    style={{height: '29.7vh', width: 'inherit', borderTop: '2px solid rgb(30, 30, 30)', borderBottom: '2px solid rgb(30, 30, 30)', overflowY: 'auto'}}>
+                        {/* CHANNELS */}
                     </div>
 
                     <div 
                     className='flex-center'
-                    style={{height: '29.7vh', width: 'inherit', overflowY: 'auto'}}>
+                    style={{height: '29.7vh', width: 'inherit', borderBottom: '2px solid rgb(30, 30, 30)', overflowY: 'auto'}}>
                         <DmChannelContainer />
                     </div>
                 </div>
@@ -60,22 +59,19 @@ const BaseContainer = () => {
                 // Messages/ChatBar Parent Container
                 style={{
                     backgroundColor: 'black',
-                    border: '2px solid red',
                     borderBottomRightRadius: '8px',
-                    height: '90vh',
                     width: '79vw'
                 }}>
                     <div className='flex-center'>
                         <div
                         style={{
                             background: 'linear-gradient(rgb(240, 210, 10), rgb(155, 140, 0))',
-                            border: '2px solid red',
                             borderRadius: '12px',
                             height: '70vh',
                             width: '78vw',
                             overflowY: 'auto'
                         }}>
-                            {/* MESSAGES CONTAINER */}
+                            <MsgContainer />
                         </div>
                     </div>
 

@@ -1,21 +1,32 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
 import Message from "./Message";
 import { populateCurrMessages } from "../../store/messagesReducer";
 
 const MsgContainer = () => {
-    const messages = useSelector(state => state.messages);
+    const dispatch = useDispatch();
+
+    const messages = useSelector(state => state.messages.currentMessages);
+
+    const [totalMessages, setTotalMessages] = useState(0);
 
     useEffect(() => {
-        dispatchEvent(populateCurrMessages(messages));
+        if (messages.length > totalMessages.length) {
+            dispatch(populateCurrMessages(messages));
+
+            setTotalMessages(messages.length);
+        };
     }, [messages]);
 
-    if (messages.length === 0) <div className="flex-center">Loading...</div>;
+    if (!messages) <div className="flex-center">Loading...</div>;
 
     return (
         <div>
-            {messages &&
-                messages.map((msgEl, i) => <Message message={msgEl} />)}
+            {
+                messages && messages.length > 0 &&
+                messages.map((msgEl, i) => <Message message={msgEl} key={i} />)
+            }
         </div>
     );
 };

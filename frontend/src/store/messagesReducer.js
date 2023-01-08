@@ -41,8 +41,8 @@ export const clearChannelMessageData = () => {
 
 // THUNKS
 
-export const createChannelMessageThunk = (ownerId, channelId, message) => async dispatch => {
-    const request = fetch("/api/channelMessage", {
+export const createChannelMessageThunk = (ownerId, channelId, message) => async (dispatch) => {
+    const request = await fetch("/api/channelMessage", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -59,8 +59,8 @@ export const createChannelMessageThunk = (ownerId, channelId, message) => async 
 };
 
 
-export const editChannelMessageThunk = (channelMessageIdToEdit, channelMessageToEdit) => async dispatch => {
-    const request = fetch(`/api/channelMessage/${channelMessageIdToEdit}`, {
+export const editChannelMessageThunk = (channelMessageIdToEdit, channelMessageToEdit) => async (dispatch) => {
+    const request = await fetch(`/api/channelMessage/${channelMessageIdToEdit}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -71,6 +71,23 @@ export const editChannelMessageThunk = (channelMessageIdToEdit, channelMessageTo
 
     const response = await request.json();
 
+    dispatch(populateCurrMessages(response));
+};
+
+
+export const createDmMessageThunk = (userId, dmChannelId, message) => async (dispatch) => {
+    const request = await fetch("/api/dmMessage/", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            userId: userId,
+            dmMessage_channelId: dmChannelId,
+            message: message
+        })
+    });
+
+    const response = await request.json();
+    
     dispatch(populateCurrMessages(response));
 };
 
@@ -100,7 +117,7 @@ const messagesReducer = (state = initialState, action) => {
         };
 
         case 'POPULATE_CURRENT_MESSAGES': {
-            currentState.currentMessages = action.payload.sort((a, b) => a.id - b.id);
+            currentState.currentMessages = action.payload
 
             return currentState;
         };

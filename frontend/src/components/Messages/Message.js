@@ -16,13 +16,14 @@ const Message = ({ message }) => {
                         style={{
                             display: "flex",
                         }}>
-                        {message.cm_user.first_name} {message.cm_user.last_name}
+                        {message.user_name}:
+                        {/* {message.cm_user.first_name} {message.cm_user.last_name} */}
                     </p>
                     <p
                         style={{
                             display: "flex",
                         }}>
-                            
+                            {message.message}
                         </p>
                 </div>
             </div>
