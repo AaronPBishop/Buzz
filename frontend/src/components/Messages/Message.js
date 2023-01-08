@@ -22,7 +22,7 @@ const Message = ({ message }) => {
                         style={{
                             display: "flex",
                         }}>
-                            
+                            {message.last } {}
                         </p>
                 </div>
             </div>
