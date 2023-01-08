@@ -1,5 +1,6 @@
 import OrgContainer from "../Organization/OrgContainer.js";
 import DmChannelContainer from "../DmChannels/DmChannelContainer.js";
+import MessagingBox from "../MessagingBox/MessagingBox.js";
 
 const BaseContainer = () => {
     /***************************************************************
@@ -83,13 +84,11 @@ const BaseContainer = () => {
                         style={{
                             backgroundColor: 'black',
                             marginTop: '0.5vh',
-                            border: '2px solid red',
-                            borderRadius: '12px',
                             height: '18vh',
                             width: '76vw',
                             color: 'white'
                         }}>
-                            {/* CHATBAR CONTAINER */}
+                            <MessagingBox />
                         </div>
                     </div>
                 </div>

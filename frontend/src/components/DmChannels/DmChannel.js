@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { populateCurrMessages } from '../../store/messagesReducer.js';
+import { populateCurrMessages, setViewingDm } from '../../store/messagesReducer.js';
 import { deleteDmMessageChannelThunk } from '../../store/dmMessageChannelReducer.js';
 import { fetchOrgDataThunk } from "../../store/organizationReducer.js";
 
@@ -45,7 +45,10 @@ const DmChannel = ({ messages, users, ownerId, id, isSelected }) => {
     return (
         <div
         className={isSelected[1] && 'selected'}
-        onClick={() => dispatch(populateCurrMessages(messages))}
+        onClick={() => {
+            dispatch(setViewingDm(id));
+            dispatch(populateCurrMessages(messages));
+        }}
         style={{
             textAlign: 'center',
             fontSize: '16px',
