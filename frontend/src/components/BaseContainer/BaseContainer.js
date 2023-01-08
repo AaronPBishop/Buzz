@@ -1,4 +1,5 @@
 import OrgContainer from "../Organization/OrgContainer.js";
+import DmChannelContainer from "../DmChannels/DmChannelContainer.js";
 
 const BaseContainer = () => {
     /***************************************************************
@@ -49,8 +50,8 @@ const BaseContainer = () => {
 
                     <div 
                     className='flex-center'
-                    style={{height: '29.7vh', width: 'inherit', border: '1px solid red', overflowY: 'auto'}}>
-                        DIRECT MESSAGE CHANNELS
+                    style={{height: '29.7vh', width: 'inherit', overflowY: 'auto'}}>
+                        <DmChannelContainer />
                     </div>
                 </div>
 

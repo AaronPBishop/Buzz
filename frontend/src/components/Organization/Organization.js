@@ -51,7 +51,6 @@ const Organization = ({ orgId, orgName, orgOwnerId }) => {
         onClick={() => dispatch(fetchOrgDataThunk(orgId))}
         className={(currOrg && currOrg.id) && (currOrg.id === orgId) && 'selected'}
         style={{
-
             textAlign: 'center',
             fontSize: '16px',
             marginTop: '1vh',
