@@ -1,11 +1,13 @@
 from flask import Blueprint, request
 from flask_login import login_required
 from app.models import DmMessage, DmMessage_Channel, db
+from datetime import datetime
 
 
 dmMessage_routes = Blueprint('dmMessage', __name__)
 
 # * Get a dmMessage **************************************************************
+
 
 @dmMessage_routes.route('/<int:id>')
 @login_required
@@ -14,6 +16,7 @@ def get_dmMessage(id):
     return queried_dmMessage.to_dict()
 
 # * Create a dmMessage **************************************************************
+
 
 @dmMessage_routes.route('/', methods=['POST'])
 @login_required
@@ -28,10 +31,11 @@ def create_dmMessage():
 
     db.session.add(new_dmMessage)
     db.session.commit()
-    
+
     return new_dmMessage.to_dict()
 
 # * Edit a dmMessage ****************************************************************
+
 
 @dmMessage_routes.route('/<int:id>', methods=['PUT'])
 @login_required
@@ -49,12 +53,12 @@ def edit_dmMessage(id):
 
 # * Delete a dmMessage ****************************************************************
 
+
 @dmMessage_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_dmMessage(id):
     queried_dmMessage = DmMessage.query.get_or_404(id)
 
-    # if queried_user.id == requestorId:
     db.session.delete(queried_dmMessage)
     db.session.commit()
 

@@ -8,7 +8,6 @@ channels_routes = Blueprint('channels', __name__)
 # * Get a channel **************************************************************
 
 
-
 @channels_routes.route('/<int:id>')
 @login_required
 def get_channel(id):
@@ -26,13 +25,45 @@ def create_channel():
 
     new_channel = Channel(
         name=req_data['name'],
-        # ! organization_id to be populated from the session orgId
         organization_id=req_data['organization_id'],
         owner_id=req_data['ownerId'],
-        is_public= req_data['isPublic']
+        is_public=req_data['isPublic']
     )
 
     db.session.add(new_channel)
+    db.session.commit()
+
+
+# ? Query for newly created channel
+    queried_channel = Channel.query.get_or_404(
+        new_channel.id)
+
+# ? Query for channel owner
+    queried_channel_owner = User.query.get_or_404(req_data['ownerId'])
+
+# * Add recipients to channel users
+    for user in req_data['users']:
+        if user != None:
+            user_obj = {"email": user}
+            new_user = db.session.query(User).filter_by(**user_obj).first()
+            association = User_Channel_Association(
+                channel_id=queried_channel.id,
+                user_id=new_user.id,
+                parent=queried_channel,
+                child=new_user
+            )
+            queried_channel.channel_user.append(association)
+            new_user.user_channel.append(association)
+
+     # * Add owner to channel users
+    association = User_Channel_Association(
+        channel_id=queried_channel.id,
+        user_id=queried_channel_owner.id,
+        parent=queried_channel,
+        child=queried_channel_owner
+    )
+    queried_channel.channel_user.append(association)
+    queried_channel_owner.user_channel.append(association)
     db.session.commit()
 
     return new_channel.to_dict()
@@ -65,7 +96,6 @@ def edit_channel(id):
 def delete_channel(id):
     queried_channel = Channel.query.get_or_404(id)
 
-    # if queried_user.id == requestorId:
     db.session.delete(queried_channel)
     db.session.commit()
 
@@ -75,10 +105,9 @@ def delete_channel(id):
 # * Add users to channel[GENERAL CHANNEL MEMEBER] ****************************************************************
 
 @channels_routes.route('/new_user', methods=['POST'])
-# @login_required
+@login_required
 def add_user_to_channel():
     req_data = request.json
-
 
     queried_channel = Channel.query.get_or_404(req_data['channelId'])
     user_to_add = User.query.get_or_404(req_data['userId'])

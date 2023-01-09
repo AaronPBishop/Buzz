@@ -1,13 +1,15 @@
 from .db import db
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
+
 
 class ChannelMessage(db.Model):
     __tablename__ = 'channel_messages'
 
     id = db.Column(db.Integer, primary_key=True)
     message = db.Column(db.String(3000))
-    last_update = db.Column(db.String)
-
+    created_date = db.Column(db.DateTime(timezone=True), server_default=func.now())
+    last_update = db.Column(db.String())
     channel_id = db.Column(db.Integer, db.ForeignKey(
         "channels.id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
@@ -18,7 +20,7 @@ class ChannelMessage(db.Model):
     cm_image = relationship(
         "Image", back_populates="image_cm", cascade="all, delete")
 
-    #? Methods
+    # ? Methods
 
     def to_dict(self):
         return {
@@ -27,6 +29,7 @@ class ChannelMessage(db.Model):
             'channel_id': self.channel_id,
             'user_id': self.user_id,
             'user_name': self.cm_user.user_name,
+            'last_update': self.last_update,
             'cm_images': [image.to_dict() for image in self.cm_image]
         }
 
@@ -36,5 +39,6 @@ class ChannelMessage(db.Model):
             'message': self.message,
             'user_id': self.user_id,
             'user_name': self.cm_user.user_name,
+            'last_update': self.last_update,
             'cm_images': [image.to_dict() for image in self.cm_image]
         }

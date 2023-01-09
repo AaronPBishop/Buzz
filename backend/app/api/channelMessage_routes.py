@@ -7,7 +7,7 @@ channelMessage_routes = Blueprint('channelMessage', __name__)
 # * Get a channelMessage **************************************************************
 
 @channelMessage_routes.route('/<int:id>')
-# @login_required
+@login_required
 def get_channelMessage(id):
     queried_channelMessage = ChannelMessage.query.get_or_404(id)
     return queried_channelMessage.to_dict()
@@ -22,8 +22,7 @@ def create_channelMessage():
     new_channelMessage = ChannelMessage(
         message=req_data['message'],
         channel_id=req_data['channelId'],
-        user_id=req_data['userId'],
-        last_update=req_data['dateUpdated']
+        user_id=req_data['userId']
     )
 
     db.session.add(new_channelMessage)
@@ -51,7 +50,6 @@ def edit_channelMessage(id):
 def delete_channelMessage(id):
     queried_channelMessage = ChannelMessage.query.get_or_404(id)
 
-    # if queried_user.id == requestorId:
     db.session.delete(queried_channelMessage)
     db.session.commit()
 
