@@ -2,6 +2,7 @@ import OrgContainer from "../Organization/OrgContainer.js";
 import DmChannelContainer from "../DmChannels/DmChannelContainer.js";
 import MessagingBox from "../MessagingBox/MessagingBox.js";
 import MsgContainer from '../Messages/MsgContainer.js';
+import SearchBar from "../SearchBar/SearchBar.js";
 
 const BaseContainer = () => {
     /***************************************************************
@@ -16,12 +17,14 @@ const BaseContainer = () => {
             <div
             // Navbar parent container
             style={{
+                display: 'flex',
+                justifyContent: 'flex-end',
                 borderTopLeftRadius: '8px',
                 borderTopRightRadius: '8px',
                 backgroundColor: 'black',
                 height: '7vh'
             }}>
-                {/* Top Navbar -> SEARCH/PROFILE COMPONENT CONTAINER */}
+                <SearchBar />
             </div>
 
             <div 
