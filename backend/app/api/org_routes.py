@@ -53,7 +53,6 @@ def get_edit_organization(org_id):
 @login_required
 def delete_organization(org_id):
     queried_organization = Organization.query.get_or_404(org_id)
-#! if queried_organization.owner_id == int(user_id):
     for assoc_user in queried_organization.organization_user:
         db.session.delete(assoc_user)
 
