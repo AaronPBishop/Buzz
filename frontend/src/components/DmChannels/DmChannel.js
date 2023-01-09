@@ -16,19 +16,19 @@ const DmChannel = ({ messages, users, ownerId, id }) => {
 
     const [validUsers] = useState(users.filter(el => el !== user.username));
     const [clickedDeleted, setClickedDeleted] = useState(false);
-    const [currentId, setCurrentId] = useState(null);
+    const [switched, setSwitched] = useState(false);
 
     useEffect(() => {
         if (clickedDeleted === true) dispatch(fetchOrgDataThunk(currOrg.id));
     }, [clickedDeleted]);
 
     useEffect(() => {
-        if (messageState.viewingDm === true && messageState.currChannelId === id) setCurrentId(messageState.currChannelId);
+        if (messageState.viewingDm === true && messageState.currChannelId === id) setSwitched(true);
     }, [messageState]);
 
     useEffect(() => {
-        dispatch(populateCurrMessages(messages));
-    }, [currentId]);
+        if (switched === true) dispatch(populateCurrMessages(messages));
+    }, [switched]);
 
     const formatNames = (names) => {
         let formatted = '';
