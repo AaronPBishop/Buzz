@@ -29,6 +29,9 @@ def seed():
         undo_channel_messages()
         undo_dmMessages()
         undo_images()
+        
+        db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
+        db.session.commit()
 
 
     seed_users()
