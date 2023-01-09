@@ -18,7 +18,7 @@ def get_dmMessage_channel(id):
 
 # * Create a dmMessage_channel ************************************************************
 
-@dmMessage_channels_routes.route('/', methods=['POST'])
+@dmMessage_channels_routes.route('/create', methods=['POST'])
 @login_required
 def create_dmMessage_channel():
     req_data = request.json

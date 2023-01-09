@@ -23,7 +23,7 @@ export const setViewingDm = currChannelId => {
 export const populateCurrMessages = messagesArr => {
     return {
         type: "POPULATE_CURRENT_MESSAGES",
-        payload: messagesArr,
+        payload: messagesArr
     };
 };
 
@@ -88,6 +88,23 @@ export const deleteChannelMessageDataThunk = channelMessageId => async () => {
 };
 
 //*  DM Messages
+
+export const createDmMessageChannelThunk = (ownerId, organizationId, userEmails) => async (dispatch) => {
+    const request = await fetch(`/api/dmMessage_channels/create`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            ownerId: ownerId,
+            organization_id: organizationId,
+            users: userEmails
+        })
+    });
+
+    const responseJSON = await request.json();
+
+    dispatch(setViewingDm(responseJSON.id));
+};
+
 
 export const createDmMessageThunk = (userId, dmMessage_channelId, message) => async dispatch => {
     const request = await fetch("/api/dmMessage/", {

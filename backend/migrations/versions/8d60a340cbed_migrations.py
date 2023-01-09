@@ -1,8 +1,8 @@
 """migrations
 
-Revision ID: ade02c1c31b1
+Revision ID: 8d60a340cbed
 Revises: 
-Create Date: 2023-01-08 18:17:47.965205
+Create Date: 2023-01-08 19:29:42.453610
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'ade02c1c31b1'
+revision = '8d60a340cbed'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -67,6 +67,7 @@ def upgrade():
     op.create_table('channel_messages',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('message', sa.String(length=3000), nullable=True),
+    sa.Column('created_date', sa.DateTime(timezone=True), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.Column('last_update', sa.String(), nullable=True),
     sa.Column('channel_id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
@@ -77,6 +78,7 @@ def upgrade():
     op.create_table('dmMessages',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('message', sa.String(length=3000), nullable=True),
+    sa.Column('created_date', sa.DateTime(timezone=True), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.Column('last_update', sa.String(), nullable=True),
     sa.Column('dmMessage_channel_id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),

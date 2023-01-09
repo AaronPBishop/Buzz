@@ -1,7 +1,19 @@
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-const SearchUser = ({ id, email, userName, firstName, lastName }) => {
+import { createDmMessageChannelThunk } from '../../store/messagesReducer';
+import { fetchOrgDataThunk } from '../../store/organizationReducer';
+
+const SearchUser = ({ currOrgId, email, firstName, lastName }) => {
     const dispatch = useDispatch();
+
+    const user = useSelector(state => state.session.user);
+
+    const [startedDm, setStartedDm] = useState(false);
+
+    useEffect(() => {
+        if (startedDm === true) dispatch(fetchOrgDataThunk(currOrgId));
+    }, [startedDm]);
 
     return (
         <div
@@ -10,7 +22,9 @@ const SearchUser = ({ id, email, userName, firstName, lastName }) => {
             justifyContent: 'space-between',
             lineHeight: '4vh',
             fontWeight: 'bold',
-            marginTop: '2vh',
+            marginTop: '1vh',
+            marginBottom: '2vh',
+            marginLeft: '1vw',
             borderRadius: '8px',
             backgroundColor: 'rgb(240, 210, 10)',
             borderBottom: '4px solid rgb(165, 165, 0)',
@@ -20,7 +34,11 @@ const SearchUser = ({ id, email, userName, firstName, lastName }) => {
             <p style={{marginLeft: '2vw'}}>{firstName} {lastName}</p>
 
             <div
-            onClick={() => dispatch()}
+            onClick={() => {
+                if (startedDm === false) dispatch(createDmMessageChannelThunk(user.id, currOrgId, [email]));
+
+                setStartedDm(true);
+            }}
             style={{
                 marginTop: '1.2vh',
                 marginRight: '1vw',

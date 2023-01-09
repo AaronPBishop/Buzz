@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from 'react-redux';
 
 import SearchUser from './SearchUser.js';
@@ -7,6 +7,7 @@ import './styles.css';
 
 const SearchBar = () => {
     const currentOrg = useSelector(state => state.organization);
+    const currUser = useSelector(state => state.session.user);
 
     const [input, setInput] = useState('');
     const [clicked, setClicked] = useState(false);
@@ -50,14 +51,17 @@ const SearchBar = () => {
             }}>
                 <div
                 style={{
-                    marginTop: '0.8vh',
+                    lineHeight: '3vh',
+                    position: 'fixed',
+                    marginTop: '1.2vh',
                     marginLeft: '0.4vw',
                     textAlign: 'center',
                     fontWeight: 'bold',
                     fontSize: '14px',
                     color: 'black',
-                    minWidth: '3vw',
-                    maxWidth: '4vw',
+                    minWidth: '4vw',
+                    maxWidth: '5vw',
+                    height: '3vh',
                     border: '2px solid transparent',
                     borderRadius: '4px',
                     backgroundColor: 'rgb(240, 210, 10)',
@@ -72,23 +76,23 @@ const SearchBar = () => {
                     {
                         input.length < 1 && currentOrg.organization_users ?
                         currentOrg.organization_users.map((user, i) => {
-                            return (
-                                <SearchUser id={user.id} email={user.email} userName={user.username} firstName={user.first_name} lastName={user.last_name} />
+                            if (user.id !== currUser.id) return (
+                                <SearchUser currOrgId={currentOrg.id} email={user.email} firstName={user.first_name} lastName={user.last_name} />
                             );
                         })
                         :
                         input.length > 0 && currentOrg.organization_users &&
                         currentOrg.organization_users.map((user, i) => {
-                            if ((user.first_name.toLowerCase() + user.last_name.toLowerCase()) === input.replace(/\s/g, '').toLowerCase()) return (
-                                <SearchUser id={user.id} email={user.email} userName={user.username} firstName={user.first_name} lastName={user.last_name} key={i} />
+                            if (user.id !== currUser.id && (user.first_name.toLowerCase() + user.last_name.toLowerCase()) === input.replace(/\s/g, '').toLowerCase()) return (
+                                <SearchUser email={user.email} userName={user.username} firstName={user.first_name} lastName={user.last_name} key={i} />
                             );
 
-                            if (user.first_name.toLowerCase() === input.toLowerCase()) return (
-                                <SearchUser id={user.id} email={user.email} userName={user.username} firstName={user.first_name} lastName={user.last_name} key={i} />
+                            if (user.id !== currUser.id && user.first_name.toLowerCase() === input.toLowerCase()) return (
+                                <SearchUser email={user.email} userName={user.username} firstName={user.first_name} lastName={user.last_name} key={i} />
                             );
 
-                            if (user.last_name.toLowerCase() === input.toLowerCase()) return (
-                                <SearchUser id={user.id} email={user.email} userName={user.username} firstName={user.first_name} lastName={user.last_name} key={i} />
+                            if (user.id !== currUser.id && user.last_name.toLowerCase() === input.toLowerCase()) return (
+                                <SearchUser email={user.email} userName={user.username} firstName={user.first_name} lastName={user.last_name} key={i} />
                             );
                         })
                     }

@@ -7,22 +7,28 @@ import { fetchOrgDataThunk } from "../../store/organizationReducer.js";
 
 import { CloseSquareOutline } from '@styled-icons/evaicons-outline/CloseSquareOutline'
 
-const DmChannel = ({ messages, users, ownerId, id, isSelected }) => {
+const DmChannel = ({ messages, users, ownerId, id }) => {
     const dispatch = useDispatch();
 
     const user = useSelector(state => state.session.user);
     const currOrg = useSelector(state => state.organization);
+    const messageState = useSelector(state => state.messages);
 
     const [validUsers] = useState(users.filter(el => el !== user.username));
     const [clickedDeleted, setClickedDeleted] = useState(false);
-
-    useEffect(() => {
-        if (isSelected[0] !== id) isSelected[1] = false;
-    }, [isSelected]);
+    const [currentId, setCurrentId] = useState(null);
 
     useEffect(() => {
         if (clickedDeleted === true) dispatch(fetchOrgDataThunk(currOrg.id));
     }, [clickedDeleted]);
+
+    useEffect(() => {
+        if (messageState.viewingDm === true && messageState.currChannelId === id) setCurrentId(messageState.currChannelId);
+    }, [messageState]);
+
+    useEffect(() => {
+        dispatch(populateCurrMessages(messages));
+    }, [currentId]);
 
     const formatNames = (names) => {
         let formatted = '';
@@ -44,7 +50,7 @@ const DmChannel = ({ messages, users, ownerId, id, isSelected }) => {
 
     return (
         <div
-        className={isSelected[1] && 'selected'}
+        className={messageState.currChannelId === id && 'selected'}
         onClick={() => {
             dispatch(setViewingDm(id));
             dispatch(populateCurrMessages(messages));

@@ -20,21 +20,6 @@ export const clearDmMessageChannelData = () => {
 
 // THUNKS
 
-export const createDmMessageChannelThunk = (organizationId, ownerId) => async (dispatch) => {
-    const request = await fetch(`/api/dmMessage_channels`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            organization_id: organizationId,
-            ownerId: ownerId
-        })
-    });
-
-    const responseJSON = await request.json();
-
-    dispatch(populateDmMessageChannelData(responseJSON));
-};
-
 
 export const addUserToDmMessageChannelThunk = (dmMessageChannelId, userToAddId) => async (dispatch) => {
     const request = await fetch(`/api/dmMessage_channels/new_user`, {

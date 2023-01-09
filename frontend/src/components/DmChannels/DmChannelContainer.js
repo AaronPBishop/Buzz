@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import DmChannel from "./DmChannel";
@@ -6,15 +5,20 @@ import DmChannel from "./DmChannel";
 const DmChannelContainer = () => {
     const user = useSelector(state => state.session.user);
     const orgDmChannels = useSelector(state => state.organization.organization_dmMessage_channels);
+    // const messageState = useSelector(state => state.messages);
 
-    const [clicked, setClicked] = useState([null, false]);
+    // const [currChannelId, setCurrChannelId] = useState();
+
+    // useEffect(() => {
+    //     setCurrChannelId(messageState.currChannelId);
+    // }, [orgDmChannels]);
 
     return (
         <div style={{width: '14vw'}}>
             {
                 orgDmChannels && orgDmChannels.map((channel, i) => channel.dmMessage_channel_users.includes(user.username) && (
-                <div onClick={() => setClicked([channel.id, true])}>
-                    <DmChannel messages={channel.dmMessage_channel_dmMessages} users={channel.dmMessage_channel_users} ownerId={channel.owner_id} id={channel.id} isSelected={clicked} key={i} />
+                <div>
+                    <DmChannel messages={channel.dmMessage_channel_dmMessages} users={channel.dmMessage_channel_users} ownerId={channel.owner_id} id={channel.id} key={i} />
                 </div>
                 ))
             }
