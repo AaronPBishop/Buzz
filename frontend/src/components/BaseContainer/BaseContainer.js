@@ -1,4 +1,5 @@
 import OrgContainer from "../Organization/OrgContainer.js";
+import ChannelNavigation from "../ChannelsContainer/Channels.js";
 
 const BaseContainer = () => {
     /***************************************************************
@@ -23,7 +24,7 @@ const BaseContainer = () => {
                 {/* Top Navbar -> SEARCH/PROFILE COMPONENT CONTAINER */}
             </div>
 
-            <div 
+            <div
             // Sidebar Parent Container (contains organizations, channels, direct messages)
             style={{display: 'flex', justifyContent: 'space-between'}}>
                 <div
@@ -35,19 +36,19 @@ const BaseContainer = () => {
                     backgroundColor: 'black',
                     color: 'white'
                 }}>
-                    <div 
+                    <div
                     className='flex-center'
                     style={{height: '29.7vh', width: 'inherit', overflowY: 'auto'}}>
                         <OrgContainer />
                     </div>
 
-                    <div 
+                    <div
                     className='flex-center'
                     style={{height: '29.7vh', width: 'inherit', border: '1px solid red', overflowY: 'auto'}}>
-                        CHANNELS
+                        <ChannelNavigation/>
                     </div>
 
-                    <div 
+                    <div
                     className='flex-center'
                     style={{height: '29.7vh', width: 'inherit', border: '1px solid red', overflowY: 'auto'}}>
                         DIRECT MESSAGE CHANNELS

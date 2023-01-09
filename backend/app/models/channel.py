@@ -31,7 +31,7 @@ class Channel(db.Model):
             'isPublic': self.is_public,
             'owner_id': self.channel_owner.id,
             'organization_id': self.organization_id,
-            'channel_users': [user.user_to_dict() for user in self.channel_user],
+            'channel_users': [user.child.user_name for user in self.channel_user],
             'channel_cm': [cm.to_dict() for cm in self.channel_cm]
         }
 
@@ -39,7 +39,7 @@ class Channel(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'channel_users': [user.user_to_dict() for user in self.channel_user],
+            'channel_users': [user.child.user_name for user in self.channel_user],
             'channel_cm': [cm.to_dict() for cm in self.channel_cm]
         }
 
