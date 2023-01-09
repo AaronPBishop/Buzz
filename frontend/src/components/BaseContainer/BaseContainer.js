@@ -35,7 +35,7 @@ const BaseContainer = () => {
                     }}>
                     <div
                         className='flex-center'
-                        style={{ height: '29.7vh', width: 'inherit', borderBottom: '2px solid rgb(30, 30, 30)', overflowY: 'auto' }}>
+                        style={{ height: '29.7vh', width: 'inherit', borderBottom: '2px solid yellow', overflowY: 'auto' }}>
                         <OrgContainer />
                     </div>
 
@@ -47,7 +47,7 @@ const BaseContainer = () => {
 
                     <div
                         className='flex-center'
-                        style={{ height: '29.7vh', width: 'inherit', borderTop: '2px solid rgb(30, 30, 30)', borderBottomLeftRadius: '8px', overflowY: 'auto' }}>
+                        style={{ height: '29.7vh', width: 'inherit', borderTop: '2px solid yellow', borderBottomLeftRadius: '8px', overflowY: 'auto' }}>
                         <DmChannelContainer />
                     </div>
                 </div>
