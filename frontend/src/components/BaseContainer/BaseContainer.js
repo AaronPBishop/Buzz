@@ -3,6 +3,7 @@ import DmChannelContainer from "../DmChannels/DmChannelContainer.js";
 import MessagingBox from "../MessagingBox/MessagingBox.js";
 import MsgContainer from '../Messages/MsgContainer.js';
 import SearchBar from "../SearchBar/SearchBar.js";
+import ChannelNavigation from "../ChannelsContainer/Channels.js";
 
 const BaseContainer = () => {
     /***************************************************************
@@ -27,7 +28,7 @@ const BaseContainer = () => {
                 <SearchBar />
             </div>
 
-            <div 
+            <div
             // Sidebar Parent Container (contains organizations, channels, direct messages)
             style={{display: 'flex', justifyContent: 'space-between'}}>
                 <div
@@ -39,19 +40,19 @@ const BaseContainer = () => {
                     backgroundColor: 'black',
                     color: 'white'
                 }}>
-                    <div 
+                    <div
                     className='flex-center'
                     style={{height: '29.7vh', width: 'inherit', borderTop: '2px solid rgb(30, 30, 30)', overflowY: 'auto'}}>
                         <OrgContainer />
                     </div>
 
-                    <div 
+                    <div
                     className='flex-center'
-                    style={{height: '29.7vh', width: 'inherit', borderTop: '2px solid rgb(30, 30, 30)', borderBottom: '2px solid rgb(30, 30, 30)', overflowY: 'auto'}}>
-                        {/* CHANNELS */}
+                    style={{height: '29.7vh', width: 'inherit', border: '1px solid red', overflowY: 'auto'}}>
+                        <ChannelNavigation/>
                     </div>
 
-                    <div 
+                    <div
                     className='flex-center'
                     style={{height: '29.7vh', width: 'inherit', borderBottom: '2px solid rgb(30, 30, 30)', borderBottomLeftRadius: '8px', overflowY: 'auto'}}>
                         <DmChannelContainer />

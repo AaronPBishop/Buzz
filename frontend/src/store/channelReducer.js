@@ -21,20 +21,23 @@ export const clearChannelData = () => {
 // THUNKS
 
 export const getChannelThunk = (id) => async (dispatch) => {
-    const request = fetch(`/api/channels/${id}`, {
+    const request = await fetch(`/api/channels/${id}`, {
         method: 'GET'
     });
-
+    // if (request.ok) {
     const response = await request.json();
+    console.log(request)
+    console.log(response);
 
     dispatch(populateChannelData(response));
+    // }
 };
 
 
 export const createChannelThunk = (channelName, associatedOrgId, ownerId) => async (dispatch) => {
     const request = fetch('/api/channels', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             name: channelName,
             organization_id: associatedOrgId,
@@ -51,7 +54,7 @@ export const createChannelThunk = (channelName, associatedOrgId, ownerId) => asy
 export const editChannelThunk = (channelToEditId, channelNameToEdit, userToDeleteId) => async (dispatch) => {
     const request = fetch(`/api/channels/${channelToEditId}`, {
         method: 'PUT',
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             userId: userToDeleteId,
             name: channelNameToEdit
@@ -76,7 +79,7 @@ export const deleteChannelThunk = (channelToDeleteId) => async (dispatch) => {
 export const addUserToChannelThunk = (channelId, userToAddId) => async (dispatch) => {
     const request = fetch('/api/channels/new_user', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             channelId,
             userId: userToAddId
