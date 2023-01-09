@@ -1,12 +1,15 @@
-from .db import db
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy.orm import relationship
 
 
 class User_DmMessage_Channel(db.Model):
     __tablename__ = "user_dmMessage_channels"
 
-    dmMessage_channel_id = db.Column(db.ForeignKey("dmMessage_channels.id"), primary_key=True)
-    user_id = db.Column(db.ForeignKey("users.id"), primary_key=True)
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+
+    dmMessage_channel_id = db.Column(db.ForeignKey(add_prefix_for_prod('dmMessage_channels.id')), primary_key=True)
+    user_id = db.Column(db.ForeignKey(add_prefix_for_prod('users.id')), primary_key=True)
 
     parent = relationship("DmMessage_Channel", back_populates="dmMessage_channel_user")
     child = relationship("User", back_populates="user_dmMessage_channel")

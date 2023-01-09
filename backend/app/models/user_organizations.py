@@ -1,13 +1,15 @@
-from .db import db
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy.orm import relationship
 
 
 class User_Org_Association(db.Model):
     __tablename__ = "user_organizations"
 
-    organization_id = db.Column(db.ForeignKey(
-        "organizations.id"), primary_key=True)
-    user_id = db.Column(db.ForeignKey("users.id"), primary_key=True)
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+
+    organization_id = db.Column(db.ForeignKey(add_prefix_for_prod('organizations.id')), primary_key=True)
+    user_id = db.Column(db.ForeignKey(add_prefix_for_prod('users.id')), primary_key=True)
 
     parent = relationship("Organization", back_populates="organization_user")
     child = relationship("User", back_populates="user_organization")

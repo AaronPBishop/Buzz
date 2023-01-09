@@ -1,4 +1,4 @@
-from .db import db
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy.orm import relationship
 from sqlalchemy.schema import ForeignKey
 
@@ -6,12 +6,15 @@ from sqlalchemy.schema import ForeignKey
 class Organization(db.Model):
     __tablename__ = 'organizations'
 
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     org_image = db.Column(db.String)
 
     #! Foreign Key
-    owner_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
+    owner_id = db.Column(db.Integer, ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
 
     #! Relationships
     organization_user = relationship(

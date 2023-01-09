@@ -1,4 +1,4 @@
-from .db import db
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 from .user_channels import User_Channel_Association
 from sqlalchemy.orm import relationship
 
@@ -6,13 +6,15 @@ from sqlalchemy.orm import relationship
 class Channel(db.Model):
     __tablename__ = 'channels'
 
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     is_public = db.Column(db.Boolean, nullable=False)
 
-    owner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    organization_id = db.Column(db.Integer, db.ForeignKey(
-        "organizations.id"), nullable=False)
+    owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    organization_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('organizations.id')), nullable=False)
 
     #! Relationships
     channel_owner = relationship("User", back_populates="owned_channels")
