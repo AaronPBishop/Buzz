@@ -76,22 +76,6 @@ export const deleteChannelThunk = (channelToDeleteId) => async (dispatch) => {
 };
 
 
-export const addUserToChannelThunk = (channelId, userToAddId) => async (dispatch) => {
-    const request = fetch('/api/channels/new_user', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            channelId,
-            userId: userToAddId
-        })
-    });
-
-    const response = await request.json();
-
-    dispatch(populateChannelData(response));
-};
-
-
 // REDUCER
 
 const channelReducer = (state = initialState, action) => {

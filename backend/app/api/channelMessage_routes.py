@@ -12,23 +12,6 @@ def get_channelMessage(id):
     queried_channelMessage = ChannelMessage.query.get_or_404(id)
     return queried_channelMessage.to_dict()
 
-# * Create a channelMessage **************************************************************
-
-@channelMessage_routes.route('/', methods=['POST'])
-@login_required
-def create_channelMessage():
-    req_data = request.json
-
-    new_channelMessage = ChannelMessage(
-        message=req_data['message'],
-        channel_id=req_data['channelId'],
-        user_id=req_data['userId']
-    )
-
-    db.session.add(new_channelMessage)
-    db.session.commit()
-    return new_channelMessage.to_dict()
-
 # * Edit a channelMessage ****************************************************************
 
 @channelMessage_routes.route('/<int:id>', methods=['PUT'])
@@ -54,3 +37,20 @@ def delete_channelMessage(id):
     db.session.commit()
 
     return {'message': 'Successfully deleted'}, 200
+
+# * Create a channelMessage **************************************************************
+
+@channelMessage_routes.route('/new', methods=['POST'])
+@login_required
+def create_channelMessage():
+    req_data = request.json
+
+    new_channelMessage = ChannelMessage(
+        message=req_data['message'],
+        channel_id=req_data['channelId'],
+        user_id=req_data['userId']
+    )
+
+    db.session.add(new_channelMessage)
+    db.session.commit()
+    return new_channelMessage.to_dict()

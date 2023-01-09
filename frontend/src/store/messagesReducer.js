@@ -47,18 +47,29 @@ export const clearChannelMessageData = () => {
 
 //*  Channel Messages
 
+export const addUserToChannelThunk = (channelId, userToAddId) => async (dispatch) => {
+    fetch('/api/channels/new_user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            channelId,
+            userId: userToAddId
+        })
+    });
+};
+
 export const createChannelMessageThunk = (userId, channelId, message) => async dispatch => {
-    const request = await fetch("/api/channelMessage", {
+    const request = await fetch("/api/channelMessage/new", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             message: message,
             last_update: Date(),
-            channel_id: channelId,
-            user_id: userId,
+            channelId: channelId,
+            userId: userId,
         }),
     });
- 
+
     const response = await request.json();
 
     dispatch(addMessage(response));
