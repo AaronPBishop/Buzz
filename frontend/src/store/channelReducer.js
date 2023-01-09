@@ -24,13 +24,10 @@ export const getChannelThunk = (id) => async (dispatch) => {
     const request = await fetch(`/api/channels/${id}`, {
         method: 'GET'
     });
-    // if (request.ok) {
+
     const response = await request.json();
-    console.log(request)
-    console.log(response);
 
     dispatch(populateChannelData(response));
-    // }
 };
 
 
