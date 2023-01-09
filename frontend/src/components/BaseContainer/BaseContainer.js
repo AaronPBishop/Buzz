@@ -12,7 +12,7 @@ const BaseContainer = () => {
     ****************************************************************/
 
     return (
-        <div style={{borderRadius: '8px', boxShadow: '0px 0px 6px 1.5px black'}}>
+        <div style={{borderRadius: '8px', boxShadow: '0px 0px 8px black'}}>
             <div
             // Navbar parent container
             style={{
