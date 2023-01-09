@@ -1,0 +1,10 @@
+#search-input:focus {
+    outline: 1.6px solid yellow;
+}
+
+#search-input::placeholder {
+    font-style: italic;
+    
+    position: relative;
+    left: 0.5vw;
+}
