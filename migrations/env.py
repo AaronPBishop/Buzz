@@ -1,9 +1,13 @@
 from __future__ import with_statement
+from flask import current_app
 
 import logging
 from logging.config import fileConfig
 
-from flask import current_app
+
+
+from sqlalchemy import engine_from_config
+from sqlalchemy import pool
 
 from alembic import context
 
@@ -58,6 +62,7 @@ def run_migrations_offline():
 
 
 def run_migrations_online():
+
     def process_revision_directives(context, revision, directives):
         if getattr(config.cmd_opts, 'autogenerate', False):
             script = directives[0]
@@ -89,7 +94,7 @@ def run_migrations_online():
                 context.execute(f"SET search_path TO {SCHEMA}")
             context.run_migrations()
 
-
+# keep logic at bottom of file to run migration functions
 if context.is_offline_mode():
     run_migrations_offline()
 else:
