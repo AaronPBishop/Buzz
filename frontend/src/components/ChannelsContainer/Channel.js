@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { populateCurrMessages, setViewingChannel, addUserToChannelThunk } from '../../store/messagesReducer.js';
+import { populateCurrMessages, setViewingChannel } from '../../store/messagesReducer.js';
+
+import ChannelSearch from "./ChannelSearch.js";
 
 const Channel = ({ channelId, channelName, ownerId, messages, totalUsers }) => {
     const dispatch = useDispatch();
@@ -44,6 +46,8 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers }) => {
                     onClick={e => {
                         e.stopPropagation();
                         setClickedExpand(clicked => !clicked);
+
+                        setClickedAddUser(false);
                     }}
                     style={{
                         marginLeft: '6vw',
@@ -87,7 +91,14 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers }) => {
                 </div>
 
                 <div style={{ display: clickedAddUser ? 'block' : 'none', marginTop: '4vh' }}>
-                    <p style={{ display: error ? 'block' : 'none', borderTop: '2px solid yellow', borderBottom: '2px solid yellow', padding: '1vh', marginTop: '-0.5vh' }}>Please enter a valid email</p>
+                    <ChannelSearch />
+                </div>
+            </div>
+        </div>
+    );
+};
+
+{/* <p style={{ display: error ? 'block' : 'none', borderTop: '2px solid yellow', borderBottom: '2px solid yellow', padding: '1vh', marginTop: '-0.5vh' }}>Please enter a valid email</p>
 
                     <div style={{ display: 'flex' }}>
                         <input
@@ -124,11 +135,6 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers }) => {
                         }}>
                             Add
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
-}
+                    </div> */}
 
 export default Channel;
