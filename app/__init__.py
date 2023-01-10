@@ -19,7 +19,7 @@ from .api.image_routes import image_routes
 from .seeds import seed_commands
 from .config import Config
 
-app = Flask(__name__, static_folder='../../frontend/public', static_url_path='/')
+app = Flask(__name__, static_folder='../frontend/build', static_url_path='/')
 
 # Setup login manager
 login = LoginManager(app)
