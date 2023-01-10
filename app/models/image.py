@@ -1,16 +1,19 @@
-from .db import db
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy.orm import relationship
 
 
 class Image(db.Model):
     __tablename__ = 'images'
 
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.String(1000))
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    channel_message_id = db.Column(
-        db.Integer, db.ForeignKey("channel_messages.id"))
-    dm_message_id = db.Column(db.Integer, db.ForeignKey("dmMessages.id"))
+
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    channel_message_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('channel_messages.id')))
+    dm_message_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('dmMessages.id')))
 
     #! Relationships
     image_cm = relationship("ChannelMessage", back_populates="cm_image")

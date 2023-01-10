@@ -5,13 +5,6 @@ import DmChannel from "./DmChannel";
 const DmChannelContainer = () => {
     const user = useSelector(state => state.session.user);
     const orgDmChannels = useSelector(state => state.organization.organization_dmMessage_channels);
-    // const messageState = useSelector(state => state.messages);
-
-    // const [currChannelId, setCurrChannelId] = useState();
-
-    // useEffect(() => {
-    //     setCurrChannelId(messageState.currChannelId);
-    // }, [orgDmChannels]);
 
     return (
         <div style={{width: '14vw'}}>
