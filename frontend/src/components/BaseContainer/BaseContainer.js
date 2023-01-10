@@ -4,6 +4,8 @@ import MessagingBox from "../MessagingBox/MessagingBox.js";
 import MsgContainer from '../Messages/MsgContainer.js';
 import SearchBar from "../SearchBar/SearchBar.js";
 import ChannelContainer from "../ChannelsContainer/ChannelContainer.js";
+import UserProfileCardContainer from "../UserProfile/UserProfileCardContainer.js";
+import UserProfileCard from "../UserProfile/UserProfileCard.js";
 
 const BaseContainer = () => {
     /***************************************************************
@@ -26,6 +28,19 @@ const BaseContainer = () => {
                     height: '7vh'
                 }}>
                 <SearchBar />
+            </div>
+
+            <div
+                // Userprofile parent container
+                style={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    borderTopLeftRadius: '8px',
+                    borderTopRightRadius: '8px',
+                    backgroundColor: 'black',
+                    height: '7vh'
+                }}>
+                <UserProfileCardContainer />
             </div>
 
             <div
