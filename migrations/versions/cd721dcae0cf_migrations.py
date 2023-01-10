@@ -43,6 +43,13 @@ def upgrade():
     sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('user_organizations',
+    sa.Column('organization_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['organization_id'], ['organizations.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('organization_id', 'user_id')
+    )
     op.create_table('channels',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
@@ -61,12 +68,19 @@ def upgrade():
     sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('user_organizations',
-    sa.Column('organization_id', sa.Integer(), nullable=False),
+    op.create_table('user_channels',
+    sa.Column('channel_id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['organization_id'], ['organizations.id'], ),
+    sa.ForeignKeyConstraint(['channel_id'], ['channels.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('organization_id', 'user_id')
+    sa.PrimaryKeyConstraint('channel_id', 'user_id')
+    )
+    op.create_table('user_dmMessage_channels',
+    sa.Column('dmMessage_channel_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['dmMessage_channel_id'], ['dmMessage_channels.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('dmMessage_channel_id', 'user_id')
     )
     op.create_table('channel_messages',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -90,20 +104,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('user_channels',
-    sa.Column('channel_id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['channel_id'], ['channels.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('channel_id', 'user_id')
-    )
-    op.create_table('user_dmMessage_channels',
-    sa.Column('dmMessage_channel_id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['dmMessage_channel_id'], ['dmMessage_channels.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('dmMessage_channel_id', 'user_id')
-    )
     op.create_table('images',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('url', sa.String(length=1000), nullable=True),
@@ -118,15 +118,15 @@ def upgrade():
     # ### end Alembic commands ###
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE images SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE user_dmMessage_channels SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE organizations SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE user_organizations SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE channels SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE dmMessage_channels SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE user_channels SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE user_dmMessage_channels SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE dmMessages SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE channel_messages SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE user_organizations SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE dmMessage_channels SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE channels SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE organizations SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE images SET SCHEMA {SCHEMA};")
 
 
 def downgrade():
