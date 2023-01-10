@@ -19,7 +19,7 @@ def get_channel(id):
 # * Create a channel ************************************************************
 
 @channels_routes.route('/', methods=['POST'])
-# @login_required
+@login_required
 def create_channel():
     req_data = request.json
 

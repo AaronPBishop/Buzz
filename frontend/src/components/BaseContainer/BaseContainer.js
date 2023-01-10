@@ -8,13 +8,6 @@ import UserProfileCardContainer from "../UserProfile/UserProfileCardContainer.js
 import UserProfileCard from "../UserProfile/UserProfileCard.js";
 
 const BaseContainer = () => {
-    /***************************************************************
-    Red borders outline the dimensions of parent containers.
-    Once you have added your component, remove the borders/comments.
-    'Display' specifiers on parent containers may need to be modified
-    once components are integrated. Width may need to be adjusted.
-    ****************************************************************/
-
     return (
         <div style={{ borderRadius: '8px', boxShadow: '0px 0px 8px black' }}>
             <div
@@ -57,7 +50,7 @@ const BaseContainer = () => {
                     }}>
                     <div
                         className='flex-center'
-                        style={{ height: '29.7vh', width: 'inherit', borderTop: '2px solid rgb(30, 30, 30)', overflowY: 'auto' }}>
+                        style={{ height: '29.7vh', width: 'inherit', borderBottom: '2px solid yellow', overflowY: 'auto' }}>
                         <OrgContainer />
                     </div>
 
@@ -69,7 +62,7 @@ const BaseContainer = () => {
 
                     <div
                         className='flex-center'
-                        style={{ height: '29.7vh', width: 'inherit', borderBottom: '2px solid rgb(30, 30, 30)', borderBottomLeftRadius: '8px', overflowY: 'auto' }}>
+                        style={{ height: '29.7vh', width: 'inherit', borderTop: '2px solid yellow', borderBottomLeftRadius: '8px', overflowY: 'auto' }}>
                         <DmChannelContainer />
                     </div>
                 </div>

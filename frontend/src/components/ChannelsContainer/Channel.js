@@ -3,35 +3,42 @@ import { useDispatch, useSelector } from "react-redux";
 import { populateCurrMessages, setViewingChannel, addUserToChannelThunk } from '../../store/messagesReducer.js';
 
 const Channel = ({ channelId, channelName, ownerId, messages, totalUsers }) => {
+    const dispatch = useDispatch();
+
+    const user = useSelector(state => state.session.user);
+    const messageState = useSelector(state => state.messages);
 
     const [clickedExpand, setClickedExpand] = useState(false);
-    const messageState = useSelector(state => state.messages);
-    const dispatch = useDispatch();
     const [clickedAddUser, setClickedAddUser] = useState(false);
+
     const [input, setInput] = useState('');
     const [error, setError] = useState(false);
+
     const validateEmail = (email) => {
         return email.match(
             /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         );
     };
-    const user = useSelector(state => state.session.user);
 
     return (
-        <div onClick={() => {
+        <div 
+        onClick={() => {
             dispatch(setViewingChannel(channelId));
             dispatch(populateCurrMessages(messages));
         }}>
             <div style={{
                 display: 'flex',
+                justifyContent: 'space-between',
+                maxWidth: '14vw',
                 textAlign: 'center',
                 fontSize: '16px',
                 marginTop: '1vh',
                 padding: '0.8vh',
                 cursor: 'pointer',
                 borderTop: '2px solid rgb(30, 30, 30)',
-                borderBottom: '2px solid rgb(30, 30, 30)'
-            }} className={messageState.currChannelId === channelId && 'selected'}>
+                borderBottom: !clickedExpand && '2px solid rgb(30, 30, 30)'
+            }} 
+            className={messageState.currChannelId === channelId && 'selected'}>
                 # {channelName}
                 <button
                     onClick={e => {
@@ -50,29 +57,32 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers }) => {
                 </button>
             </div>
 
-            <div style={{ display: clickedExpand ? 'flex' : 'none', justifyContent: 'center', flexWrap: 'wrap', marginTop: '4vh' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <div style={{ textAlign: 'left', width: '10vw', marginBottom: '1vh' }}>Total Users: </div>
-                    <div style={{ textAlign: 'left', width: '10vw', marginBottom: '1vh' }}>{totalUsers}</div>
+            <div style={{ display: clickedExpand ? 'block' : 'none', justifyContent: 'center', flexWrap: 'wrap', marginTop: '4vh', maxWidth: '14vw'}}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', width: '14vw',}}>
+                    <div style={{ textAlign: 'left', marginBottom: '1vh' }}>Total Users:</div>
+                    <div style={{ textAlign: 'left', marginBottom: '1vh' }}>{totalUsers}</div>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <div style={{ textAlign: 'left', width: '10vw', marginBottom: '1vh' }}>Total Messages: </div>
-                    <div style={{ textAlign: 'left', width: '10vw', marginBottom: '1vh' }}>{messages.length}</div>
+
+                <div style={{ display: 'flex', justifyContent: 'space-between', width: '14vw'}}>
+                    <div style={{ textAlign: 'left', marginBottom: '1vh' }}>Total Messages:</div>
+                    <div style={{ textAlign: 'left', marginBottom: '1vh' }}>{messages.length}</div>
                 </div>
 
                 <div
-                    onClick={e => {
-                        e.stopPropagation();
-                        setClickedAddUser(clicked => !clicked);
-                    }}
-                    style={{
-                        display: (ownerId === user.id) && !clickedAddUser ? 'block' : 'none',
-                        marginTop: '4vh',
-                        backgroundColor: 'yellow',
-                        color: 'black',
-                        padding: '0.5vw',
-                        borderRadius: '8px'
-                    }}>
+                onClick={e => {
+                    e.stopPropagation();
+                    setClickedAddUser(clicked => !clicked);
+                }}
+                style={{
+                    display: (ownerId === user.id) && !clickedAddUser ? 'block' : 'none',
+                    textAlign: 'center',
+                    marginTop: '4vh',
+                    backgroundColor: 'yellow',
+                    color: 'black',
+                    padding: '0.5vw',
+                    borderRadius: '8px',
+                    cursor: 'pointer'
+                }}>
                     Add Users
                 </div>
 
@@ -91,29 +101,27 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers }) => {
                                 color: 'black',
                                 backgroundColor: 'yellow',
                                 border: '1px solid black',
-                                borderRadius: '8px',
-                                cursor: 'pointer'
+                                borderRadius: '8px'
                             }}>
                         </input>
 
                         <div
-                            onClick={() => {
-                                if (!validateEmail(input)) setError(true);
-                                if (validateEmail(input)) {
-                                    setError(false);
-                                    setClickedAddUser(false);
-
-                                    // dispatch(addUserToChannelThunk(channelId, input));
-
-                                    setInput('');
-                                };
-                            }}
-                            style={{
-                                backgroundColor: 'yellow',
-                                color: 'black',
-                                padding: '0.4vw',
-                                borderRadius: '6px'
-                            }}>
+                        onClick={() => {
+                            if (!validateEmail(input)) setError(true);
+                            if (validateEmail(input)) {
+                                setError(false);
+                                setClickedAddUser(false);
+                                // dispatch(addUserToChannelThunk(channelId, input));
+                                setInput('');
+                            };
+                        }}
+                        style={{
+                            backgroundColor: 'yellow',
+                            color: 'black',
+                            padding: '0.4vw',
+                            borderRadius: '6px',
+                            cursor: 'pointer'
+                        }}>
                             Add
                         </div>
                     </div>
