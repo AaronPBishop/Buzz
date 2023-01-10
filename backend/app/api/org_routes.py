@@ -6,6 +6,7 @@ org_routes = Blueprint('organizations', __name__)
 
 # * Create a new organization ************************************************************
 
+
 @org_routes.route('/', methods=['POST'])
 @login_required
 def create_organization():
@@ -18,6 +19,19 @@ def create_organization():
     )
 
     db.session.add(new_org)
+    db.session.commit()
+
+    queried_org_owner = User.query.get_or_404(req_data['userId'])
+
+    association = User_Org_Association(
+        organization_id=new_org.id,
+        user_id=queried_org_owner.id,
+        parent=new_org,
+        child=queried_org_owner
+    )
+    new_org.organization_user.append(association)
+    queried_org_owner.user_organization.append(association)
+
     db.session.commit()
 
     return new_org.to_dict()

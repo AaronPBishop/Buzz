@@ -2,8 +2,8 @@ from flask.cli import AppGroup
 from .users_demo import seed_users, undo_users
 from .org_demo import seed_organizations, undo_organizations
 from .channels_demo import seed_channels, undo_channels
-from .channel_msgs_demo import seed_channel_messages, undo_channel_messages
-from .dmMessages_demo import seed_dmMessages, undo_dmMessages
+# from .channel_msgs_demo import seed_channel_messages, undo_channel_messages
+# from .dmMessages_demo import seed_dmMessages, undo_dmMessages
 from .dm_channels_demo import seed_dm_channels, undo_dm_channels
 from .imges_demo import seed_images, undo_images
 
@@ -26,8 +26,8 @@ def seed():
         undo_organizations()
         undo_channels()
         undo_dm_channels()
-        undo_channel_messages()
-        undo_dmMessages()
+        # undo_channel_messages()
+        # undo_dmMessages()
         undo_images()
 
 
@@ -35,8 +35,8 @@ def seed():
     seed_organizations()
     seed_channels()
     seed_dm_channels()
-    seed_channel_messages()
-    seed_dmMessages()
+    # seed_channel_messages()
+    # seed_dmMessages()
     seed_images()
 
 
@@ -47,6 +47,6 @@ def undo():
     undo_organizations()
     undo_channels()
     undo_dm_channels()
-    undo_channel_messages()
-    undo_dmMessages()
+    # undo_channel_messages()
+    # undo_dmMessages()
     undo_images()
