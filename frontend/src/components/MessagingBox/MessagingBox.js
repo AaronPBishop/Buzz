@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Send } from '@styled-icons/boxicons-solid/Send';
 import { Delete } from '@styled-icons/fluentui-system-filled/Delete';
-import { TextBold } from '@styled-icons/fluentui-system-filled/TextBold';
+// import { TextBold } from '@styled-icons/fluentui-system-filled/TextBold';
 import { Italic } from '@styled-icons/boxicons-regular/Italic';
 
 import { createDmMessageThunk, createChannelMessageThunk } from '../../store/messagesReducer.js';
@@ -47,10 +47,10 @@ const MessagingBox = () => {
                 border: '3px solid rgb(30, 30, 30)'
             }}>
             <div style={{ display: 'flex', justifyContent: 'flex-start', height: '2.4vh', padding: '2px' }}>
-                <TextBold
+                {/* <TextBold
                     onClick={() => setBold(bold => !bold)}
                     style={{ backgroundColor: bold && 'rgb(60, 60, 60)', borderRadius: '2px', marginLeft: '1vw', cursor: 'pointer' }}>
-                </TextBold>
+                </TextBold> */}
 
                 <Italic
                     onClick={() => setItalic(italic => !italic)}
