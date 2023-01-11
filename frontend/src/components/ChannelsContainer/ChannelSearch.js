@@ -1,11 +1,9 @@
-import { useState } from "react";
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import SearchUser from './SearchUser.js';
+import CSUser from './CSUser.js';
 
-import './styles.css';
-
-const SearchBar = () => {
+const ChannelSearch = () => {
     const currentOrg = useSelector(state => state.organization);
     const currUser = useSelector(state => state.session.user);
 
@@ -17,7 +15,7 @@ const SearchBar = () => {
             <input
             id='search-input'
             autoComplete='off'
-            placeholder={`Search ${currentOrg.name} users...`}
+            placeHolder={`Search ${currentOrg.name} users...`}
             onChange={e => setInput(e.target.value)}
             onClick={() => setClicked(true)}
             value={input}
@@ -25,12 +23,13 @@ const SearchBar = () => {
             style={{
                 marginTop: '1.2vh',
                 marginRight: '10vw',
+                marginBottom: '1vh',
                 fontFamily: 'Roboto',
                 fontSize: '14px',
                 letterSpacing: '1px',
                 color: 'white',
                 backgroundColor: 'rgb(20, 20, 20)',
-                width: '60vw',
+                width: '14vw',
                 height: '4vh',
                 border: '2px solid rgb(30, 30, 30)',
                 borderRadius: '8px'
@@ -41,26 +40,24 @@ const SearchBar = () => {
                 display: clicked ? 'block' : 'none',
                 marginTop: '1vh',
                 marginLeft: '0.1vw',
-                position: 'absolute',
                 border: '2px solid rgb(30, 30, 30)',
-                borderRadius: '8px',
-                backgroundColor: 'rgb(15, 15, 15)',
-                width: '60vw',
-                height: '40vh',
+                borderRadius: '8px', 
+                backgroundColor: 'rgb(15, 15, 15)', 
+                width: '14vw',
+                height: '22vh',
                 overflowY: 'auto'
             }}>
                 <div
                 style={{
                     lineHeight: '3vh',
-                    position: 'fixed',
                     marginTop: '1.2vh',
-                    marginLeft: '0.4vw',
+                    marginLeft: '1.8vw',
+                    marginBottom: '2vh',
                     textAlign: 'center',
                     fontWeight: 'bold',
-                    fontSize: '14px',
+                    fontSize: '12px',
                     color: 'black',
-                    minWidth: '4vw',
-                    maxWidth: '5vw',
+                    width: '10vw',
                     height: '3vh',
                     border: '2px solid transparent',
                     borderRadius: '4px',
@@ -77,22 +74,22 @@ const SearchBar = () => {
                         input.length < 1 && currentOrg.organization_users ?
                         currentOrg.organization_users.map((user, i) => {
                             if (user.id !== currUser.id) return (
-                                <SearchUser currOrgId={currentOrg.id} email={user.email} firstName={user.first_name} lastName={user.last_name} />
+                                <CSUser currOrgId={currentOrg.id} userToAddId={user.id} firstName={user.first_name} lastName={user.last_name} />
                             );
                         })
                         :
                         input.length > 0 && currentOrg.organization_users &&
                         currentOrg.organization_users.map((user, i) => {
                             if (user.id !== currUser.id && (user.first_name.toLowerCase() + user.last_name.toLowerCase()) === input.replace(/\s/g, '').toLowerCase()) return (
-                                <SearchUser currOrgId={currentOrg.id} email={user.email} userName={user.username} firstName={user.first_name} lastName={user.last_name} key={i} />
+                                <CSUser currOrgId={currentOrg.id} userToAddId={user.id} userName={user.username} firstName={user.first_name} lastName={user.last_name} key={i} />
                             );
 
                             if (user.id !== currUser.id && user.first_name.toLowerCase() === input.toLowerCase()) return (
-                                <SearchUser currOrgId={currentOrg.id} email={user.email} userName={user.username} firstName={user.first_name} lastName={user.last_name} key={i} />
+                                <CSUser currOrgId={currentOrg.id} userToAddId={user.id} userName={user.username} firstName={user.first_name} lastName={user.last_name} key={i} />
                             );
 
                             if (user.id !== currUser.id && user.last_name.toLowerCase() === input.toLowerCase()) return (
-                                <SearchUser currOrgId={currentOrg.id} email={user.email} userName={user.username} firstName={user.first_name} lastName={user.last_name} key={i} />
+                                <CSUser currOrgId={currentOrg.id} userToAddId={user.id} userName={user.username} firstName={user.first_name} lastName={user.last_name} key={i} />
                             );
                         })
                     }
@@ -102,4 +99,4 @@ const SearchBar = () => {
     );
 };
 
-export default SearchBar;
+export default ChannelSearch;
