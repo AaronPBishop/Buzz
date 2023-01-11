@@ -32,7 +32,7 @@ export const getChannelThunk = (id) => async (dispatch) => {
 
 
 export const createChannelThunk = (channelName, associatedOrgId, ownerId) => async (dispatch) => {
-    const request = fetch('/api/channels', {
+    const request = await fetch('/api/channels', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -49,7 +49,7 @@ export const createChannelThunk = (channelName, associatedOrgId, ownerId) => asy
 
 
 export const editChannelThunk = (channelToEditId, channelNameToEdit, userToDeleteId) => async (dispatch) => {
-    const request = fetch(`/api/channels/${channelToEditId}`, {
+    const request = await fetch(`/api/channels/${channelToEditId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -65,7 +65,7 @@ export const editChannelThunk = (channelToEditId, channelNameToEdit, userToDelet
 
 
 export const deleteChannelThunk = (channelToDeleteId) => async (dispatch) => {
-    fetch(`/api/channels/${channelToDeleteId}`, {
+    await fetch(`/api/channels/${channelToDeleteId}`, {
         method: 'DELETE'
     });
 
