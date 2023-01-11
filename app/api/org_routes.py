@@ -83,23 +83,22 @@ def add_user():
     req_data = request.json
     queried_org = Organization.query.get_or_404(req_data['orgId'])
 
-    for key, val in req_data.items():
-        if key != None and key in ['email', 'user_name']:
-            user = {key: val}
-            new_user = db.session.query(User).filter_by(**user).first()
-            if new_user is None:
-                return "User does not exist", 404
-            association = User_Org_Association(
-                organization_id=queried_org.id,
-                user_id=new_user.id,
-                parent=queried_org,
-                child=new_user
-            )
+    for user in req_data['usersToAddEmail']:
+        user_obj = {'email': user}
+        new_user = db.session.query(User).filter_by(**user_obj).first()
+        if new_user is None:
+            return f'${user} does not exist'
+        association = User_Org_Association(
+            organization_id=queried_org.id,
+            user_id=new_user.id,
+            parent=queried_org,
+            child=new_user
+        )
 
-            queried_org.organization_user.append(association)
-            new_user.user_organization.append(association)
+        queried_org.organization_user.append(association)
+        new_user.user_organization.append(association)
 
-            db.session.add(association)
+        db.session.add(association)
 
     db.session.commit()
 

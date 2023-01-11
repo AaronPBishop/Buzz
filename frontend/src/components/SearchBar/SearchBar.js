@@ -17,7 +17,7 @@ const SearchBar = () => {
             <input
             id='search-input'
             autoComplete='off'
-            placeHolder={`Search ${currentOrg.name} users...`}
+            placeholder={`Search ${currentOrg.name} users...`}
             onChange={e => setInput(e.target.value)}
             onClick={() => setClicked(true)}
             value={input}
@@ -41,10 +41,10 @@ const SearchBar = () => {
                 display: clicked ? 'block' : 'none',
                 marginTop: '1vh',
                 marginLeft: '0.1vw',
-                position: 'absolute', 
+                position: 'absolute',
                 border: '2px solid rgb(30, 30, 30)',
-                borderRadius: '8px', 
-                backgroundColor: 'rgb(15, 15, 15)', 
+                borderRadius: '8px',
+                backgroundColor: 'rgb(15, 15, 15)',
                 width: '60vw',
                 height: '40vh',
                 overflowY: 'auto'

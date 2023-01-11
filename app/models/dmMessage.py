@@ -30,6 +30,8 @@ class DmMessage(db.Model):
         return {
             'id': self.id,
             'user_name': self.dmMessage_user.user_name,
+            'first_name': self.dmMessage_user.first_name,
+            'last_name': self.dmMessage_user.last_name,
             'message': self.message,
             'dmMessage_channel_id': self.dmMessage_channel_id,
             'user_id': self.user_id,

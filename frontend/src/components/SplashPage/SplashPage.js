@@ -33,13 +33,13 @@ const SplashPage = () => {
           }}>
             Buzz
           </p>
-      
+
           <div style={{
             display: 'flex',
             justifyContent: 'center',
             margin: 'auto'
           }}>
-          
+
             <button
               className='login-buttons'
               onClick={() => {
@@ -47,7 +47,7 @@ const SplashPage = () => {
               }}>
               Login
             </button>
-        
+
             <button
               className='login-buttons'
               onClick={() => {
@@ -58,7 +58,7 @@ const SplashPage = () => {
           </div>
         </div>
         : clickedLogIn ?
-        <LogInForm /> 
+        <LogInForm />
         : clickedSignUp &&
         <SignUpForm />
       }

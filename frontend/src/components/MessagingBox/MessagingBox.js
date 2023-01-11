@@ -62,7 +62,7 @@ const MessagingBox = () => {
                 id='message-input'
                 onKeyDown={handleKeyDown}
                 autoComplete='off'
-                placeHolder='Send a message...'
+                placeholder='Send a message...'
                 onChange={e => setInput(e.target.value)}
                 value={input}
                 style={{
