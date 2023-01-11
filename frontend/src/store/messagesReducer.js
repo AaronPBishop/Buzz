@@ -2,7 +2,8 @@ const initialState = {
     viewingChannel: false,
     viewingDm: false,
     currChannelId: null,
-    currentMessages: [],
+    usersToAdd: [],
+    currentMessages: []
 };
 
 export const setViewingChannel = currChannelId => {
@@ -32,6 +33,21 @@ export const addMessage = (msg) => {
     return {
         type: "ADD_MESSAGE",
         payload: msg
+    };
+};
+
+
+export const addUserEmail = (email) => {
+    return {
+        type: "ADD_USER_EMAIL",
+        payload: email
+    };
+};
+
+
+export const clearUserEmails = () => {
+    return {
+        type: "CLEAR_USER_EMAILS"
     };
 };
 
@@ -188,6 +204,18 @@ const messagesReducer = (state = initialState, action) => {
 
         case 'ADD_MESSAGE': {
             currentState.currentMessages.push(action.payload);
+
+            return currentState;
+        };
+
+        case 'ADD_USER_EMAIL': {
+            currentState.usersToAdd.push(action.payload);
+
+            return currentState;
+        };
+
+        case 'CLEAR_USER_EMAILS': {
+            currentState.usersToAdd = [];
 
             return currentState;
         };

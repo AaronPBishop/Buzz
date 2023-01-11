@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import { ExpandMore } from '@styled-icons/material-sharp/ExpandMore';
+import { ExpandLess } from '@styled-icons/material-twotone/ExpandLess';
+
 import { addUserToOrgThunk, fetchOrgDataThunk } from "../../store/organizationReducer";
 
 const Organization = ({ orgId, orgName, orgOwnerId }) => {
@@ -54,30 +57,47 @@ const Organization = ({ orgId, orgName, orgOwnerId }) => {
             textAlign: 'center',
             fontSize: '16px',
             marginTop: '1vh',
-            padding: '0.8vh',
             cursor: 'pointer',
             borderTop: '2px solid rgb(30, 30, 30)',
             borderBottom: '2px solid rgb(30, 30, 30)'
         }}>
-            {orgName}
+            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                <p style={{marginLeft: '0.6vw'}}>{orgName}</p>
 
-            <button 
-            onClick={e => {
-                e.stopPropagation();
-                setClicked(clicked => !clicked);
+                <ExpandMore
+                onClick={e => {
+                    e.stopPropagation();
+                    setClicked(clicked => !clicked);
+                
+                    if (!clicked) setClickedAddUser(false);
+                }}
+                style={{
+                    display: clicked ? 'none' : 'block',
+                    marginTop: '1.4vh',
+                    color: 'yellow',
+                    height: '4vh',
+                    width: '2vw',
+                    cursor: 'pointer'
+                }}>
+                </ExpandMore>
 
-                if (!clicked) setClickedAddUser(false);
-            }}
-            style={{
-                marginLeft: '6vw',
-                width: '2vw', 
-                height: '2.5vh',
-                backgroundColor: 'yellow',
-                borderRadius: '6px',
-                cursor: 'pointer'
-            }} 
-            className={clicked ? 'collapse-btn' : 'expand-btn'}>
-            </button>
+                <ExpandLess
+                    onClick={e => {
+                        e.stopPropagation();
+                        setClicked(clicked => !clicked);
+                    
+                        if (!clicked) setClickedAddUser(false);
+                    }}
+                    style={{
+                        display: clicked ? 'block' : 'none',
+                        marginTop: '1.4vh',
+                        color: 'yellow',
+                        height: '4vh',
+                        width: '2vw',
+                        cursor: 'pointer'
+                    }}>
+                </ExpandLess>
+            </div>
 
             <div style={{display: clicked ? 'flex' : 'none', justifyContent: 'center', flexWrap: 'wrap', marginTop: '4vh'}}>
                 {
