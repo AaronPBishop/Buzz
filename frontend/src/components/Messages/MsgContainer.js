@@ -9,6 +9,7 @@ const MsgContainer = () => {
     const dispatch = useDispatch();
     const msgRef = useRef();
 
+    const sessionUser = useSelector(state => state.session.user)
     const messageState = useSelector(state => state.messages);
     const messages = useSelector(state => state.messages.currentMessages);
 
@@ -29,7 +30,7 @@ const MsgContainer = () => {
     return (
         <div ref={msgRef}>
             {
-                messages.map((msgEl, i) => <Message message={msgEl} key={i} />)
+                messages.map((msgEl, i) => <Message message={msgEl} key={i} sessionUser={sessionUser}/>)
             }
         </div>
     );

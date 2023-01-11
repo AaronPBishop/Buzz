@@ -17,7 +17,7 @@ export const clearOrgData = () => {
     };
 };
 
-
+ 
 // THUNKS
 
 export const createOrgThunk = (name, ownerId, img) => async (dispatch) => {

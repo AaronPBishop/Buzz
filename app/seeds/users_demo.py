@@ -4,7 +4,7 @@ from app.models import db, User, environment, SCHEMA
 def seed_users():
     users = [
         {"user_name": 'demo', "first_name": 'Demo', "last_name": 'User',  "email": 'demo@aa.io', "bio": "demo_user1",
-            "profile_img": "https://images.unsplash.com/photo-1535378620166-273708d44e4c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1257&q=80", "password": "password"},
+            "profile_img": "https://bestprofilepictures.com/wp-content/uploads/2020/06/Anonymous-Profile-Picture-1024x1024.jpg", "password": "password"},
         {"user_name": 'marnie', "first_name": 'Marnie', "last_name": 'Stark', "email": 'marnie@aa.io', "bio": "demo_user2",
             "profile_img": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80", "password": 'password1'},
         {"user_name": 'bobbie', "first_name": 'Bobbie', "last_name": 'Break', "email": 'bobbie@aa.io', "bio": "demo_user3", "profile_img": "https://images.unsplash.com/photo-1507003211169-0a1dd722`8f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
@@ -103,7 +103,7 @@ def seed_users():
             "bio": "demo_user51", "profile_img": "http://dummyimage.com/104x100.png/dddddd/000000", "password": "3DsEej2RT"},
         {"user_name": "rdescroix1c", "first_name": "Rowan", "last_name": "Descroix", "email": "rdescroix1c@nba.com",
             "bio": "demo_user52", "profile_img": "http://dummyimage.com/232x100.png/dddddd/000000", "password": "ZQ3WfzXoE6"},
-        {"user_name": "ncrowest1d", "first_name": "Nolie", "last_name": "Crowest", "email": "ncrowest1d@cdc.gov", "bio": "demo_user53", "profile_img": "http://dummyimage.com/180x100.png/5fa2dd/ffffff", "password": "VPTDJe1Gv1"}]
+        {"user_name": "ncrowest1d", "first_name": "Nolie", "last_name": "Crowest", "email": "ncrowest1d@cdc.gov", "bio": "demo_user53", "profile_img": "http://dummyimage.com/180x100.png/5fa2dd/ffffff", "password": "VPTDJe1Gv1"}, {"user_name": "AAA", "first_name": "Buzz", "last_name": "Lighter", "email": "demoUser@buzz.com", "bio": "To infinity and beyond!", "profile_img": "https://pbs.twimg.com/profile_images/2763063703/aa4c7f19a945faba203d98d63ffaf1b9.jpeg", "password": "password"}]
 
     db.session.add_all([User(**user) for user in users])
     db.session.commit()
