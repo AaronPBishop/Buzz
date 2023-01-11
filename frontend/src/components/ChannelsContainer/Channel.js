@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { populateCurrMessages, setViewingChannel } from '../../store/messagesReducer.js';
 
+import { ExpandMore } from '@styled-icons/material-sharp/ExpandMore';
+import { ExpandLess } from '@styled-icons/material-twotone/ExpandLess';
+
 import ChannelSearch from "./ChannelSearch.js";
 
 const Channel = ({ channelId, channelName, ownerId, messages, totalUsers }) => {
@@ -13,17 +16,9 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers }) => {
     const [clickedExpand, setClickedExpand] = useState(false);
     const [clickedAddUser, setClickedAddUser] = useState(false);
 
-    const [input, setInput] = useState('');
-    const [error, setError] = useState(false);
-
-    const validateEmail = (email) => {
-        return email.match(
-            /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        );
-    };
-
     return (
         <div 
+        className="flex-center"
         onClick={() => {
             dispatch(setViewingChannel(channelId));
             dispatch(populateCurrMessages(messages));
@@ -31,7 +26,7 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers }) => {
             <div style={{
                 display: 'flex',
                 justifyContent: 'space-between',
-                maxWidth: '14vw',
+                width: '16vw',
                 textAlign: 'center',
                 fontSize: '16px',
                 marginTop: '1vh',
@@ -41,8 +36,9 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers }) => {
                 borderBottom: !clickedExpand && '2px solid rgb(30, 30, 30)'
             }} 
             className={messageState.currChannelId === channelId && 'selected'}>
-                # {channelName}
-                <button
+                <p style={{maxWidth: '8vw'}}>{`#${channelName}`}</p>
+
+                <ExpandMore
                     onClick={e => {
                         e.stopPropagation();
                         setClickedExpand(clicked => !clicked);
@@ -50,15 +46,29 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers }) => {
                         setClickedAddUser(false);
                     }}
                     style={{
-                        marginLeft: '6vw',
-                        width: '2vw',
-                        height: '2.5vh',
-                        backgroundColor: 'yellow',
-                        borderRadius: '6px',
+                        display: clickedExpand ? 'none' : 'block',
+                        marginTop: '1.5vh',
+                        color: 'yellow',
+                        height: '4vh',
                         cursor: 'pointer'
+                    }}>
+                </ExpandMore>
+
+                <ExpandLess
+                    onClick={e => {
+                        e.stopPropagation();
+                        setClickedExpand(clicked => !clicked);
+
+                        setClickedAddUser(false);
                     }}
-                    className={clickedExpand ? 'collapse-btn' : 'expand-btn'}>
-                </button>
+                    style={{
+                        display: clickedExpand ? 'block' : 'none',
+                        marginTop: '1.5vh',
+                        color: 'yellow',
+                        height: '4vh',
+                        cursor: 'pointer'
+                    }}>
+                </ExpandLess>
             </div>
 
             <div style={{ display: clickedExpand ? 'block' : 'none', justifyContent: 'center', flexWrap: 'wrap', marginTop: '4vh', maxWidth: '14vw'}}>
@@ -81,9 +91,14 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers }) => {
                     display: (ownerId === user.id) && !clickedAddUser ? 'block' : 'none',
                     textAlign: 'center',
                     marginTop: '4vh',
-                    backgroundColor: 'yellow',
+                    marginBottom: '2vh',
+                    fontWeight: 'bold',
                     color: 'black',
-                    padding: '0.5vw',
+                    lineHeight: '4vh',
+                    borderRadius: '8px',
+                    backgroundColor: 'rgb(240, 210, 10)',
+                    borderBottom: '4px solid rgb(165, 165, 0)',
+                    padding: '0.2vw',
                     borderRadius: '8px',
                     cursor: 'pointer'
                 }}>
@@ -97,44 +112,5 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers }) => {
         </div>
     );
 };
-
-{/* <p style={{ display: error ? 'block' : 'none', borderTop: '2px solid yellow', borderBottom: '2px solid yellow', padding: '1vh', marginTop: '-0.5vh' }}>Please enter a valid email</p>
-
-                    <div style={{ display: 'flex' }}>
-                        <input
-                            value={input}
-                            onChange={e => setInput(e.target.value)}
-                            style={{
-                                fontFamily: 'Roboto',
-                                fontWeight: 'bold',
-                                textAlign: 'center',
-                                marginRight: '1vw',
-                                color: 'black',
-                                backgroundColor: 'yellow',
-                                border: '1px solid black',
-                                borderRadius: '8px'
-                            }}>
-                        </input>
-
-                        <div
-                        onClick={() => {
-                            if (!validateEmail(input)) setError(true);
-                            if (validateEmail(input)) {
-                                setError(false);
-                                setClickedAddUser(false);
-                                // dispatch(addUserToChannelThunk(channelId, input));
-                                setInput('');
-                            };
-                        }}
-                        style={{
-                            backgroundColor: 'yellow',
-                            color: 'black',
-                            padding: '0.4vw',
-                            borderRadius: '6px',
-                            cursor: 'pointer'
-                        }}>
-                            Add
-                        </div>
-                    </div> */}
 
 export default Channel;
