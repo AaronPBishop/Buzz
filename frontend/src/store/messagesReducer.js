@@ -45,10 +45,10 @@ export const clearChannelMessageData = () => {
 
 // THUNKS
 
-//*  Channel Messages
+//*  Channel Thunks
 
 export const addUserToChannelThunk = (channelId, userToAddId) => async (dispatch) => {
-    fetch('/api/channels/new_user', {
+    await fetch('/api/channels/new_user', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -57,6 +57,7 @@ export const addUserToChannelThunk = (channelId, userToAddId) => async (dispatch
         })
     });
 };
+
 
 export const createChannelMessageThunk = (userId, channelId, message) => async dispatch => {
     const request = await fetch("/api/channelMessage/new", {
@@ -98,7 +99,8 @@ export const deleteChannelMessageDataThunk = channelMessageId => async () => {
     });
 };
 
-//*  DM Messages
+
+//*  DM Thunks
 
 export const createDmMessageChannelThunk = (ownerId, organizationId, userEmails) => async (dispatch) => {
     const request = await fetch(`/api/dmMessage_channels/create`, {
@@ -155,6 +157,7 @@ export const deleteDmMessageDataThunk = dmMessageId => async () => {
         method: "DELETE",
     });
 };
+
 
 //! REDUCER
 

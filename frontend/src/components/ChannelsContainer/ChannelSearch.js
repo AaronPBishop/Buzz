@@ -23,6 +23,7 @@ const ChannelSearch = () => {
             style={{
                 marginTop: '1.2vh',
                 marginRight: '10vw',
+                marginBottom: '1vh',
                 fontFamily: 'Roboto',
                 fontSize: '14px',
                 letterSpacing: '1px',
@@ -39,26 +40,24 @@ const ChannelSearch = () => {
                 display: clicked ? 'block' : 'none',
                 marginTop: '1vh',
                 marginLeft: '0.1vw',
-                position: 'absolute', 
                 border: '2px solid rgb(30, 30, 30)',
                 borderRadius: '8px', 
                 backgroundColor: 'rgb(15, 15, 15)', 
-                width: '60vw',
-                height: '40vh',
+                width: '14vw',
+                height: '22vh',
                 overflowY: 'auto'
             }}>
                 <div
                 style={{
                     lineHeight: '3vh',
-                    position: 'fixed',
                     marginTop: '1.2vh',
-                    marginLeft: '0.4vw',
+                    marginLeft: '1.8vw',
+                    marginBottom: '2vh',
                     textAlign: 'center',
                     fontWeight: 'bold',
-                    fontSize: '14px',
+                    fontSize: '12px',
                     color: 'black',
-                    minWidth: '4vw',
-                    maxWidth: '5vw',
+                    width: '10vw',
                     height: '3vh',
                     border: '2px solid transparent',
                     borderRadius: '4px',
@@ -75,22 +74,22 @@ const ChannelSearch = () => {
                         input.length < 1 && currentOrg.organization_users ?
                         currentOrg.organization_users.map((user, i) => {
                             if (user.id !== currUser.id) return (
-                                <CSUser currOrgId={currentOrg.id} email={user.email} firstName={user.first_name} lastName={user.last_name} />
+                                <CSUser currOrgId={currentOrg.id} userToAddId={user.id} firstName={user.first_name} lastName={user.last_name} />
                             );
                         })
                         :
                         input.length > 0 && currentOrg.organization_users &&
                         currentOrg.organization_users.map((user, i) => {
                             if (user.id !== currUser.id && (user.first_name.toLowerCase() + user.last_name.toLowerCase()) === input.replace(/\s/g, '').toLowerCase()) return (
-                                <CSUser email={user.email} userName={user.username} firstName={user.first_name} lastName={user.last_name} key={i} />
+                                <CSUser currOrgId={currentOrg.id} userToAddId={user.id} userName={user.username} firstName={user.first_name} lastName={user.last_name} key={i} />
                             );
 
                             if (user.id !== currUser.id && user.first_name.toLowerCase() === input.toLowerCase()) return (
-                                <CSUser email={user.email} userName={user.username} firstName={user.first_name} lastName={user.last_name} key={i} />
+                                <CSUser currOrgId={currentOrg.id} userToAddId={user.id} userName={user.username} firstName={user.first_name} lastName={user.last_name} key={i} />
                             );
 
                             if (user.id !== currUser.id && user.last_name.toLowerCase() === input.toLowerCase()) return (
-                                <CSUser email={user.email} userName={user.username} firstName={user.first_name} lastName={user.last_name} key={i} />
+                                <CSUser currOrgId={currentOrg.id} userToAddId={user.id} userName={user.username} firstName={user.first_name} lastName={user.last_name} key={i} />
                             );
                         })
                     }

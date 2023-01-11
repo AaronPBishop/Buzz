@@ -84,15 +84,15 @@ const SearchBar = () => {
                         input.length > 0 && currentOrg.organization_users &&
                         currentOrg.organization_users.map((user, i) => {
                             if (user.id !== currUser.id && (user.first_name.toLowerCase() + user.last_name.toLowerCase()) === input.replace(/\s/g, '').toLowerCase()) return (
-                                <SearchUser email={user.email} userName={user.username} firstName={user.first_name} lastName={user.last_name} key={i} />
+                                <SearchUser currOrgId={currentOrg.id} email={user.email} userName={user.username} firstName={user.first_name} lastName={user.last_name} key={i} />
                             );
 
                             if (user.id !== currUser.id && user.first_name.toLowerCase() === input.toLowerCase()) return (
-                                <SearchUser email={user.email} userName={user.username} firstName={user.first_name} lastName={user.last_name} key={i} />
+                                <SearchUser currOrgId={currentOrg.id} email={user.email} userName={user.username} firstName={user.first_name} lastName={user.last_name} key={i} />
                             );
 
                             if (user.id !== currUser.id && user.last_name.toLowerCase() === input.toLowerCase()) return (
-                                <SearchUser email={user.email} userName={user.username} firstName={user.first_name} lastName={user.last_name} key={i} />
+                                <SearchUser currOrgId={currentOrg.id} email={user.email} userName={user.username} firstName={user.first_name} lastName={user.last_name} key={i} />
                             );
                         })
                     }
