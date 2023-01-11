@@ -15,7 +15,20 @@ const DemoLogin = () => {
 
     return (
         <div onClick={handleButtonClick}>
-            <button className="submitButton">Demo Login</button>
+            <button
+                style={{
+                    fontSize: "22px",
+                    borderRadius: "7px",
+                    height: "38px",
+                    width: "200px",
+                    backgroundColor: "rgb(10, 91, 240)",
+                    color: "white",
+                    fontWeight: "bold",
+                    cursor: "pointer"
+
+                }}>
+                Demo Login
+            </button>
         </div>
     );
 };

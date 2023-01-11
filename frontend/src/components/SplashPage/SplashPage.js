@@ -35,28 +35,38 @@ const SplashPage = () => {
                         }}>
                         Buzz
                     </p>
-
-                    <div
-                        style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            margin: "auto",
-                        }}>
-                        <button
-                            className="login-buttons"
-                            onClick={() => {
-                                setClickedLogIn(clicked => !clicked);
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                        <div
+                            style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignContent: "center",
+                                marginTop: "34vh",
                             }}>
-                            Login
-                        </button>
+                            <button
+                                className="login-buttons"
+                                onClick={() => {
+                                    setClickedLogIn(clicked => !clicked);
+                                }}>
+                                Login
+                            </button>
 
-                        <button
-                            className="login-buttons"
-                            onClick={() => {
-                                setClickedSignUp(clicked => !clicked);
+                            <button
+                                className="login-buttons"
+                                onClick={() => {
+                                    setClickedSignUp(clicked => !clicked);
+                                }}>
+                                Sign Up
+                            </button>
+                        </div>
+                        <div
+                            style={{
+                                display: "flex",
+                                alignSelf: "center",
+                                paddingTop: "6vh",
                             }}>
-                            Sign Up
-                        </button>
+                            <DemoLogin />
+                        </div>
                     </div>
                 </div>
             ) : clickedLogIn ? (
@@ -64,9 +74,6 @@ const SplashPage = () => {
             ) : (
                 clickedSignUp && <SignUpForm />
             )}
-            <div>
-                <DemoLogin />
-            </div>
         </div>
     );
 };
