@@ -35,6 +35,57 @@ export const createChannelThunk = (channelName, associatedOrgId, ownerId, isPubl
 };
 
 
+export const addUserToChannelThunk = (channelId, userToAddId) => async (dispatch) => {
+    await fetch("/api/channels/new_user", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            channelId,
+            userId: userToAddId
+        }),
+    });
+};
+
+
+export const editChannelThunk = (channelToEditId, channelNameToEdit, userToDeleteId) => async (dispatch) => {
+    await fetch(`/api/channels/${channelToEditId}`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            userId: userToDeleteId,
+            name: channelNameToEdit
+        })
+    });
+};
+
+
+export const deleteChannelThunk = (channelToDeleteId) => async (dispatch) => {
+    await fetch(`/api/channels/${channelToDeleteId}`, {
+        method: 'DELETE'
+    });
+};
+
+
+// DM CHANNEL THUNKS
+
+export const removeDmMessageChannelUserThunk = (dmMessageChannelId, userToRemoveId) => async (dispatch) => {
+    await fetch(`/api/dmMessage_channels/${dmMessageChannelId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            userId: userToRemoveId
+        })
+    });
+};
+
+
+export const deleteDmMessageChannelThunk = (dmMessageChannelId) => async () => {
+    await fetch(`/api/dmMessage_channels/${dmMessageChannelId}`, {
+        method: 'DELETE'
+    });
+};
+
+
 // ORGANIZATION THUNKS
 
 export const createOrgThunk = (name, ownerId, img) => async (dispatch) => {

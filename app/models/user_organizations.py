@@ -21,7 +21,9 @@ class User_Org_Association(db.Model):
             'organization_id': self.parent.id,
             'organization_name': self.parent.name,
             'organization_owner': self.parent.owner_id,
-            'total_users': len(self.parent.to_dict()['organization_users'])
+            'total_users': len(self.parent.to_dict()['organization_users']),
+            'total_channels': len(self.parent.to_dict()['organization_channels']),
+            'total_dm_channels': len(self.parent.to_dict()['organization_dmMessage_channels'])
         }
 
     def user_to_dict_basic(self):

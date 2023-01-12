@@ -54,11 +54,7 @@ class User(db.Model, UserMixin):
             'email': self.email,
             'bio': self.bio,
             'profile_img': self.profile_img,
-            'user_organizations': [org.org_to_dict() for org in self.user_organization],
-            'user_channels': [channel.ch_to_dict() for channel in self.user_channel],
-            'user_cms': [cm.to_dict() for cm in self.user_cm],
-            'user_dmMessage_channels': [dms.dmMessage_channel_to_dict() for dms in self.user_dmMessage_channel],
-            'user_dmMessages': [dmMessage.to_dict() for dmMessage in self.user_dmMessage]
+            'user_organizations': [org.org_to_dict() for org in self.user_organization]
         }
 
     def basic_dict(self):

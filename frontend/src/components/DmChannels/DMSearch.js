@@ -52,7 +52,7 @@ const DMSearch = () => {
                         input.length < 1 && currentOrg.organization_users ?
                         currentOrg.organization_users.map((user, i) => {
                             if (user.id !== currUser.id) return (
-                                <DSUser userEmail={user.email} firstName={user.first_name} lastName={user.last_name} />
+                                <DSUser userEmail={user.email} firstName={user.first_name} lastName={user.last_name} key={i} />
                             );
                         })
                         :

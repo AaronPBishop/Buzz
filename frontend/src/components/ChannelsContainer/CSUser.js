@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { addUserToChannelThunk } from '../../store/messagesReducer.js';
 import { addUserEmail } from '../../store/messagesReducer.js';
-import { fetchOrgDataThunk } from '../../store/organizationReducer.js';
+import { fetchOrgDataThunk, addUserToChannelThunk } from '../../store/organizationReducer.js';
 
 const CSUser = ({ currOrgId, userToAddId, firstName, lastName, userEmail, type }) => {
     const dispatch = useDispatch();

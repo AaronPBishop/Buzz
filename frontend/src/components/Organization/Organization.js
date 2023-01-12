@@ -6,7 +6,7 @@ import { ExpandLess } from '@styled-icons/material-twotone/ExpandLess';
 
 import { addUserToOrgThunk, fetchOrgDataThunk } from "../../store/organizationReducer";
 
-const Organization = ({ orgId, orgName, orgOwnerId, totalUsers }) => {
+const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, totalDmChannels }) => {
     const dispatch = useDispatch();
 
     const user = useSelector(state => state.session.user);
@@ -92,7 +92,13 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers }) => {
                         return (
                             <div style={{display: 'flex', justifyContent: 'space-between'}} key={i}>
                                 <div style={{textAlign: 'left', width: '10vw', marginBottom: '1vh'}}>{keyMap[key]}:</div>
-                                <div style={{textAlign: 'right', width: '2vw'}}>{key !== 'organization_users' ? currOrg[key].length : totalUsers}</div>
+                                <div style={{textAlign: 'right', width: '2vw'}}>
+                                    {
+                                        key === 'organization_users' ? totalUsers 
+                                        : key === 'organization_channels' ? totalChannels 
+                                        : key === 'organization_dmMessage_channels' && totalDmChannels
+                                    }
+                                </div>
                             </div>
                         )
                     })

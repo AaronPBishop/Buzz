@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { populateCurrMessages, setViewingDm } from '../../store/messagesReducer.js';
-import { deleteDmMessageChannelThunk } from '../../store/dmMessageChannelReducer.js';
+import { deleteDmMessageChannelThunk } from '../../store/organizationReducer.js';
 import { fetchOrgDataThunk } from "../../store/organizationReducer.js";
 
 import { CloseSquareOutline } from '@styled-icons/evaicons-outline/CloseSquareOutline'
