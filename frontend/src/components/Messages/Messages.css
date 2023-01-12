@@ -1,0 +1,28 @@
+.dropdown {
+    position: relative;
+    display: inline-block;
+    border: 1px solid black;
+    height: auto;
+    width: auto;
+}
+
+.dropbtn {
+    padding: 2px;
+    border-bottom: 1px solid black;
+    cursor: pointer;
+    width: 25px;
+}
+.dropbtn_closed {
+    display: none;
+}
+
+.dropbtn:hover {
+    background-color: #7c8286;
+}
+
+.div-dropdown {
+    position: relative;
+    border: 1px double rgb(0, 0, 0);
+    padding: 2px;
+    border-radius: 2px;
+}
