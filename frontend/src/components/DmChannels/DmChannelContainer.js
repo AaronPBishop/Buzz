@@ -26,7 +26,7 @@ const DmChannelContainer = () => {
         if (clickedCreate === true) dispatch(fetchOrgDataThunk(currentOrg.id));
     }, [clickedCreate]);
 
-    if (!user) return <div>LOADING...</div>
+    if (!user) return <div>Loading...</div>;
 
     if (user) return (
         <div>

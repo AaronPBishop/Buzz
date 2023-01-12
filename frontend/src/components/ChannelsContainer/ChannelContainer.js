@@ -28,7 +28,7 @@ const ChannelContainer = () => {
         if (clickedCreate === true) dispatch(fetchOrgDataThunk(currentOrg.id));
     }, [clickedCreate]);
 
-    if (!currentUser) return <div>LOADING...</div>
+    if (!currentUser) return <div>Loading...</div>
 
     if (currentUser) return (
         <div>
