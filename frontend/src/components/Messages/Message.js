@@ -1,41 +1,38 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { DotsVerticalIcon } from "@heroicons/react/outline";
+import "./Messages.css";
 import {
-    editDmMessageThunk,
-    deleteDmMessageDataThunk,
     editChannelMessageThunk,
     deleteChannelMessageDataThunk,
+    editDmMessageThunk,
+    deleteDmMessageDataThunk,
 } from "../../store/messagesReducer";
 
 const Message = ({ message, sessionUser }) => {
+    const [clicked, setClicked] = useState(false);
+    const [clickDelete, setClickDelete] = useState(false);
+    const [showMenu, setShowMenu] = useState(false);
+    const [editMsg, setEditMsg] = useState(message.message);
+    const [validOwner, setValidOwner] = useState(false);
+
     const dispatch = useDispatch();
 
-    const [clicked, setClicked] = useState(false);
-    const [validOwner, setValidOwner] = useState(false);
+    const messageState = useSelector(state => state.messages);
 
     useEffect(() => {
         if (sessionUser.id === message.user_id) setValidOwner(true);
     }, [sessionUser.id]);
 
-    //* DmMessages
-    // useEffect(() => {
-    //     dispatch(editDmMessageThunk());
-    // }, []);
+    //! rerender needed after deletion
 
-    // useEffect(() => {
-    //     dispatch(deleteDmMessageDataThunk());
-    // }, []);
+    useEffect(() => {
+        if (clickDelete === true && messageState.viewingChannel === true)
+            dispatch(deleteChannelMessageDataThunk(message.id));
 
-    // //! ChannelMessages
-    // useEffect(() => {
-    //     dispatch(editChannelMessageThunk());
-    // }, []);
-
-    // useEffect(() => {
-    //     dispatch(deleteChannelMessageDataThunk());
-    // }, []);
-
-    const [showMenu, setShowMenu] = useState(false);
+        if (clickDelete === true && messageState.viewingDm === true)
+            dispatch(deleteDmMessageDataThunk(message.id));
+    }, [clickDelete]);
 
     const openMenu = () => {
         if (showMenu) return;
@@ -60,14 +57,14 @@ const Message = ({ message, sessionUser }) => {
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                padding: "6px",
+                padding: "14px",
                 fontFamily: "Roboto",
                 borderRadius: "6px",
                 backgroundColor: "black",
                 margin: "3px",
                 color: "white",
             }}>
-            <div style={{ display: "flex" }}>
+            <div style={{ display: "flex", marginLeft: "12px" }}>
                 <img
                     style={{
                         height: "60px",
@@ -109,10 +106,118 @@ const Message = ({ message, sessionUser }) => {
                             )
                         )}
                     </h4>
-                    <p>{message.message}</p>
+                    <p
+                        style={{
+                            display: !clicked ? "block" : "none",
+                            justifySel: "center",
+                            alignSelf: "center",
+                        }}>
+                        {message.message}
+                    </p>
+                    <input
+                        type="text"
+                        style={{
+                            display: clicked ? "block" : "none",
+                            backgroundColor: "yellow",
+                            border: "none",
+                            outline: "none",
+                            color: "black",
+                            height: "30px",
+                            alignSelf: "center",
+                        }}
+                        value={editMsg}
+                        onChange={e => {
+                            setEditMsg(e.target.value);
+                        }}></input>
                 </div>
             </div>
-            <div style={{ display: "flex", justifySelf: "end" }}> Menu</div>
+            <div
+                className="dropdown"
+                style={{
+                    display: "flex",
+                    justifySelf: "end",
+                    marginRight: "12px",
+                }}>
+                <DotsVerticalIcon
+                    className={
+                        !showMenu && validOwner ? "dropbtn" : "dropbtn_closed"
+                    }
+                    onClick={openMenu}
+                />
+                {showMenu && validOwner && (
+                    <div className="div-dropdown">
+                        <div
+                            style={{
+                                height: "25px",
+                                width: "50px",
+                                display: "block",
+                                display: "flex",
+                                fontSize: "12px",
+                                marginRight: "20px",
+                            }}>
+                            <button
+                                onClick={e => {
+                                    e.preventDefault();
+                                    if (
+                                        clicked === true &&
+                                        messageState.viewingChannel === true
+                                    ) {
+                                        dispatch(
+                                            editChannelMessageThunk(
+                                                message.id,
+                                                editMsg
+                                            )
+                                        );
+                                    }
+
+                                    if (
+                                        clicked === true &&
+                                        messageState.viewingDm === true
+                                    ) {
+                                        dispatch(
+                                            editDmMessageThunk(
+                                                message.id,
+                                                editMsg
+                                            )
+                                        );
+                                    }
+                                    setClicked(!clicked);
+                                }}
+                                style={{
+                                    width: "100%",
+                                    fontSize: "12px",
+                                    marginTop: "8px",
+                                }}>
+                                {" "}
+                                <b>{!clicked ? "Edit" : "Save"}</b>
+                            </button>
+                        </div>
+                        <div
+                            style={{
+                                height: "25px",
+                                width: "50px",
+                                display: "block",
+                                display: "flex",
+
+                                marginRight: "20px",
+                            }}>
+                            <button
+                                onClick={e => {
+                                    e.stopPropagation();
+                                    setClickDelete(!clickDelete);
+                                }}
+                                style={{
+                                    width: "100%",
+                                    fontSize: "12px",
+                                    marginTop: "8px",
+                                    fontWeight: "bold",
+                                }}>
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };
