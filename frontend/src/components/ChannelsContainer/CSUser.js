@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { addUserToChannelThunk } from '../../store/messagesReducer.js';
+import { addUserEmail } from '../../store/messagesReducer.js';
 import { fetchOrgDataThunk } from '../../store/organizationReducer.js';
 
-const CSUser = ({ currOrgId, userToAddId, firstName, lastName }) => {
+const CSUser = ({ currOrgId, userToAddId, firstName, lastName, userEmail, type }) => {
     const dispatch = useDispatch();
 
     const channelId = useSelector(state => state.messages.currChannelId);
@@ -12,7 +13,7 @@ const CSUser = ({ currOrgId, userToAddId, firstName, lastName }) => {
     const [clickedAdd, setClickedAdd] = useState(false);
 
     useEffect(() => {
-        if (clickedAdd === true) dispatch(fetchOrgDataThunk(currOrgId));
+        if (clickedAdd === true && type !== 'create') dispatch(fetchOrgDataThunk(currOrgId));
     }, [clickedAdd]);
 
     return (
@@ -35,7 +36,8 @@ const CSUser = ({ currOrgId, userToAddId, firstName, lastName }) => {
 
             <div
             onClick={() => {
-                dispatch(addUserToChannelThunk(channelId, userToAddId));
+                if (type === 'create') dispatch(addUserEmail(userEmail));
+                if (type !== 'create') dispatch(addUserToChannelThunk(channelId, userToAddId));
 
                 setClickedAdd(true);
             }}

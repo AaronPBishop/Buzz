@@ -105,6 +105,16 @@ export const signUp = (username, firstName, lastName, email, password) => async 
 };
 
 
+export const getUserThunk = (userId) => async (dispatch) => {
+  const request = await fetch(`/api/users/${userId}`, {
+    method: 'GET'
+  })
+
+  const response = await request.json();
+
+  dispatch(setUser(response));
+};
+
 // REDUCER
 
 const sessionReducer = (state = initialState, action) => {
@@ -112,6 +122,8 @@ const sessionReducer = (state = initialState, action) => {
 
   switch (action.type) {
     case SET_USER: {
+      delete currentState.user;
+
       currentState.user = action.payload;
 
       return currentState;

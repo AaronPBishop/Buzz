@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import CSUser from './CSUser.js';
 
-const ChannelSearch = () => {
+const ChannelSearch = ({ type }) => {
     const currentOrg = useSelector(state => state.organization);
     const currUser = useSelector(state => state.session.user);
 
@@ -15,15 +15,14 @@ const ChannelSearch = () => {
             <input
             id='search-input'
             autoComplete='off'
-            placeHolder={`Search ${currentOrg.name} users...`}
+            placeHolder={type !== 'create' ? `Search ${currentOrg.name} users...` : `Add ${currentOrg.name} users...`}
             onChange={e => setInput(e.target.value)}
             onClick={() => setClicked(true)}
             value={input}
             className='flex-center'
             style={{
                 marginTop: '1.2vh',
-                marginRight: '10vw',
-                marginBottom: '1vh',
+                marginBottom: '2vh',
                 fontFamily: 'Roboto',
                 fontSize: '14px',
                 letterSpacing: '1px',
@@ -50,6 +49,7 @@ const ChannelSearch = () => {
             }}>
                 <div
                 style={{
+                    display: type && 'none',
                     lineHeight: '3vh',
                     marginTop: '1.2vh',
                     marginLeft: '1.8vw',
@@ -75,22 +75,22 @@ const ChannelSearch = () => {
                         input.length < 1 && currentOrg.organization_users ?
                         currentOrg.organization_users.map((user, i) => {
                             if (user.id !== currUser.id) return (
-                                <CSUser currOrgId={currentOrg.id} userToAddId={user.id} firstName={user.first_name} lastName={user.last_name} />
+                                <CSUser currOrgId={currentOrg.id} userToAddId={user.id} firstName={user.first_name} lastName={user.last_name} userEmail={user.email} type={type} key={i} />
                             );
                         })
                         :
                         input.length > 0 && currentOrg.organization_users &&
                         currentOrg.organization_users.map((user, i) => {
                             if (user.id !== currUser.id && (user.first_name.toLowerCase() + user.last_name.toLowerCase()) === input.replace(/\s/g, '').toLowerCase()) return (
-                                <CSUser currOrgId={currentOrg.id} userToAddId={user.id} userName={user.username} firstName={user.first_name} lastName={user.last_name} key={i} />
+                                <CSUser currOrgId={currentOrg.id} userToAddId={user.id} userName={user.username} firstName={user.first_name} lastName={user.last_name} userEmail={user.email} type={type} key={i} />
                             );
 
                             if (user.id !== currUser.id && user.first_name.toLowerCase() === input.toLowerCase()) return (
-                                <CSUser currOrgId={currentOrg.id} userToAddId={user.id} userName={user.username} firstName={user.first_name} lastName={user.last_name} key={i} />
+                                <CSUser currOrgId={currentOrg.id} userToAddId={user.id} userName={user.username} firstName={user.first_name} lastName={user.last_name} userEmail={user.email} type={type} key={i} />
                             );
 
                             if (user.id !== currUser.id && user.last_name.toLowerCase() === input.toLowerCase()) return (
-                                <CSUser currOrgId={currentOrg.id} userToAddId={user.id} userName={user.username} firstName={user.first_name} lastName={user.last_name} key={i} />
+                                <CSUser currOrgId={currentOrg.id} userToAddId={user.id} userName={user.username} firstName={user.first_name} lastName={user.last_name} userEmail={user.email} type={type} key={i} />
                             );
                         })
                     }

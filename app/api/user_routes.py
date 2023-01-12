@@ -7,10 +7,10 @@ user_routes = Blueprint('users', __name__)
 
 # * Get a user ***************************************************************
 
-@user_routes.route('/<int:user_id>')
+@user_routes.route('/<id>')
 @login_required
-def get_user(user_id):
-    queried_user = User.query.get_or_404(user_id).to_dict()
+def get_user(id):
+    queried_user = User.query.get_or_404(id).to_dict()
 
     return queried_user
 

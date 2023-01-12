@@ -31,23 +31,6 @@ export const getChannelThunk = (id) => async (dispatch) => {
 };
 
 
-export const createChannelThunk = (channelName, associatedOrgId, ownerId) => async (dispatch) => {
-    const request = fetch('/api/channels', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            name: channelName,
-            organization_id: associatedOrgId,
-            ownerId
-        })
-    });
-
-    const response = await request.json();
-
-    dispatch(populateChannelData(response));
-};
-
-
 export const editChannelThunk = (channelToEditId, channelNameToEdit, userToDeleteId) => async (dispatch) => {
     const request = fetch(`/api/channels/${channelToEditId}`, {
         method: 'PUT',

@@ -56,7 +56,11 @@ const DmChannel = ({ messages, users, ownerId, id }) => {
             dispatch(populateCurrMessages(messages));
         }}
         style={{
+            display: 'flex', 
+            justifyContent: user.id === ownerId ? 'space-between' : 'center',
             textAlign: 'center',
+            minWidth: '16vw',
+            maxWidth: '16vw',
             fontSize: '14px',
             marginTop: '1vh',
             padding: '0.8vh',

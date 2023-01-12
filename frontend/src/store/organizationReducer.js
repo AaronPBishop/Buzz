@@ -18,16 +18,33 @@ export const clearOrgData = () => {
 };
 
  
-// THUNKS
+// CHANNEL THUNKS
+
+export const createChannelThunk = (channelName, associatedOrgId, ownerId, isPublic, userEmails) => async (dispatch) => {
+    await fetch('/api/channels/new_channel', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            name: channelName,
+            organization_id: associatedOrgId,
+            ownerId,
+            isPublic,
+            users: userEmails
+        })
+    });
+};
+
+
+// ORGANIZATION THUNKS
 
 export const createOrgThunk = (name, ownerId, img) => async (dispatch) => {
-    const request = await fetch(`/api/organizations`, {
+    const request = await fetch(`/api/organizations/new_org`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
             name,
-            owner_id: ownerId,
-            org_image: img
+            userId: ownerId,
+            orgImage: img
         })
     });
 

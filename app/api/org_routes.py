@@ -4,38 +4,6 @@ from app.models import Organization, User, User_Org_Association, Channel, db
 
 org_routes = Blueprint('organizations', __name__)
 
-# * Create a new organization ************************************************************
-
-
-@org_routes.route('/', methods=['POST'])
-@login_required
-def create_organization():
-    req_data = request.json
-
-    new_org = Organization(
-        name=req_data['name'],
-        owner_id=req_data['userId'],
-        org_image=req_data['orgImage']
-    )
-
-    db.session.add(new_org)
-    db.session.commit()
-
-    queried_org_owner = User.query.get_or_404(req_data['userId'])
-
-    association = User_Org_Association(
-        organization_id=new_org.id,
-        user_id=queried_org_owner.id,
-        parent=new_org,
-        child=queried_org_owner
-    )
-    new_org.organization_user.append(association)
-    queried_org_owner.user_organization.append(association)
-
-    db.session.commit()
-
-    return new_org.to_dict()
-
 
 # * Get/Edit and remove a user from an organization ************************************************************
 
@@ -103,3 +71,36 @@ def add_user():
     db.session.commit()
 
     return queried_org.add_user()
+
+
+# * Create a new organization ************************************************************
+
+
+@org_routes.route('/new_org', methods=['POST'])
+@login_required
+def create_organization():
+    req_data = request.json
+
+    new_org = Organization(
+        name=req_data['name'],
+        owner_id=req_data['userId'],
+        org_image=req_data['orgImage']
+    )
+
+    db.session.add(new_org)
+    db.session.commit()
+
+    queried_org_owner = User.query.get_or_404(req_data['userId'])
+
+    association = User_Org_Association(
+        organization_id=new_org.id,
+        user_id=queried_org_owner.id,
+        parent=new_org,
+        child=queried_org_owner
+    )
+    new_org.organization_user.append(association)
+    queried_org_owner.user_organization.append(association)
+
+    db.session.commit()
+
+    return new_org.to_dict()

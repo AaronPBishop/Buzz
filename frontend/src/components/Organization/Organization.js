@@ -6,13 +6,11 @@ import { ExpandLess } from '@styled-icons/material-twotone/ExpandLess';
 
 import { addUserToOrgThunk, fetchOrgDataThunk } from "../../store/organizationReducer";
 
-const Organization = ({ orgId, orgName, orgOwnerId }) => {
+const Organization = ({ orgId, orgName, orgOwnerId, totalUsers }) => {
     const dispatch = useDispatch();
 
     const user = useSelector(state => state.session.user);
     const currOrg = useSelector(state => state.organization);
-
-    const [orgUsers, setOrgUsers] = useState(0);
 
     const [clicked, setClicked] = useState(false);
     const [clickedAddUser, setClickedAddUser] = useState(false);
@@ -21,19 +19,8 @@ const Organization = ({ orgId, orgName, orgOwnerId }) => {
     const [error, setError] = useState(false);
 
     useEffect(() => {
-        if (orgId === user.user_organizations[0].organization_id) {
-            dispatch(fetchOrgDataThunk(orgId));
-
-            if (currOrg.organization_users) setOrgUsers(currOrg.organization_users.length);
-        };
+        if (orgId === user.user_organizations[0].organization_id) dispatch(fetchOrgDataThunk(orgId));
     }, [user.id])
-
-    useEffect(() => {
-        if (currOrg.organization_users && currOrg.organization_users.length > orgUsers) {
-            dispatch(fetchOrgDataThunk(orgId));
-            setOrgUsers(currOrg.organization_users.length);
-        };
-    }, [currOrg.organization_users]);
 
     const keyMap = {
         organization_users: 'Users',
@@ -105,7 +92,7 @@ const Organization = ({ orgId, orgName, orgOwnerId }) => {
                         return (
                             <div style={{display: 'flex', justifyContent: 'space-between'}} key={i}>
                                 <div style={{textAlign: 'left', width: '10vw', marginBottom: '1vh'}}>{keyMap[key]}:</div>
-                                <div style={{textAlign: 'right', width: '2vw'}}>{key !== 'organization_users' ? currOrg[key].length : orgUsers}</div>
+                                <div style={{textAlign: 'right', width: '2vw'}}>{key !== 'organization_users' ? currOrg[key].length : totalUsers}</div>
                             </div>
                         )
                     })
@@ -119,10 +106,17 @@ const Organization = ({ orgId, orgName, orgOwnerId }) => {
                 style={{
                     display: (orgOwnerId === user.id) && !clickedAddUser ? 'block' : 'none',
                     marginTop: '4vh',
+                    marginBottom: '2vh',
                     backgroundColor: 'yellow',
+                    fontWeight: 'bold',
                     color: 'black',
-                    padding: '0.5vw',
-                    borderRadius: '8px'
+                    lineHeight: '4vh',
+                    borderRadius: '8px',
+                    backgroundColor: 'rgb(240, 210, 10)',
+                    borderBottom: '4px solid rgb(165, 165, 0)',
+                    width: '12vw',
+                    height: '4vh',
+                    cursor: 'pointer'
                 }}>
                     Add Users
                 </div>

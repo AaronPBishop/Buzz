@@ -27,7 +27,7 @@ const DmChannelContainer = () => {
     }, [clickedCreate]);
 
     return (
-        <div style={{width: '14vw'}}>
+        <div>
             <div
             className='flex-center'
             style={{
@@ -130,7 +130,7 @@ const DmChannelContainer = () => {
 
             {
                 orgDmChannels && orgDmChannels.map((channel, i) => channel.dmMessage_channel_users.includes(user.username) && (
-                <div>
+                <div className='flex-center'>
                     <DmChannel messages={channel.dmMessage_channel_dmMessages} users={channel.dmMessage_channel_users} ownerId={channel.owner_id} id={channel.id} key={i} />
                 </div>
                 ))
