@@ -7,10 +7,10 @@ const REMOVE_USER = 'session/REMOVE_USER';
 // ACTION CREATORS
 
 const setUser = (user) => {
-    return {
-      type: SET_USER,
-      payload: user
-    };
+  return {
+    type: SET_USER,
+    payload: user
+  };
 };
 
 const removeUser = () => {
@@ -25,7 +25,7 @@ const removeUser = () => {
 
 export const authenticate = () => async (dispatch) => {
   const request = await fetch('/api/auth/', {
-    headers: {'Content-Type': 'application/json'}
+    headers: { 'Content-Type': 'application/json' }
   });
 
   if (request.ok) {
@@ -41,7 +41,7 @@ export const authenticate = () => async (dispatch) => {
 export const login = (email, password) => async (dispatch) => {
   const request = await fetch('/api/auth/login', {
     method: 'POST',
-    headers: {'Content-Type': 'application/json'},
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       email,
       password
@@ -67,7 +67,7 @@ export const login = (email, password) => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
   const request = await fetch('/api/auth/logout', {
-    headers: {'Content-Type': 'application/json'}
+    headers: { 'Content-Type': 'application/json' }
   });
 
   if (request.ok) dispatch(removeUser());
@@ -114,6 +114,28 @@ export const getUserThunk = (userId) => async (dispatch) => {
 
   dispatch(setUser(response));
 };
+
+export const editUserThunk = (user) => async (dispatch) => {
+  const request = await fetch(`/api/users/${user.userId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      bio: user.bio,
+      email: user.email,
+      first_name: user.firstName,
+      last_name: user.lastName,
+      profile_img: user.profileImage,
+      user_name: user.username
+    }),
+  });
+
+  if (request.ok) {
+    const data = await request.json();
+    dispatch(setUser(data));
+  }
+}
 
 // REDUCER
 

@@ -28,15 +28,17 @@ const ChannelContainer = () => {
         if (clickedCreate === true) dispatch(fetchOrgDataThunk(currentOrg.id));
     }, [clickedCreate]);
 
-    return (
+    if (!currentUser) return <div>LOADING...</div>
+
+    if (currentUser) return (
         <div>
             <div
-            className='flex-center'
-            style={{
-                fontSize: '14px',
-                marginTop: '0.5vh',
-                borderBottom: '2px solid rgb(30, 30, 30)'
-            }}>
+                className='flex-center'
+                style={{
+                    fontSize: '14px',
+                    marginTop: '0.5vh',
+                    borderBottom: '2px solid rgb(30, 30, 30)'
+                }}>
                 <div style={{
                     display: 'flex',
                     justifyContent: 'space-between',
@@ -45,7 +47,7 @@ const ChannelContainer = () => {
                     fontSize: '16px',
                     marginTop: '1vh',
                 }}>
-                    <p style={{marginLeft: '0.4vw', maxWidth: '8vw'}}>Channels</p>
+                    <p style={{ marginLeft: '0.4vw', maxWidth: '8vw' }}>Channels</p>
 
                     <ExpandMore
                         onClick={e => {
@@ -78,83 +80,12 @@ const ChannelContainer = () => {
                     </ExpandLess>
                 </div>
 
-                <div 
-                onClick={() => setClickedCreateChannel(clicked => !clicked)}
-                className='flex-center'
-                style={{
-                    display: clickedExpand && !clickedCreateChannel ? 'block' : clickedCreateChannel ? 'none' : 'none',
-                    textAlign: 'center',
-                    marginTop: '2vh',
-                    marginBottom: '3vh',
-                    fontWeight: 'bold',
-                    color: 'black',
-                    lineHeight: '4vh',
-                    borderRadius: '8px',
-                    backgroundColor: 'rgb(240, 210, 10)',
-                    borderBottom: '4px solid rgb(165, 165, 0)',
-                    width: '12vw',
-                    height: '4vh',
-                    cursor: 'pointer'
-                }}>
-                    Create Channel
-                </div>
-
-                <div style={{display: clickedCreateChannel ? 'block' : 'none'}}>
-                    <input
-                    id='search-input'
-                    autoComplete='off'
-                    placeHolder={`Channel name`}
-                    onChange={e => setChannelName(e.target.value)}
-                    value={channelName}
+                <div
+                    onClick={() => setClickedCreateChannel(clicked => !clicked)}
                     className='flex-center'
                     style={{
-                        marginTop: '1.2vh',
-                        marginBottom: '2vh',
-                        fontFamily: 'Roboto',
-                        fontSize: '14px',
-                        letterSpacing: '1px',
-                        color: 'white',
-                        backgroundColor: 'rgb(20, 20, 20)',
-                        width: '14vw',
-                        height: '4vh',
-                        border: '2px solid rgb(30, 30, 30)',
-                        borderRadius: '8px'
-                    }}>
-                    </input>
-                    
-                    <ChannelSearch type={'create'} />
-
-                    <div 
-                    onClick={() => setIsPublic(pub => !pub)}
-                    className='flex-center'
-                    style={{
+                        display: clickedExpand && !clickedCreateChannel ? 'block' : clickedCreateChannel ? 'none' : 'none',
                         textAlign: 'center',
-                        marginTop: '3vh',
-                        marginBottom: '3vh',
-                        fontWeight: 'bold',
-                        color: 'black',
-                        lineHeight: '4vh',
-                        borderRadius: '8px',
-                        backgroundColor: 'rgb(240, 210, 10)',
-                        borderBottom: '4px solid rgb(165, 165, 0)',
-                        width: '12vw',
-                        height: '4vh',
-                        cursor: 'pointer'
-                    }}>
-                        {isPublic === false ? 'Make Public' : 'Make Private'}
-                    </div>
-
-                    <div
-                    onClick={() => {
-                        dispatch(clearUserEmails());
-                        dispatch(createChannelThunk(channelName, currentOrg.id, currentUser.id, isPublic, userEmails));
-                    
-                        setClickedCreate(true);
-                        setClickedCreateChannel(false);
-                        setClickedExpand(false);
-                    }}
-                    className='flex-center'
-                    style={{
                         marginTop: '2vh',
                         marginBottom: '3vh',
                         fontWeight: 'bold',
@@ -167,21 +98,92 @@ const ChannelContainer = () => {
                         height: '4vh',
                         cursor: 'pointer'
                     }}>
+                    Create Channel
+                </div>
+
+                <div style={{ display: clickedCreateChannel ? 'block' : 'none' }}>
+                    <input
+                        id='search-input'
+                        autoComplete='off'
+                        placeHolder={`Channel name`}
+                        onChange={e => setChannelName(e.target.value)}
+                        value={channelName}
+                        className='flex-center'
+                        style={{
+                            marginTop: '1.2vh',
+                            marginBottom: '2vh',
+                            fontFamily: 'Roboto',
+                            fontSize: '14px',
+                            letterSpacing: '1px',
+                            color: 'white',
+                            backgroundColor: 'rgb(20, 20, 20)',
+                            width: '14vw',
+                            height: '4vh',
+                            border: '2px solid rgb(30, 30, 30)',
+                            borderRadius: '8px'
+                        }}>
+                    </input>
+
+                    <ChannelSearch type={'create'} />
+
+                    <div
+                        onClick={() => setIsPublic(pub => !pub)}
+                        className='flex-center'
+                        style={{
+                            textAlign: 'center',
+                            marginTop: '3vh',
+                            marginBottom: '3vh',
+                            fontWeight: 'bold',
+                            color: 'black',
+                            lineHeight: '4vh',
+                            borderRadius: '8px',
+                            backgroundColor: 'rgb(240, 210, 10)',
+                            borderBottom: '4px solid rgb(165, 165, 0)',
+                            width: '12vw',
+                            height: '4vh',
+                            cursor: 'pointer'
+                        }}>
+                        {isPublic === false ? 'Make Public' : 'Make Private'}
+                    </div>
+
+                    <div
+                        onClick={() => {
+                            dispatch(clearUserEmails());
+                            dispatch(createChannelThunk(channelName, currentOrg.id, currentUser.id, isPublic, userEmails));
+
+                            setClickedCreate(true);
+                            setClickedCreateChannel(false);
+                            setClickedExpand(false);
+                        }}
+                        className='flex-center'
+                        style={{
+                            marginTop: '2vh',
+                            marginBottom: '3vh',
+                            fontWeight: 'bold',
+                            color: 'black',
+                            lineHeight: '4vh',
+                            borderRadius: '8px',
+                            backgroundColor: 'rgb(240, 210, 10)',
+                            borderBottom: '4px solid rgb(165, 165, 0)',
+                            width: '12vw',
+                            height: '4vh',
+                            cursor: 'pointer'
+                        }}>
                         Create
                     </div>
                 </div>
             </div>
 
             {
-                currentOrg && currentOrg.organization_channels && currentOrg.organization_channels.length > 0 && 
+                currentOrg && currentOrg.organization_channels && currentOrg.organization_channels.length > 0 &&
                 currentOrg.organization_channels.filter(el => el.isPublic).map((el, i) =>
-                <Channel channelId={el.id} channelName={el.name} ownerId={el.owner_id} messages={el.channel_cm} totalUsers={el.channel_users.length} key={i} />)
+                    <Channel channelId={el.id} channelName={el.name} ownerId={el.owner_id} messages={el.channel_cm} totalUsers={el.channel_users.length} key={i} />)
             }
 
             {
                 currentOrg && currentOrg.organization_channels && currentOrg.organization_channels.length > 0 &&
                 currentOrg.organization_channels.map((el, i) => (el.channel_users.includes(currentUser.username) && !el.isPublic) &&
-                <Channel channelId={el.id} channelName={el.name} ownerId={el.owner_id} messages={el.channel_cm} totalUsers={el.channel_users.length} key={i} />)
+                    <Channel channelId={el.id} channelName={el.name} ownerId={el.owner_id} messages={el.channel_cm} totalUsers={el.channel_users.length} key={i} />)
             }
         </div>
     );
