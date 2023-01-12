@@ -1,11 +1,7 @@
 .actionButtons {
-    border-radius: 8px;
-    height: 20px;
-    width: 150px;
-    background-color: yellow;
-    color: black;
+    height: 3.5vh;
+    width: 14vw;
     margin-top: 10px;
-    cursor: pointer;
 }
 
 .actionButtons:hover {

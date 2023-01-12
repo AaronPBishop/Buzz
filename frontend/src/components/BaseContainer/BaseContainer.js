@@ -13,7 +13,7 @@ const BaseContainer = () => {
                 // Navbar parent container
                 style={{
                     display: 'flex',
-                    justifyContent: 'flex-end',
+                    justifyContent: 'space-between',
                     borderTopLeftRadius: '8px',
                     borderTopRightRadius: '8px',
                     backgroundColor: 'black',

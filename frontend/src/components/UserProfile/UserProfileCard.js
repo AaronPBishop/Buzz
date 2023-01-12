@@ -53,7 +53,7 @@ const UserProfileCard = ({ user, showUserCard }) => {
             {showCardDropDown &&
                 <div style={{
                     zIndex: '100',
-                    position: 'relative',
+                    position: 'absolute',
                     background: 'black',
                     border: '1px solid white',
                     borderRadius: '5px',
@@ -64,9 +64,7 @@ const UserProfileCard = ({ user, showUserCard }) => {
                     width: '200px',
                     flexWrap: 'wrap',
                     padding: '10px',
-                    // width: '14vh',
                     textAlign: 'center',
-                    // height: '400px'
                     marginTop: '10px'
                 }}>
                     <div>{user.username}</div>
@@ -77,8 +75,8 @@ const UserProfileCard = ({ user, showUserCard }) => {
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}>
-                        <button onClick={(e) => handleEditUser(e)} className="actionButtons">Edit User</button>
-                        <button onClick={(e) => handleLogout(e)} className="actionButtons">Logout</button>
+                        <button onClick={(e) => handleEditUser(e)} className="actionButtons buzz-btn">Edit User</button>
+                        <button onClick={(e) => handleLogout(e)} className="actionButtons buzz-btn">Logout</button>
                     </div>
                 </div>}
             {showEditForm && (
