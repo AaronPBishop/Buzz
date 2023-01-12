@@ -103,7 +103,7 @@ def seed_users():
             "bio": "demo_user51", "profile_img": "http://dummyimage.com/104x100.png/dddddd/000000", "password": "3DsEej2RT"},
         {"user_name": "rdescroix1c", "first_name": "Rowan", "last_name": "Descroix", "email": "rdescroix1c@nba.com",
             "bio": "demo_user52", "profile_img": "http://dummyimage.com/232x100.png/dddddd/000000", "password": "ZQ3WfzXoE6"},
-        {"user_name": "ncrowest1d", "first_name": "Nolie", "last_name": "Crowest", "email": "ncrowest1d@cdc.gov", "bio": "demo_user53", "profile_img": "http://dummyimage.com/180x100.png/5fa2dd/ffffff", "password": "VPTDJe1Gv1"}, {"user_name": "AAA", "first_name": "Buzz", "last_name": "Lighter", "email": "demoUser@buzz.com", "bio": "To infinity and beyond!", "profile_img": "https://pbs.twimg.com/profile_images/2763063703/aa4c7f19a945faba203d98d63ffaf1b9.jpeg", "password": "password"}]
+        {"user_name": "ncrowest1d", "first_name": "Nolie", "last_name": "Crowest", "email": "ncrowest1d@cdc.gov", "bio": "demo_user53", "profile_img": "http://dummyimage.com/180x100.png/5fa2dd/ffffff", "password": "VPTDJe1Gv1"}, {"user_name": "AAA", "first_name": "Buzz", "last_name": "Lightdays", "email": "demoUser@buzz.com", "bio": "To infinity and beyond!", "profile_img": "https://partycity6.scene7.com/is/image/PartyCity/_pdp_sq_?$_1000x1000_$&$product=PartyCity/P590855_02", "password": "password"}]
 
     db.session.add_all([User(**user) for user in users])
     db.session.commit()

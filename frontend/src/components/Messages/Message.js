@@ -158,29 +158,11 @@ const Message = ({ message, sessionUser }) => {
                             <button
                                 onClick={e => {
                                     e.preventDefault();
-                                    if (
-                                        clicked === true &&
-                                        messageState.viewingChannel === true
-                                    ) {
-                                        dispatch(
-                                            editChannelMessageThunk(
-                                                message.id,
-                                                editMsg
-                                            )
-                                        );
-                                    }
+                                    if (clicked === true && messageState.viewingChannel === true) {
+                                        dispatch(editChannelMessageThunk(message.id,editMsg))}
 
-                                    if (
-                                        clicked === true &&
-                                        messageState.viewingDm === true
-                                    ) {
-                                        dispatch(
-                                            editDmMessageThunk(
-                                                message.id,
-                                                editMsg
-                                            )
-                                        );
-                                    }
+                                    if (clicked === true && messageState.viewingDm === true) {
+                                        dispatch(editDmMessageThunk(message.id, editMsg))}
                                     setClicked(!clicked);
                                 }}
                                 style={{
@@ -189,7 +171,7 @@ const Message = ({ message, sessionUser }) => {
                                     marginTop: "8px",
                                 }}>
                                 {" "}
-                                <b>{!clicked ? "Edit" : "Save"}</b>
+                                <b>Edit</b>
                             </button>
                         </div>
                         <div
