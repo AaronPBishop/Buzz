@@ -4,6 +4,7 @@ import MessagingBox from "../MessagingBox/MessagingBox.js";
 import MsgContainer from '../Messages/MsgContainer.js';
 import SearchBar from "../SearchBar/SearchBar.js";
 import ChannelContainer from "../ChannelsContainer/ChannelContainer.js";
+import UserProfileCardContainer from "../UserProfile/UserProfileCardContainer.js";
 
 const BaseContainer = () => {
     return (
@@ -18,6 +19,7 @@ const BaseContainer = () => {
                     backgroundColor: 'black',
                     height: '7vh'
                 }}>
+                <UserProfileCardContainer />
                 <SearchBar />
             </div>
 
