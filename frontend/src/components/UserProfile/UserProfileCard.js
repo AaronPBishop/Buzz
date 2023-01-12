@@ -55,7 +55,7 @@ const UserProfileCard = ({ user, showUserCard }) => {
                     zIndex: '100',
                     position: 'absolute',
                     background: 'black',
-                    border: '1px solid white',
+                    border: '1px solid yellow',
                     borderRadius: '5px',
                     display: 'flex',
                     flexDirection: 'column',
