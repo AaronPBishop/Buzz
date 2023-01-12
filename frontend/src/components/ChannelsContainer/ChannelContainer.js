@@ -175,13 +175,13 @@ const ChannelContainer = () => {
             {
                 currentOrg && currentOrg.organization_channels && currentOrg.organization_channels.length > 0 && 
                 currentOrg.organization_channels.filter(el => el.isPublic).map((el, i) =>
-                <Channel channelId={el.id} channelName={el.name} ownerId={el.owner_id} messages={el.channel_cm} totalUsers={el.channel_users.length} key={i} />)
+                <Channel channelId={el.id} channelName={el.name} ownerId={el.owner_id} messages={el.channel_cm} totalUsers={el.channel_users.length} usersArr={el.channel_users} key={i} />)
             }
 
             {
                 currentOrg && currentOrg.organization_channels && currentOrg.organization_channels.length > 0 &&
                 currentOrg.organization_channels.map((el, i) => (el.channel_users.includes(currentUser.username) && !el.isPublic) &&
-                <Channel channelId={el.id} channelName={el.name} ownerId={el.owner_id} messages={el.channel_cm} totalUsers={el.channel_users.length} key={i} />)
+                <Channel channelId={el.id} channelName={el.name} ownerId={el.owner_id} messages={el.channel_cm} totalUsers={el.channel_users.length} usersArr={el.channel_users} key={i} />)
             }
         </div>
     );
