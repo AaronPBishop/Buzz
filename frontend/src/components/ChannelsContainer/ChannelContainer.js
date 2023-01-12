@@ -15,8 +15,6 @@ const ChannelContainer = () => {
 
     const currentUser = useSelector(state => state.session.user);
     const currentOrg = useSelector(state => state.organization);
-    const currentChannel = useSelector(state => state.channel);
-    const allChannelsInOrg = useSelector(state => state.organization.organization_channels);
     const userEmails = useSelector(state => state.messages.usersToAdd);
 
     const [channelName, setChannelName] = useState('');
@@ -175,14 +173,14 @@ const ChannelContainer = () => {
             </div>
 
             {
-                allChannelsInOrg && allChannelsInOrg.length > 0 && 
-                allChannelsInOrg.filter(el => el.isPublic && el.name !== currentChannel.name).map((el, i) =>
+                currentOrg && currentOrg.organization_channels && currentOrg.organization_channels.length > 0 && 
+                currentOrg.organization_channels.filter(el => el.isPublic).map((el, i) =>
                 <Channel channelId={el.id} channelName={el.name} ownerId={el.owner_id} messages={el.channel_cm} totalUsers={el.channel_users.length} key={i} />)
             }
 
             {
-                allChannelsInOrg && allChannelsInOrg.length > 0 && 
-                allChannelsInOrg && allChannelsInOrg.map((el, i) => (el.channel_users.includes(currentUser.username) && !el.isPublic && el.name !== currentChannel.name) &&
+                currentOrg && currentOrg.organization_channels && currentOrg.organization_channels.length > 0 &&
+                currentOrg.organization_channels.map((el, i) => (el.channel_users.includes(currentUser.username) && !el.isPublic) &&
                 <Channel channelId={el.id} channelName={el.name} ownerId={el.owner_id} messages={el.channel_cm} totalUsers={el.channel_users.length} key={i} />)
             }
         </div>

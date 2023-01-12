@@ -77,7 +77,7 @@ const SearchBar = () => {
                         input.length < 1 && currentOrg.organization_users ?
                         currentOrg.organization_users.map((user, i) => {
                             if (user.id !== currUser.id) return (
-                                <SearchUser currOrgId={currentOrg.id} email={user.email} firstName={user.first_name} lastName={user.last_name} />
+                                <SearchUser currOrgId={currentOrg.id} email={user.email} firstName={user.first_name} lastName={user.last_name} key={i} />
                             );
                         })
                         :
