@@ -6,8 +6,9 @@ import { ExpandMore } from '@styled-icons/material-sharp/ExpandMore';
 import { ExpandLess } from '@styled-icons/material-twotone/ExpandLess';
 
 import ChannelSearch from "./ChannelSearch.js";
+import ChannelUsersContainer from "./ChannelUsersContainer.js";
 
-const Channel = ({ channelId, channelName, ownerId, messages, totalUsers }) => {
+const Channel = ({ channelId, channelName, ownerId, messages, totalUsers, usersArr }) => {
     const dispatch = useDispatch();
 
     const user = useSelector(state => state.session.user);
@@ -15,6 +16,7 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers }) => {
 
     const [clickedExpand, setClickedExpand] = useState(false);
     const [clickedAddUser, setClickedAddUser] = useState(false);
+    const [clickedViewUsers, setClickedViewUsers] = useState(false);
 
     return (
         <div 
@@ -77,8 +79,16 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers }) => {
                     <div style={{ textAlign: 'left', marginBottom: '1vh' }}>{messages.length}</div>
                 </div>
 
-                <div className="buzz-btn" style={{ height: '3.5vh', marginTop: '2vh', lineHeight: '3.6vh'}}>
+                <div 
+                className="buzz-btn" 
+                onClick={() => setClickedViewUsers(clicked => !clicked)}
+                style={{ height: '3.5vh', marginTop: '2vh', lineHeight: '3.6vh'}}>
                     View All {totalUsers} Users
+                </div>
+
+                <div
+                style={{display: clickedViewUsers ? 'block' : 'none'}}>
+                    <ChannelUsersContainer users={usersArr} />
                 </div>
 
                 <div
