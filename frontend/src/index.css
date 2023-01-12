@@ -24,20 +24,19 @@ html {
     color: yellow;
 }
 
-.expand-btn {
-    background-image: url('./chevron-down-solid.svg');
-    background-position-x: center;
-    background-position-y: 0.2vh;
-    background-size: 1.5vh;
-    background-repeat: no-repeat;
-}
+.buzz-btn {
+    text-align: center;
+    font-weight: bold;
 
-.collapse-btn {
-    background-image: url('./chevron-up-solid.svg');
-    background-position-x: center;
-    background-position-y: 0.2vh;
-    background-size: 1.5vh;
-    background-repeat: no-repeat;
+    background-color: rgb(240, 210, 10);
+    color: black;
+
+    border-radius: 8px;
+    border-bottom: 4px solid rgb(165, 165, 0);
+    
+    padding: 0.2vw;
+
+    cursor: pointer;
 }
 
 ::-webkit-scrollbar {

@@ -78,21 +78,14 @@ const DmChannelContainer = () => {
 
                 <div 
                 onClick={() => setClickedCreateGC(clicked => !clicked)}
-                className='flex-center'
+                className='buzz-btn'
                 style={{
                     display: clickedExpand && !clickedCreateGC ? 'block' : clickedCreateGC ? 'none' : 'none',
-                    textAlign: 'center',
                     marginTop: '2vh',
                     marginBottom: '3vh',
-                    fontWeight: 'bold',
-                    color: 'black',
                     lineHeight: '4vh',
-                    borderRadius: '8px',
-                    backgroundColor: 'rgb(240, 210, 10)',
-                    borderBottom: '4px solid rgb(165, 165, 0)',
                     width: '12vw',
-                    height: '4vh',
-                    cursor: 'pointer'
+                    height: '4vh'
                 }}>
                     Create Group Chat
                 </div>
@@ -109,19 +102,13 @@ const DmChannelContainer = () => {
                         setClickedCreateGC(false);
                         setClickedExpand(false);
                     }}
-                    className='flex-center'
+                    className='flex-center buzz-btn'
                     style={{
                         marginTop: '2vh',
                         marginBottom: '3vh',
-                        fontWeight: 'bold',
-                        color: 'black',
                         lineHeight: '4vh',
-                        borderRadius: '8px',
-                        backgroundColor: 'rgb(240, 210, 10)',
-                        borderBottom: '4px solid rgb(165, 165, 0)',
                         width: '12vw',
-                        height: '4vh',
-                        cursor: 'pointer'
+                        height: '4vh'
                     }}>
                         Create
                     </div>

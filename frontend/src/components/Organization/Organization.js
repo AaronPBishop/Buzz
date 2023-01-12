@@ -5,6 +5,7 @@ import { ExpandMore } from '@styled-icons/material-sharp/ExpandMore';
 import { ExpandLess } from '@styled-icons/material-twotone/ExpandLess';
 
 import { addUserToOrgThunk, fetchOrgDataThunk } from "../../store/organizationReducer";
+import { getUserThunk } from "../../store/sessionReducer.js";
 
 const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, totalDmChannels }) => {
     const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
 
     const [clicked, setClicked] = useState(false);
     const [clickedAddUser, setClickedAddUser] = useState(false);
+    const [addedUser, setAddedUser] = useState(false);
 
     const [input, setInput] = useState('');
     const [error, setError] = useState(false);
@@ -21,6 +23,10 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
     useEffect(() => {
         if (orgId === user.user_organizations[0].organization_id) dispatch(fetchOrgDataThunk(orgId));
     }, [user.id])
+
+    useEffect(() => {
+        if (addedUser === true) dispatch(getUserThunk(user.id));
+    }, [addedUser]);
 
     const keyMap = {
         organization_users: 'Users',
@@ -105,49 +111,51 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
                 }
 
                 <div
+                className="buzz-btn"
                 onClick={e => {
                     e.stopPropagation();
+
                     setClickedAddUser(clicked => !clicked);
+                    setAddedUser(false);
                 }}
                 style={{
                     display: (orgOwnerId === user.id) && !clickedAddUser ? 'block' : 'none',
                     marginTop: '4vh',
                     marginBottom: '2vh',
-                    backgroundColor: 'yellow',
-                    fontWeight: 'bold',
-                    color: 'black',
                     lineHeight: '4vh',
                     borderRadius: '8px',
-                    backgroundColor: 'rgb(240, 210, 10)',
-                    borderBottom: '4px solid rgb(165, 165, 0)',
                     width: '12vw',
-                    height: '4vh',
-                    cursor: 'pointer'
+                    height: '4vh'
                 }}>
                     Add Users
                 </div>
 
-                <div style={{display: clickedAddUser ? 'block' : 'none', marginTop: '4vh'}}>
+                <div style={{display: clickedAddUser ? 'block' : 'none', marginTop: '4vh', marginBottom: '2vh'}}>
                     <p style={{display: error ? 'block' : 'none', borderTop: '2px solid yellow', borderBottom: '2px solid yellow', padding: '1vh', marginTop: '-0.5vh'}}>Please enter a valid email</p>
 
                     <div style={{display: 'flex'}}>
                         <input
-                        value={input}
+                        id='search-input'
+                        autoComplete='off'
+                        placeHolder={`User email...`}
                         onChange={e => setInput(e.target.value)}
+                        value={input}
+                        className='flex-center'
                         style={{
                             fontFamily: 'Roboto',
-                            fontWeight: 'bold',
-                            textAlign: 'center',
-                            marginRight: '1vw',
-                            color: 'black',
-                            backgroundColor: 'yellow',
-                            border: '1px solid black',
-                            borderRadius: '8px',
-                            cursor: 'pointer'
+                            fontSize: '14px',
+                            letterSpacing: '1px',
+                            color: 'white',
+                            backgroundColor: 'rgb(20, 20, 20)',
+                            width: '14vw',
+                            height: '4vh',
+                            border: '2px solid rgb(30, 30, 30)',
+                            borderRadius: '8px'
                         }}>
                         </input>
 
                         <div
+                        className="buzz-btn"
                         onClick={() => {
                             if (!validateEmail(input)) setError(true);
                             if (validateEmail(input)) {
@@ -156,15 +164,11 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
 
                                 dispatch(addUserToOrgThunk(orgId, input));
 
+                                setAddedUser(true);
                                 setInput('');
                             };
                         }}
-                        style={{
-                            backgroundColor: 'yellow',
-                            color: 'black',
-                            padding: '0.4vw',
-                            borderRadius: '6px'
-                        }}>
+                        style={{width: '3vw', height: '3vh', marginLeft: '0.5vw', marginTop: '0.2vh', lineHeight: '3.5vh'}}>
                             Add
                         </div>
                     </div>

@@ -71,36 +71,27 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers }) => {
                 </ExpandLess>
             </div>
 
-            <div style={{ display: clickedExpand ? 'block' : 'none', justifyContent: 'center', flexWrap: 'wrap', marginTop: '4vh', maxWidth: '14vw'}}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', width: '14vw',}}>
-                    <div style={{ textAlign: 'left', marginBottom: '1vh' }}>Total Users:</div>
-                    <div style={{ textAlign: 'left', marginBottom: '1vh' }}>{totalUsers}</div>
-                </div>
-
+            <div style={{ display: clickedExpand ? 'block' : 'none', justifyContent: 'center', flexWrap: 'wrap', marginTop: '4vh', marginBottom: '2vh', borderBottom: '2px solid rgb(30, 30, 30)', maxWidth: '14vw'}}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', width: '14vw'}}>
                     <div style={{ textAlign: 'left', marginBottom: '1vh' }}>Total Messages:</div>
                     <div style={{ textAlign: 'left', marginBottom: '1vh' }}>{messages.length}</div>
                 </div>
 
+                <div className="buzz-btn" style={{ height: '3.5vh', marginTop: '2vh', lineHeight: '3.6vh'}}>
+                    View All {totalUsers} Users
+                </div>
+
                 <div
+                className="buzz-btn"
                 onClick={e => {
                     e.stopPropagation();
                     setClickedAddUser(clicked => !clicked);
                 }}
                 style={{
                     display: (ownerId === user.id) && !clickedAddUser ? 'block' : 'none',
-                    textAlign: 'center',
-                    marginTop: '4vh',
+                    marginTop: '2vh',
                     marginBottom: '2vh',
-                    fontWeight: 'bold',
-                    color: 'black',
-                    lineHeight: '4vh',
-                    borderRadius: '8px',
-                    backgroundColor: 'rgb(240, 210, 10)',
-                    borderBottom: '4px solid rgb(165, 165, 0)',
-                    padding: '0.2vw',
-                    borderRadius: '8px',
-                    cursor: 'pointer'
+                    lineHeight: '4vh'
                 }}>
                     Add Users
                 </div>

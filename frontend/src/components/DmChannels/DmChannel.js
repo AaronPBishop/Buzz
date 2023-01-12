@@ -5,7 +5,7 @@ import { populateCurrMessages, setViewingDm } from '../../store/messagesReducer.
 import { deleteDmMessageChannelThunk } from '../../store/organizationReducer.js';
 import { fetchOrgDataThunk } from "../../store/organizationReducer.js";
 
-import { CloseSquareOutline } from '@styled-icons/evaicons-outline/CloseSquareOutline'
+import { CloseCircle } from '@styled-icons/ionicons-outline/CloseCircle';
 
 const DmChannel = ({ messages, users, ownerId, id }) => {
     const dispatch = useDispatch();
@@ -70,7 +70,7 @@ const DmChannel = ({ messages, users, ownerId, id }) => {
         }}>
             {validUsers.length > 1 ? formatNames(validUsers) : validUsers}
 
-            <CloseSquareOutline
+            <CloseCircle
             onClick={e => {
                 e.stopPropagation();
 
@@ -84,7 +84,7 @@ const DmChannel = ({ messages, users, ownerId, id }) => {
                 marginBottom: '0.4vh',
                 cursor: 'pointer'
             }}>
-            </CloseSquareOutline>
+            </CloseCircle>
         </div>
     );
 };

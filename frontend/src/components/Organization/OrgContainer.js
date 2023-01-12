@@ -23,7 +23,11 @@ const OrgContainer = () => {
     const [img, setImg] = useState('');
 
     useEffect(() => {
-        if (clickedCreate === true) dispatch(getUserThunk(currUser.id));
+        if (clickedCreate === true) {
+            dispatch(getUserThunk(currUser.id));
+
+            setClickedCreate(false);
+        };
     }, [clickedCreate]);
 
     return (
@@ -78,21 +82,14 @@ const OrgContainer = () => {
 
                 <div 
                 onClick={() => setClickedCreateOrg(clicked => !clicked)}
-                className='flex-center'
+                className='buzz-btn'
                 style={{
                     display: clickedExpand && !clickedCreateOrg ? 'block' : clickedCreateOrg ? 'none' : 'none',
-                    textAlign: 'center',
                     marginTop: '2vh',
                     marginBottom: '3vh',
-                    fontWeight: 'bold',
-                    color: 'black',
                     lineHeight: '4vh',
-                    borderRadius: '8px',
-                    backgroundColor: 'rgb(240, 210, 10)',
-                    borderBottom: '4px solid rgb(165, 165, 0)',
                     width: '12vw',
-                    height: '4vh',
-                    cursor: 'pointer'
+                    height: '4vh'
                 }}>
                     Create New Organization
                 </div>
@@ -147,22 +144,19 @@ const OrgContainer = () => {
                         dispatch(createOrgThunk(orgName, currUser.id, img));
 
                         setClickedCreate(true);
+
+                        setImg('');
+                        setOrgName('');
                         setClickedCreateOrg(false);
                         setClickedExpand(false);
                     }}
-                    className='flex-center'
+                    className='flex-center buzz-btn'
                     style={{
                         marginTop: '2vh',
                         marginBottom: '3vh',
-                        fontWeight: 'bold',
-                        color: 'black',
                         lineHeight: '4vh',
-                        borderRadius: '8px',
-                        backgroundColor: 'rgb(240, 210, 10)',
-                        borderBottom: '4px solid rgb(165, 165, 0)',
                         width: '12vw',
-                        height: '4vh',
-                        cursor: 'pointer'
+                        height: '4vh'
                     }}>
                         Create
                     </div>

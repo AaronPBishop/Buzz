@@ -50,23 +50,16 @@ const SearchBar = () => {
                 overflowY: 'auto'
             }}>
                 <div
+                className="buzz-btn"
                 style={{
                     lineHeight: '3vh',
                     position: 'fixed',
                     marginTop: '1.2vh',
                     marginLeft: '0.4vw',
-                    textAlign: 'center',
-                    fontWeight: 'bold',
                     fontSize: '14px',
-                    color: 'black',
                     minWidth: '4vw',
                     maxWidth: '5vw',
-                    height: '3vh',
-                    border: '2px solid transparent',
-                    borderRadius: '4px',
-                    backgroundColor: 'rgb(240, 210, 10)',
-                    borderBottom: '3px solid rgb(165, 165, 0)',
-                    cursor: 'pointer'
+                    height: '3vh'
                 }}
                 onClick={() => setClicked(false)}>
                     Close

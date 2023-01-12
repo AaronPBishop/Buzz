@@ -49,28 +49,28 @@ def delete_organization(org_id):
 @login_required
 def add_user():
     req_data = request.json
-    queried_org = Organization.query.get_or_404(req_data['orgId'])
 
-    for user in req_data['usersToAddEmail']:
-        user_obj = {'email': user}
-        new_user = db.session.query(User).filter_by(**user_obj).first()
-        if new_user is None:
-            return f'${user} does not exist'
-        association = User_Org_Association(
+    queried_org = Organization.query.get_or_404(req_data['orgId'])
+    queried_user= db.session.query(User).filter_by(email = req_data['email']).first()
+
+    if queried_user is None:
+        return f'${queried_user} does not exist'
+
+    association = User_Org_Association (
             organization_id=queried_org.id,
-            user_id=new_user.id,
+            user_id=queried_user.id,
             parent=queried_org,
-            child=new_user
+            child=queried_user
         )
 
-        queried_org.organization_user.append(association)
-        new_user.user_organization.append(association)
+    queried_org.organization_user.append(association)
+    queried_user.user_organization.append(association)
 
-        db.session.add(association)
+    db.session.add(association)
 
     db.session.commit()
 
-    return queried_org.add_user()
+    return queried_org.to_dict()
 
 
 # * Create a new organization ************************************************************
