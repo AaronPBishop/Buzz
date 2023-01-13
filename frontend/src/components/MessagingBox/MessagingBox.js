@@ -21,6 +21,9 @@ const MessagingBox = () => {
     const [bold, setBold] = useState(false);
     const [italic, setItalic] = useState(false);
 
+    //! An image array builder is required with image urls
+    let images = []
+
     const handleKeyDown = e => {
         if (e.key === 'Enter') {
             if (messageState.viewingChannel) {
@@ -29,7 +32,7 @@ const MessagingBox = () => {
                 setInput('');
             };
             if (messageState.viewingDm) {
-                dispatch(createDmMessageThunk(user.id, messageState.currChannelId, input));
+                dispatch(createDmMessageThunk(user.id, messageState.currChannelId, input, images));
 
                 setInput('');
             };
@@ -89,13 +92,15 @@ const MessagingBox = () => {
 
                 <Send
                     onClick={() => {
+
+
                         if (messageState.viewingChannel) {
-                            dispatch(createChannelMessageThunk(user.id, messageState.currChannelId, input));
+                            dispatch(createChannelMessageThunk(user.id, messageState.currChannelId, input, images));
 
                             setInput('');
                         };
                         if (messageState.viewingDm) {
-                            dispatch(createDmMessageThunk(user.id, messageState.currChannelId, input));
+                            dispatch(createDmMessageThunk(user.id, messageState.currChannelId, input, images));
 
                             setInput('');
                         };

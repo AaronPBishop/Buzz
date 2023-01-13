@@ -77,7 +77,19 @@ export const createChannelMessageThunk = (userId, channelId, message) => async d
         }),
     });
 
-    const response = await request.json();
+export const createChannelMessageThunk =
+    (userId, channelId, message, images) => async dispatch => {
+        const request = await fetch("/api/channelMessage/new", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                message: message,
+                last_update: Date(),
+                channelId: channelId,
+                userId: userId,
+                images
+            }),
+        });
 
     dispatch(addMessage(response));
 };
@@ -124,6 +136,19 @@ export const createDmMessageChannelThunk = (ownerId, organizationId, userEmails)
     dispatch(setViewingDm(responseJSON.id));
 };
 
+export const createDmMessageThunk =
+    (userId, dmMessage_channelId, message, images) => async dispatch => {
+        const request = await fetch("/api/dmMessage/new", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                message: message,
+                last_update: Date(),
+                currChannelId: dmMessage_channelId,
+                userId: userId,
+                images: images
+            }),
+        });
 
 export const createDmMessageThunk = (userId, dmMessage_channelId, message) => async dispatch => {
     const request = await fetch("/api/dmMessage/", {
