@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ExpandMore } from '@styled-icons/material-sharp/ExpandMore';
 import { ExpandLess } from '@styled-icons/material-twotone/ExpandLess';
 
-import { addUserToOrgThunk, fetchOrgDataThunk } from "../../store/organizationReducer";
+import { addUserToOrgThunk, fetchOrgDataThunk, deleteOrgThunk, editOrgThunk } from "../../store/organizationReducer";
 import { getUserThunk } from "../../store/sessionReducer.js";
 
 import OrgUsersContainer from "./OrgUsersContainer.js";
@@ -20,6 +20,12 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
     const [clickedViewUsers, setClickedViewUsers] = useState(false);
     const [addedUser, setAddedUser] = useState(false);
 
+    const [clickedDelete, setClickedDelete] = useState(false);
+    const [clickedEdit, setClickedEdit] = useState(false);
+    const [clickedSave, setClickedSave] = useState(false);
+    const [editNameInput, setEditNameInput] = useState(orgName);
+    const [editImgInput, setEditImgInput] = useState('');
+
     const [input, setInput] = useState('');
     const [error, setError] = useState(false);
 
@@ -30,6 +36,22 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
     useEffect(() => {
         if (addedUser === true) dispatch(getUserThunk(user.id));
     }, [addedUser]);
+
+    useEffect(() => {
+        if (clickedDelete === true) {
+            dispatch(getUserThunk(user.id));
+
+            setClickedDelete(false);
+        };
+    }, [clickedDelete]);
+
+    useEffect(() => {
+        if (clickedSave === true) {
+            dispatch(getUserThunk(user.id));
+
+            setClickedSave(false);
+        };
+    }, [clickedSave]);
 
     const keyMap = {
         organization_channels: 'Channels',
@@ -95,6 +117,85 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
             </div>
 
             <div style={{display: clicked ? 'flex' : 'none', justifyContent: 'center', flexWrap: 'wrap', marginTop: '2vh'}}>
+                <div style={{display: user.id === orgOwnerId ? 'flex' : 'none', marginTop: '-1vh', marginBottom: '4vh'}}>
+                    <div 
+                    className="buzz-btn" 
+                    onClick={() => {
+                        if (clickedEdit === true) {
+                            dispatch(editOrgThunk(orgId, editNameInput, editImgInput));
+
+                            setClickedEdit(false);
+                            setClickedSave(true);
+
+                            return;
+                        };
+
+                        setClickedEdit(true);
+                    }}
+                    style={{width: '6vw', marginRight: '1.4vw'}}>
+                        {!clickedEdit ? 'Edit' : 'Save'}
+                    </div>
+
+                    <div 
+                    className="buzz-btn" 
+                    onClick={() => {
+                        dispatch(deleteOrgThunk(orgId, orgOwnerId));
+
+                        setClickedDelete(true);
+                    }}
+                    style={{width: '6vw', marginLeft: '1.4vw'}}>
+                        Delete
+                    </div>
+                </div>
+
+                <div style={{display: clickedEdit ? 'block' : 'none'}}>
+                    <input
+                    id='search-input'
+                    autoComplete='off'
+                    onChange={e => setEditNameInput(e.target.value)}
+                    value={editNameInput}
+                    className='flex-center'
+                    style={{
+                        textAlign: 'center',
+                        fontFamily: 'Roboto',
+                        fontWeight: 'bold',
+                        fontSize: '14px',
+                        letterSpacing: '1px',
+                        color: 'white',
+                        backgroundColor: 'rgb(20, 20, 20)',
+                        width: '14vw',
+                        height: '4vh',
+                        border: '2px solid rgb(30, 30, 30)',
+                        borderRadius: '8px',
+                        marginTop: '-2vh',
+                        marginBottom: '4vh'
+                    }}>
+                    </input>
+
+                    <input
+                    id='search-input'
+                    autoComplete='off'
+                    onChange={e => setEditImgInput(e.target.value)}
+                    placeholder='Organization Image (URL)'
+                    value={editImgInput}
+                    className='flex-center'
+                    style={{
+                        fontFamily: 'Roboto',
+                        fontWeight: 'bold',
+                        fontSize: '14px',
+                        letterSpacing: '1px',
+                        color: 'white',
+                        backgroundColor: 'rgb(20, 20, 20)',
+                        width: '14vw',
+                        height: '4vh',
+                        border: '2px solid rgb(30, 30, 30)',
+                        borderRadius: '8px',
+                        marginTop: '-2vh',
+                        marginBottom: '4vh'
+                    }}>
+                    </input>
+                </div>
+
                 {
                     Object.keys(keyMap).map((key, i) => {
                         return (

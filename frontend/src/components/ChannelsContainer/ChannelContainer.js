@@ -45,7 +45,7 @@ const ChannelContainer = () => {
                     width: '16vw',
                     textAlign: 'center',
                     fontSize: '16px',
-                    marginTop: '1vh',
+                    marginTop: '1vh'
                 }}>
                     <p style={{ marginLeft: '0.4vw', maxWidth: '8vw' }}>Channels</p>
 

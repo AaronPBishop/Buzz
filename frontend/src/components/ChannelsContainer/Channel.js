@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { populateCurrMessages, setViewingChannel } from '../../store/messagesReducer.js';
+
+import { populateCurrMessages, setViewingChannel, clearChannelMessageData } from '../../store/messagesReducer.js';
+import { deleteChannelThunk, fetchOrgDataThunk, editChannelThunk } from "../../store/organizationReducer.js";
 
 import { ExpandMore } from '@styled-icons/material-sharp/ExpandMore';
 import { ExpandLess } from '@styled-icons/material-twotone/ExpandLess';
@@ -13,10 +15,33 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers, usersA
 
     const user = useSelector(state => state.session.user);
     const messageState = useSelector(state => state.messages);
+    const currOrg = useSelector(state => state.organization);
 
     const [clickedExpand, setClickedExpand] = useState(false);
     const [clickedAddUser, setClickedAddUser] = useState(false);
     const [clickedViewUsers, setClickedViewUsers] = useState(false);
+    
+    const [clickedDelete, setClickedDelete] = useState(false);
+    const [clickedEdit, setClickedEdit] = useState(false);
+    const [clickedSave, setClickedSave] = useState(false);
+    const [input, setInput] = useState(channelName);
+
+    useEffect(() => {
+        if (clickedDelete === true) {
+            dispatch(fetchOrgDataThunk(currOrg.id));
+            dispatch(clearChannelMessageData());
+
+            setClickedDelete(false);
+        };
+    }, [clickedDelete]);
+
+    useEffect(() => {
+        if (clickedSave === true) {
+            dispatch(fetchOrgDataThunk(currOrg.id));
+
+            setClickedSave(false);
+        };
+    }, [clickedSave]);
 
     return (
         <div 
@@ -29,9 +54,11 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers, usersA
                 display: 'flex',
                 justifyContent: 'space-between',
                 width: '16vw',
+                height: '6vh',
                 textAlign: 'center',
                 fontSize: '16px',
                 marginTop: '1vh',
+                marginBottom: '1vh',
                 padding: '0.8vh',
                 cursor: 'pointer',
                 borderTop: '2px solid rgb(30, 30, 30)',
@@ -73,8 +100,64 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers, usersA
                 </ExpandLess>
             </div>
 
-            <div style={{ display: clickedExpand ? 'block' : 'none', justifyContent: 'center', flexWrap: 'wrap', marginTop: '4vh', marginBottom: '2vh', borderBottom: '2px solid rgb(30, 30, 30)', maxWidth: '14vw'}}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', width: '14vw'}}>
+            <div style={{display: clickedExpand ? 'flex' : 'none', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '2vh', borderBottom: '2px solid rgb(30, 30, 30)'}}>
+                <div style={{display: user.id === ownerId ? 'flex' : 'none', justifyContent: 'space-between', marginTop: '-1vh', marginBottom: '4vh'}}>
+                    <div 
+                    className="buzz-btn" 
+                    onClick={() => {
+                        if (clickedEdit === true) {
+                            dispatch(editChannelThunk(channelId, input));
+
+                            setClickedEdit(false);
+                            setClickedSave(true);
+
+                            return;
+                        };
+
+                        setClickedEdit(true);
+                    }}
+                    style={{width: '6vw', marginRight: '1.5vw'}}>
+                        {!clickedEdit ? 'Edit' : 'Save'}
+                    </div>
+
+                    <div 
+                    className="buzz-btn" 
+                    onClick={() => {
+                        dispatch(deleteChannelThunk(channelId));
+
+                        setClickedDelete(true);
+                    }}
+                    style={{width: '6vw', marginLeft: '1.5vw'}}>
+                        Delete
+                    </div>
+                </div>
+
+                <div style={{display: clickedEdit ? 'block' : 'none'}}>
+                    <input
+                    id='search-input'
+                    autoComplete='off'
+                    onChange={e => setInput(e.target.value)}
+                    value={input}
+                    className='flex-center'
+                    style={{
+                        textAlign: 'center',
+                        fontFamily: 'Roboto',
+                        fontWeight: 'bold',
+                        fontSize: '14px',
+                        letterSpacing: '1px',
+                        color: 'white',
+                        backgroundColor: 'rgb(20, 20, 20)',
+                        width: '14vw',
+                        height: '4vh',
+                        border: '2px solid rgb(30, 30, 30)',
+                        borderRadius: '8px',
+                        marginTop: '-2vh',
+                        marginBottom: '4vh'
+                    }}>
+                    </input>
+                </div>
+
+                <div className={messageState.currChannelId === channelId && 'selected'} style={{ display: 'flex', justifyContent: 'space-between', width: '14vw'}}>
                     <div style={{ textAlign: 'left', marginBottom: '1vh' }}>Total Messages:</div>
                     <div style={{ textAlign: 'left', marginBottom: '1vh' }}>{messages.length}</div>
                 </div>
@@ -82,7 +165,14 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers, usersA
                 <div 
                 className="buzz-btn" 
                 onClick={() => setClickedViewUsers(clicked => !clicked)}
-                style={{display: (totalUsers - 1 > 0) ? 'block' : 'none', height: '3.5vh', marginTop: '2vh', lineHeight: '3.6vh'}}>
+                style={{
+                    display: (totalUsers - 1 > 0) ? 'block' : 'none', 
+                    height: '3.5vh', 
+                    marginTop: '2vh', 
+                    marginBottom: '2vh',
+                    lineHeight: '3.6vh',
+                    width: '14vw'
+                }}>
                     View All {totalUsers - 1} Users
                 </div>
 
@@ -101,7 +191,8 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers, usersA
                     display: (ownerId === user.id) && !clickedAddUser ? 'block' : 'none',
                     marginTop: '2vh',
                     marginBottom: '2vh',
-                    lineHeight: '4vh'
+                    lineHeight: '4vh',
+                    width: '14vw'
                 }}>
                     Add Users
                 </div>
