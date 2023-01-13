@@ -82,13 +82,13 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers, usersA
                 <div 
                 className="buzz-btn" 
                 onClick={() => setClickedViewUsers(clicked => !clicked)}
-                style={{ height: '3.5vh', marginTop: '2vh', lineHeight: '3.6vh'}}>
-                    View All {totalUsers} Users
+                style={{display: (totalUsers - 1 > 0) ? 'block' : 'none', height: '3.5vh', marginTop: '2vh', lineHeight: '3.6vh'}}>
+                    View All {totalUsers - 1} Users
                 </div>
 
                 <div
                 style={{display: clickedViewUsers ? 'block' : 'none'}}>
-                    <ChannelUsersContainer users={usersArr} />
+                    <ChannelUsersContainer channelId={channelId} ownerId={ownerId} users={usersArr} />
                 </div>
 
                 <div

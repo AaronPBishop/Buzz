@@ -47,6 +47,17 @@ export const addUserToChannelThunk = (channelId, userToAddId) => async (dispatch
 };
 
 
+export const removeUserFromChannelThunk = (channelId, userToRemoveId) => async (dispatch) => {
+    await fetch(`/api/channels/${channelId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            userId: userToRemoveId
+        }),
+    });
+};
+
+
 export const editChannelThunk = (channelToEditId, channelNameToEdit, userToDeleteId) => async (dispatch) => {
     await fetch(`/api/channels/${channelToEditId}`, {
         method: 'PUT',
@@ -120,6 +131,17 @@ export const addUserToOrgThunk = (orgId, userToAddEmail) => async (dispatch) => 
     const orgData = responseJSON;
 
     dispatch(populateOrgData(orgData));
+};
+
+
+export const removeUserFromOrgThunk = (orgId, userToRemoveId) => async (dispatch) => {
+    await fetch(`/api/organizations/${orgId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            userId: userToRemoveId
+        }),
+    });
 };
 
 

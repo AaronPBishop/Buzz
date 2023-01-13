@@ -163,7 +163,7 @@ const OrgContainer = () => {
             </div>
             {
                 currUser && 
-                currUser.user_organizations.map((org, i) => <Organization orgId={org.organization_id} orgName={org.organization_name} orgOwnerId={org.organization_owner} totalUsers={org.total_users} totalChannels={org.total_channels} totalDmChannels={org.total_dm_channels} key={i} />)
+                currUser.user_organizations.map((org, i) => <Organization orgId={org.organization_id} orgName={org.organization_name} orgOwnerId={org.organization_owner} totalUsers={org.total_users} totalChannels={org.total_channels} totalDmChannels={org.total_dm_channels} usersArr={org.users} key={i} />)
             }
         </div>
     );

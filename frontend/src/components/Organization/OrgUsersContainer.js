@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux';
 
-import ChannelUser from './ChannelUser.js';
+import OrgUser from './OrgUser.js';
 
-const ChannelUsersContainer = ({ channelId, ownerId, users }) => {
+const OrgUsersContainer = ({ orgId, ownerId, users }) => {
     const currUser = useSelector(state => state.session.user);
 
     return (
@@ -20,11 +20,11 @@ const ChannelUsersContainer = ({ channelId, ownerId, users }) => {
             {
                 users.map((user, i) => 
                     user.id !== currUser.id &&
-                    <ChannelUser channelId={channelId} ownerId={ownerId} userId={user.id} firstName={user.first_name} lastName={user.last_name} key={i} />
+                    <OrgUser orgId={orgId} ownerId={ownerId} userId={user.id} firstName={user.first_name} lastName={user.last_name} key={i} />
                 )
             }
         </div>
     );
 };
 
-export default ChannelUsersContainer;
+export default OrgUsersContainer;

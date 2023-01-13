@@ -1,21 +1,21 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 
-import { fetchOrgDataThunk, removeUserFromChannelThunk } from '../../store/organizationReducer.js';
+import { getUserThunk } from '../../store/sessionReducer.js';
+import { removeUserFromOrgThunk } from '../../store/organizationReducer.js';
 
 import { PersonRemove } from '@styled-icons/ionicons-sharp/PersonRemove';
 
-const ChannelUser = ({ channelId, ownerId, userId, firstName, lastName }) => {
+const OrgUser = ({ orgId, ownerId, userId, firstName, lastName }) => {
     const dispatch = useDispatch();
 
     const currUser = useSelector(state => state.session.user);
-    const currOrg = useSelector(state => state.organization);
 
     const [deleted, setDeleted] = useState(false);
 
     useEffect(() => {
         if (deleted === true) {
-            dispatch(fetchOrgDataThunk(currOrg.id));
+            dispatch(getUserThunk(currUser.id));
 
             setDeleted(false);
         };
@@ -38,8 +38,9 @@ const ChannelUser = ({ channelId, ownerId, userId, firstName, lastName }) => {
             <div>{firstName} {lastName}</div>
 
             <PersonRemove 
-            onClick={() => {
-                dispatch(removeUserFromChannelThunk(channelId, userId));
+            onClick={e => {
+                e.stopPropagation();
+                dispatch(removeUserFromOrgThunk(orgId, userId));
 
                 setDeleted(true);
             }}
@@ -52,4 +53,4 @@ const ChannelUser = ({ channelId, ownerId, userId, firstName, lastName }) => {
     );
 };
 
-export default ChannelUser;
+export default OrgUser;

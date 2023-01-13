@@ -7,7 +7,9 @@ import { ExpandLess } from '@styled-icons/material-twotone/ExpandLess';
 import { addUserToOrgThunk, fetchOrgDataThunk } from "../../store/organizationReducer";
 import { getUserThunk } from "../../store/sessionReducer.js";
 
-const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, totalDmChannels }) => {
+import OrgUsersContainer from "./OrgUsersContainer.js";
+
+const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, totalDmChannels, usersArr }) => {
     const dispatch = useDispatch();
 
     const user = useSelector(state => state.session.user);
@@ -15,6 +17,7 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
 
     const [clicked, setClicked] = useState(false);
     const [clickedAddUser, setClickedAddUser] = useState(false);
+    const [clickedViewUsers, setClickedViewUsers] = useState(false);
     const [addedUser, setAddedUser] = useState(false);
 
     const [input, setInput] = useState('');
@@ -29,7 +32,6 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
     }, [addedUser]);
 
     const keyMap = {
-        organization_users: 'Users',
         organization_channels: 'Channels',
         organization_dmMessage_channels: 'Direct Messages'
     };
@@ -92,7 +94,7 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
                 </ExpandLess>
             </div>
 
-            <div style={{display: clicked ? 'flex' : 'none', justifyContent: 'center', flexWrap: 'wrap', marginTop: '4vh'}}>
+            <div style={{display: clicked ? 'flex' : 'none', justifyContent: 'center', flexWrap: 'wrap', marginTop: '2vh'}}>
                 {
                     Object.keys(keyMap).map((key, i) => {
                         return (
@@ -100,8 +102,7 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
                                 <div style={{textAlign: 'left', width: '10vw', marginBottom: '1vh'}}>{keyMap[key]}:</div>
                                 <div style={{textAlign: 'right', width: '2vw'}}>
                                     {
-                                        key === 'organization_users' ? totalUsers 
-                                        : key === 'organization_channels' ? totalChannels 
+                                        key === 'organization_channels' ? totalChannels 
                                         : key === 'organization_dmMessage_channels' && totalDmChannels
                                     }
                                 </div>
@@ -109,6 +110,18 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
                         )
                     })
                 }
+
+                <div 
+                className="buzz-btn" 
+                onClick={() => setClickedViewUsers(clicked => !clicked)}
+                style={{display: (totalUsers - 1 > 0) ? 'block' : 'none', height: '3.5vh', width: '14vw', marginTop: '2vh', marginBottom: '2vh', lineHeight: '3.6vh'}}>
+                    View All {totalUsers - 1} Users
+                </div>
+
+                <div
+                style={{display: clickedViewUsers ? 'block' : 'none'}}>
+                    <OrgUsersContainer orgId={orgId} ownerId={orgOwnerId} users={usersArr} />
+                </div>
 
                 <div
                 className="buzz-btn"
@@ -120,11 +133,11 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
                 }}
                 style={{
                     display: (orgOwnerId === user.id) && !clickedAddUser ? 'block' : 'none',
-                    marginTop: '4vh',
+                    marginTop: (totalUsers - 1 <= 0) ? '2vh' : '0vh',
                     marginBottom: '2vh',
                     lineHeight: '4vh',
                     borderRadius: '8px',
-                    width: '12vw',
+                    width: '14vw',
                     height: '4vh'
                 }}>
                     Add Users
