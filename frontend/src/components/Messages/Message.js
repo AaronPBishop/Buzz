@@ -196,7 +196,7 @@ const Message = ({ message, sessionUser }) => {
                             }}>
                             <button
                                 onClick={e => {
-                                    e.preventDefault();
+                                    e.stopPropagation()
                                     if (
                                         clicked === true &&
                                         messageState.viewingChannel === true
@@ -242,7 +242,7 @@ const Message = ({ message, sessionUser }) => {
                             }}>
                             <button
                                 onClick={e => {
-                                    e.preventDefault();
+                                    e.stopPropagation()
                                     if (messageState.viewingChannel === true) {
                                         dispatch(
                                             deleteChannelMessageDataThunk(
@@ -257,8 +257,9 @@ const Message = ({ message, sessionUser }) => {
                                         dispatch(
                                             deleteDmMessageDataThunk(message.id)
                                         );
-                                        
+
                                         setClickDelete(true);
+                                        console.log(clickDelete);
                                     }
                                 }}
                                 style={{
