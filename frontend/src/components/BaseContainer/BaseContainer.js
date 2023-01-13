@@ -5,6 +5,7 @@ import MsgContainer from '../Messages/MsgContainer.js';
 import SearchBar from "../SearchBar/SearchBar.js";
 import ChannelContainer from "../ChannelsContainer/ChannelContainer.js";
 import UserProfileCardContainer from "../UserProfile/UserProfileCardContainer.js";
+import Logo from "../Logo/Logo.js";
 
 const BaseContainer = () => {
     return (
@@ -21,6 +22,7 @@ const BaseContainer = () => {
                 }}>
                 <UserProfileCardContainer />
                 <SearchBar />
+                <Logo />
             </div>
 
             <div
