@@ -19,7 +19,8 @@ const UserProfileCardContainer = () => {
 
     return (
         <div style={{
-            marginLeft: '50px'
+            marginTop: '0.2vh',
+            marginLeft: '1vw'
         }}>
             {currentUser &&
                 <img src={`${currentUser.profile_img}`} onClick={(e) => handleClickProfileImage(e)} style={{

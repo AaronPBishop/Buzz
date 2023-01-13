@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import "./UserProfileCard.css";
+
 import { editUserThunk, logout } from "../../store/sessionReducer";
 import { Close } from '@styled-icons/evil/Close';
 import { useHistory } from "react-router-dom"
 
+import "./UserProfileCard.css";
+
 
 const UserProfileCard = ({ user, showUserCard }) => {
-
     const dispatch = useDispatch();
     const history = useHistory();
-    // const user = useSelector(state => state.session.user);
+
     const [showEditForm, setShowEditForm] = useState(false);
     const [showCardDropDown, setShowCardDropDown] = useState(true);
     const [username, setUsername] = useState(user.username);
@@ -25,13 +25,13 @@ const UserProfileCard = ({ user, showUserCard }) => {
         e.preventDefault();
         dispatch(logout());
         history.push("/");
-    }
+    };
 
     const handleEditUser = (e) => {
         e.preventDefault();
         setShowEditForm(true);
         setShowCardDropDown(false);
-    }
+    };
 
     const handleFormSubmission = (e) => {
         e.preventDefault();
@@ -39,18 +39,19 @@ const UserProfileCard = ({ user, showUserCard }) => {
         setShowEditForm(false);
         setShowCardDropDown(true);
         showUserCard(false);
-    }
+    };
 
     const handleCloseFunction = (e) => {
         e.preventDefault();
         setShowEditForm(false)
         setShowCardDropDown(true)
         showUserCard(false)
-    }
+    };
 
     return (
         <div>
-            {showCardDropDown &&
+            {
+                showCardDropDown &&
                 <div style={{
                     zIndex: '100',
                     position: 'absolute',
@@ -78,19 +79,13 @@ const UserProfileCard = ({ user, showUserCard }) => {
                         <button onClick={(e) => handleEditUser(e)} className="actionButtons buzz-btn">Edit User</button>
                         <button onClick={(e) => handleLogout(e)} className="actionButtons buzz-btn">Logout</button>
                     </div>
-                </div>}
-            {showEditForm && (
+                </div>
+            }
+            {
+                showEditForm && (
                 <div style={{
-                    // color: 'red',
-                    // fontSize: '50px',
-                    // background: 'red',
                     zIndex: '100',
-                    position: 'absolute',
-                    // position: 'relative',
-                    left: '0',
-                    right: '0',
-                    // marginLeft: 'center',
-                    // marginRight: 'center'
+                    position: 'absolute'
                 }}>
                     <form onSubmit={(e) => handleFormSubmission(e)} className='EditUserForm'>
                         <Close style={{
@@ -153,10 +148,10 @@ const UserProfileCard = ({ user, showUserCard }) => {
                     </form>
 
                 </div>
-            )
+                )
             }
-        </div >
-    )
-}
+        </div>
+    );
+};
 
 export default UserProfileCard;
