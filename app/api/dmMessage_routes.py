@@ -1,7 +1,6 @@
 from flask import Blueprint, request
 from flask_login import login_required
-from app.models import DmMessage, DmMessage_Channel, db
-from datetime import datetime
+from app.models import DmMessage, Image, db
 
 
 dmMessage_routes = Blueprint('dmMessage', __name__)
@@ -18,19 +17,33 @@ def get_dmMessage(id):
 # * Create a dmMessage **************************************************************
 
 
-@dmMessage_routes.route('/', methods=['POST'])
+@dmMessage_routes.route('/new', methods=['POST'])
 @login_required
 def create_dmMessage():
     req_data = request.json
 
     new_dmMessage = DmMessage(
         message=req_data['message'],
-        dmMessage_channel_id=req_data['dmMessage_channelId'],
+        dmMessage_channel_id=req_data['currChannelId'],
         user_id=req_data['userId']
     )
 
     db.session.add(new_dmMessage)
     db.session.commit()
+
+# ? Query for newly created channelMessage
+    queried_dmMessage = DmMessage.query.get_or_404(new_dmMessage.id)
+    if len(req_data['images']) > 0:
+        for image in req_data['images']:
+            if image != None:
+                new_image = Image(
+                    url=image,
+                    channel_message_id=None,
+                    dm_message_id=queried_dmMessage.id,
+                    user_id=req_data['userId']
+                )
+                db.session.add(new_image)
+                db.session.commit()
 
     return new_dmMessage.to_dict()
 

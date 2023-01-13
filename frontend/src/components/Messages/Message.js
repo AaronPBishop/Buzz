@@ -8,6 +8,7 @@ import {
     editDmMessageThunk,
     deleteDmMessageDataThunk,
 } from "../../store/messagesReducer";
+import { fetchOrgDataThunk } from "../../store/organizationReducer";
 
 const Message = ({ message, sessionUser }) => {
     const [clicked, setClicked] = useState(false);
@@ -19,6 +20,7 @@ const Message = ({ message, sessionUser }) => {
     const dispatch = useDispatch();
 
     const messageState = useSelector(state => state.messages);
+    const org = useSelector(state => state.organization.id);
 
     useEffect(() => {
         if (sessionUser.id === message.user_id) setValidOwner(true);
@@ -26,13 +28,26 @@ const Message = ({ message, sessionUser }) => {
 
     //! rerender needed after deletion
 
-    useEffect(() => {
-        if (clickDelete === true && messageState.viewingChannel === true)
-            dispatch(deleteChannelMessageDataThunk(message.id));
+    // useEffect(() => {
+    //     if (clickDelete === true) {
+    //         dispatch(fetchOrgDataThunk(org));
+    //         setClickDelete(false);
+    //     }
+    // }, [clickDelete]);
 
-        if (clickDelete === true && messageState.viewingDm === true)
-            dispatch(deleteDmMessageDataThunk(message.id));
-    }, [clickDelete]);
+    const handleKeyDown = e => {
+        if (e.key === "Enter") {
+            if (messageState.viewingChannel === true) {
+                dispatch(editChannelMessageThunk(message.id, editMsg));
+                setClicked(!clicked);
+            }
+
+            if (messageState.viewingDm === true) {
+                dispatch(editDmMessageThunk(message.id, editMsg));
+                setClicked(!clicked);
+            }
+        }
+    };
 
     const openMenu = () => {
         if (showMenu) return;
@@ -116,6 +131,7 @@ const Message = ({ message, sessionUser }) => {
                     </p>
                     <input
                         type="text"
+                        onKeyDown={handleKeyDown}
                         style={{
                             display: clicked ? "block" : "none",
                             backgroundColor: "yellow",
@@ -158,11 +174,29 @@ const Message = ({ message, sessionUser }) => {
                             <button
                                 onClick={e => {
                                     e.preventDefault();
-                                    if (clicked === true && messageState.viewingChannel === true) {
-                                        dispatch(editChannelMessageThunk(message.id,editMsg))}
+                                    if (
+                                        clicked === true &&
+                                        messageState.viewingChannel === true
+                                    ) {
+                                        dispatch(
+                                            editChannelMessageThunk(
+                                                message.id,
+                                                editMsg
+                                            )
+                                        );
+                                    }
 
-                                    if (clicked === true && messageState.viewingDm === true) {
-                                        dispatch(editDmMessageThunk(message.id, editMsg))}
+                                    if (
+                                        clicked === true &&
+                                        messageState.viewingDm === true
+                                    ) {
+                                        dispatch(
+                                            editDmMessageThunk(
+                                                message.id,
+                                                editMsg
+                                            )
+                                        );
+                                    }
                                     setClicked(!clicked);
                                 }}
                                 style={{
@@ -185,8 +219,23 @@ const Message = ({ message, sessionUser }) => {
                             }}>
                             <button
                                 onClick={e => {
-                                    e.stopPropagation();
-                                    setClickDelete(!clickDelete);
+                                    e.preventDefault();
+                                    if (messageState.viewingChannel === true) {
+                                        dispatch(
+                                            deleteChannelMessageDataThunk(
+                                                message.id
+                                            )
+                                        );
+                                        setClickDelete(true);
+                                    }
+
+                                    if (messageState.viewingDm === true) {
+                                        dispatch(
+                                            deleteDmMessageDataThunk(message.id)
+                                        );
+                                        console.log(clickDelete);
+                                        setClickDelete(true);
+                                    }
                                 }}
                                 style={{
                                     width: "100%",

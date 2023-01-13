@@ -1,10 +1,11 @@
 from flask import Blueprint, request
 from flask_login import login_required
-from app.models import ChannelMessage, db
+from app.models import ChannelMessage, db, Image
 
 channelMessage_routes = Blueprint('channelMessage', __name__)
 
 # * Get a channelMessage **************************************************************
+
 
 @channelMessage_routes.route('/<int:id>')
 @login_required
@@ -13,6 +14,7 @@ def get_channelMessage(id):
     return queried_channelMessage.to_dict()
 
 # * Edit a channelMessage ****************************************************************
+
 
 @channelMessage_routes.route('/<int:id>', methods=['PUT'])
 @login_required
@@ -28,6 +30,7 @@ def edit_channelMessage(id):
 
 # * Delete a channelMessage ****************************************************************
 
+
 @channelMessage_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_channelMessage(id):
@@ -40,6 +43,7 @@ def delete_channelMessage(id):
 
 # * Create a channelMessage **************************************************************
 
+
 @channelMessage_routes.route('/new', methods=['POST'])
 @login_required
 def create_channelMessage():
@@ -47,10 +51,26 @@ def create_channelMessage():
 
     new_channelMessage = ChannelMessage(
         message=req_data['message'],
-        channel_id=req_data['channelId'],
+        channel_id=req_data['currChannelId'],
         user_id=req_data['userId']
     )
 
     db.session.add(new_channelMessage)
     db.session.commit()
+
+    # ? Query for newly created channelMessage
+    queried_channelMessage = ChannelMessage.query.get_or_404(
+        new_channelMessage.id)
+    if len(req_data['images']) > 0:
+        for image in req_data['images']:
+            if image != None:
+                new_image = Image(
+                    url=image,
+                    channel_message_id=queried_channelMessage.id,
+                    dm_message_id=None,
+                    user_id=req_data['userId']
+                )
+                db.session.add(new_image)
+                db.session.commit()
+
     return new_channelMessage.to_dict()
