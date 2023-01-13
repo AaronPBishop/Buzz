@@ -8,7 +8,7 @@ import {
     editDmMessageThunk,
     deleteDmMessageDataThunk,
 } from "../../store/messagesReducer";
-import { fetchOrgDataThunk } from "../../store/organizationReducer";
+
 
 const Message = ({ message, sessionUser }) => {
     const [clicked, setClicked] = useState(false);
@@ -28,12 +28,13 @@ const Message = ({ message, sessionUser }) => {
 
     //! rerender needed after deletion
 
-    // useEffect(() => {
-    //     if (clickDelete === true) {
-    //         dispatch(fetchOrgDataThunk(org));
-    //         setClickDelete(false);
-    //     }
-    // }, [clickDelete]);
+    useEffect(() => {
+        if (clickDelete === true) {
+            // get currentChannel thunk
+            setClickDelete(false);
+
+        }
+    }, [clickDelete]);
 
     const handleKeyDown = e => {
         if (e.key === "Enter") {
@@ -173,7 +174,7 @@ const Message = ({ message, sessionUser }) => {
                             }}>
                             <button
                                 onClick={e => {
-                                    e.preventDefault();
+                                    e.stopPropagation()
                                     if (
                                         clicked === true &&
                                         messageState.viewingChannel === true
@@ -219,7 +220,7 @@ const Message = ({ message, sessionUser }) => {
                             }}>
                             <button
                                 onClick={e => {
-                                    e.preventDefault();
+                                    e.stopPropagation()
                                     if (messageState.viewingChannel === true) {
                                         dispatch(
                                             deleteChannelMessageDataThunk(
@@ -235,6 +236,7 @@ const Message = ({ message, sessionUser }) => {
                                         );
                                         console.log(clickDelete);
                                         setClickDelete(true);
+                                        console.log(clickDelete);
                                     }
                                 }}
                                 style={{

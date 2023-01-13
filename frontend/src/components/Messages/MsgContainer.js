@@ -30,7 +30,7 @@ const MsgContainer = () => {
     return (
         <div ref={msgRef}>
             {
-                messages.map((msgEl, i) => <Message message={msgEl} key={i} sessionUser={sessionUser}/>)
+                messages.map((msgEl, i) => <Message message={msgEl} key={i} sessionUser={sessionUser} />)
             }
         </div>
     );
