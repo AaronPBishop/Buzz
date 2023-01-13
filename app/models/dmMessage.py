@@ -37,7 +37,7 @@ class DmMessage(db.Model):
             'user_id': self.user_id,
             'last_update': self.last_update,
             'created_date': self.created_date,
-            'dmMessage_images': [image.to_dict() for image in self.dmMessage_image]
+            'images': [image.to_dict() for image in self.dmMessage_image]
         }
 
     def basic_dict(self):

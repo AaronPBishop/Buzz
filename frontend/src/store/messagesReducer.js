@@ -1,4 +1,5 @@
 const initialState = {
+    currImgUrl: '',
     viewingChannel: false,
     viewingDm: false,
     currChannelId: null,
@@ -34,10 +35,18 @@ export const addMessage = msg => {
         payload: msg,
     };
 };
+
 export const editMessage = msg => {
     return {
         type: "EDIT_MESSAGE",
         payload: msg,
+    };
+};
+
+export const deleteMessage = (msgId) => {
+    return {
+        type: "DELETE_MESSAGE",
+        payload: msgId
     };
 };
 
@@ -51,6 +60,13 @@ export const addUserEmail = (email) => {
 export const addMessageImg = (imgUrl) => {
     return {
         type: "ADD_MESSAGE_IMG",
+        payload: imgUrl
+    };
+};
+
+export const deleteMessageImg = (imgUrl) => {
+    return {
+        type: "DELETE_MESSAGE_IMG",
         payload: imgUrl
     };
 };
@@ -70,6 +86,19 @@ export const clearMessageImgs = () => {
 export const clearChannelMessageData = () => {
     return {
         type: "CLEAR_CHANNEL_MESSAGE_DATA",
+    };
+};
+
+export const setCurrImgUrl = (imgUrl) => {
+    return {
+        type: "SET_CURR_IMG_URL",
+        payload: imgUrl
+    };
+};
+
+export const clearCurrImgUrl = () => {
+    return {
+        type: "CLEAR_CURR_IMG_URL"
     };
 };
 
@@ -113,10 +142,12 @@ export const editChannelMessageThunk = (channelMessageId, channelMessageToEdit) 
 };
 
 
-export const deleteChannelMessageDataThunk = channelMessageId => async () => {
+export const deleteChannelMessageDataThunk = channelMessageId => async (dispatch) => {
     await fetch(`/api/channelMessage/${channelMessageId}`, {
         method: "DELETE",
     });
+
+    dispatch(deleteMessage(channelMessageId));
 };
 
 
@@ -174,10 +205,12 @@ export const editDmMessageThunk = (dmMessageId, dmMessageToEdit) => async dispat
 };
 
 
-export const deleteDmMessageDataThunk = dmMessageId => async () => {
+export const deleteDmMessageDataThunk = dmMessageId => async (dispatch) => {
     await fetch(`/api/dmMessage/${dmMessageId}`, {
         method: "DELETE",
     });
+
+    dispatch(deleteMessage(dmMessageId));
 };
 
 
@@ -215,6 +248,16 @@ const messagesReducer = (state = initialState, action) => {
             return currentState;
         };
 
+        case 'DELETE_MESSAGE': {
+            for (let i = 0; i < currentState.currentMessages.length; i++) {
+                if (currentState.currentMessages[i].id === action.payload) currentState.currentMessages.splice(i, 1);
+
+                return currentState;
+            };
+
+            return currentState;
+        };
+
         case "EDIT_MESSAGE": {
             currentState.currentMessages.forEach((msg, i) => {
                 if (msg.id === action.payload.id) currentState.currentMessages[i] = action.payload;
@@ -235,6 +278,16 @@ const messagesReducer = (state = initialState, action) => {
             return currentState;
         };
 
+        case 'DELETE_MESSAGE_IMG': {
+            for (let i = 0; i < currentState.imagesToAdd.length; i++) {
+                if (currentState.imagesToAdd[i] === action.payload) currentState.imagesToAdd.splice(i, 1);
+
+                return currentState;
+            };
+
+            return currentState;
+        };
+
         case 'CLEAR_USER_EMAILS': {
             currentState.usersToAdd = [];
 
@@ -243,6 +296,18 @@ const messagesReducer = (state = initialState, action) => {
 
         case 'CLEAR_MESSAGE_IMGS': {
             currentState.imagesToAdd = [];
+
+            return currentState;
+        };
+
+        case 'SET_CURR_IMG_URL': {
+            currentState.currImgUrl = action.payload;
+
+            return currentState;
+        };
+
+        case 'CLEAR_CURR_IMG_URL': {
+            currentState.currImgUrl = '';
 
             return currentState;
         };

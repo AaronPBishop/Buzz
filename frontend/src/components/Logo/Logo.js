@@ -1,32 +1,43 @@
 const Logo = () => {
 
     return (
-        <div style={{
+        <div 
+        style={{
             display: 'flex',
-            flexDirection: 'row',
-            background: 'yellow',
-            height: '50px',
+            justifyContent: 'center',
+            width: '8vw',
+            height: '4.5vh',
+            backgroundColor: 'yellow',
             marginTop: 'auto',
             marginBottom: 'auto',
             marginRight: '20px',
-            marginLeft: '-20vw'
-        }} className="buzz-btn">
+            marginLeft: '-20vw',
+        }} 
+        className="buzz-btn">
 
-            <img src={require('./bee.png').default} style={{
+            <img 
+            src={require('./bee.png').default} 
+            style={{
+                marginTop: '-1.5vh',
                 zIndex: '100',
                 width: '60px',
                 height: '55px',
-            }}></img>
+            }}>
+            </img>
 
-            <div style={{
-                fontSize: '30px',
-                marginTop: '4px',
-                marginRight: '2px',
+            <div 
+            style={{
+                fontStyle: 'bold',
+                fontSize: '20px',
+                marginTop: '0.1vh',
+                marginRight: '0.5vw',
                 padding: '5px'
-            }}>Buzz</div>
+            }}>
+                Buzz
+            </div>
 
-        </div >
-    )
-}
+        </div>
+    );
+};
 
 export default Logo;

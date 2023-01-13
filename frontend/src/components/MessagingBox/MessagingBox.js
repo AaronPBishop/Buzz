@@ -5,8 +5,11 @@ import { Send } from '@styled-icons/boxicons-solid/Send';
 import { Delete } from '@styled-icons/fluentui-system-filled/Delete';
 import { Bold } from '@styled-icons/boxicons-regular/Bold';
 import { Italic } from '@styled-icons/boxicons-regular/Italic';
+import { ImageAdd } from '@styled-icons/boxicons-regular/ImageAdd';
 
-import { createDmMessageThunk, createChannelMessageThunk } from '../../store/messagesReducer.js';
+import { createDmMessageThunk, createChannelMessageThunk, clearMessageImgs } from '../../store/messagesReducer.js';
+
+import AddImages from './AddImages.js';
 
 import './styles.css';
 
@@ -21,6 +24,7 @@ const MessagingBox = () => {
 
     const [bold, setBold] = useState(false);
     const [italic, setItalic] = useState(false);
+    const [clickedAddImg, setClickedAddImg] = useState(false);
 
     const handleKeyDown = e => {
         if (e.key === 'Enter') {
@@ -28,11 +32,13 @@ const MessagingBox = () => {
                 dispatch(createChannelMessageThunk(user.id, messageState.currChannelId, input, images));
 
                 setInput('');
+                dispatch(clearMessageImgs());
             };
             if (messageState.viewingDm) {
                 dispatch(createDmMessageThunk(user.id, messageState.currChannelId, input, images));
 
                 setInput('');
+                dispatch(clearMessageImgs());
             };
         };
     };
@@ -47,65 +53,84 @@ const MessagingBox = () => {
                 backgroundColor: 'rgb(20, 20, 20)',
                 border: '3px solid rgb(30, 30, 30)'
             }}>
-            <div style={{ display: 'flex', justifyContent: 'flex-start', height: '2.4vh', padding: '2px' }}>
+            <div style={{display: 'flex', justifyContent: 'flex-start', width: !clickedAddImg ? 'inherit' : '10vw', height: '2.4vh', padding: '2px' }}>
+                <div 
+                className='buzz-btn' 
+                onClick={() => setClickedAddImg(false)}
+                style={{display: clickedAddImg ? 'block' : 'none', height: '2.5vh', width: '3vw', marginLeft: '0.5vw'}}>
+                    Back
+                </div>
+
                 <Bold
                     onClick={() => setBold(bold => !bold)}
-                    style={{ backgroundColor: bold && 'rgb(60, 60, 60)', borderRadius: '2px', marginLeft: '1vw', cursor: 'pointer' }}>
+                    style={{display: !clickedAddImg ? 'block' : 'none', backgroundColor: bold && 'rgb(60, 60, 60)', borderRadius: '2px', marginLeft: '1vw', cursor: 'pointer' }}>
                 </Bold>
 
                 <Italic
                     onClick={() => setItalic(italic => !italic)}
-                    style={{ backgroundColor: italic && 'rgb(60, 60, 60)', borderRadius: '2px', marginLeft: '0.5vw', cursor: 'pointer' }}>
+                    style={{display: !clickedAddImg ? 'block' : 'none', backgroundColor: italic && 'rgb(60, 60, 60)', borderRadius: '2px', marginLeft: '0.5vw', cursor: 'pointer' }}>
                 </Italic>
+
+                <ImageAdd
+                onClick={() => setClickedAddImg(true)}
+                style={{display: !clickedAddImg ? 'block' : 'none', backgroundColor: italic && 'rgb(60, 60, 60)', borderRadius: '2px', marginLeft: '0.5vw', cursor: 'pointer' }}>
+                </ImageAdd>
             </div>
-
-            <input
-                id='message-input'
-                onKeyDown={handleKeyDown}
-                autoComplete='off'
-                placeholder='Send a message...'
-                onChange={e => setInput(e.target.value)}
-                value={input}
-                style={{
-                    fontFamily: 'Roboto',
-                    fontSize: '18px',
-                    fontWeight: bold && 'bold',
-                    fontStyle: italic && 'italic',
-                    letterSpacing: '1px',
-                    color: 'white',
-                    backgroundColor: 'rgb(16, 16, 16)',
-                    width: '75vw',
-                    height: '11.5vh',
-                    border: '2px solid transparent',
-                    borderRadius: '8px'
-                }}
-                className="flex-center">
-            </input>
-
-            <div style={{ display: 'flex', justifyContent: 'space-between', height: '2.4vh', padding: '2px' }}>
-                <Delete
-                    onClick={() => setInput('')}
-                    style={{ marginLeft: '1vw', cursor: 'pointer' }}>
-                </Delete>
-
-                <Send
-                    onClick={() => {
-
-
-                        if (messageState.viewingChannel) {
-                            dispatch(createChannelMessageThunk(user.id, messageState.currChannelId, input, images));
-
-                            setInput('');
-                        };
-                        if (messageState.viewingDm) {
-                            dispatch(createDmMessageThunk(user.id, messageState.currChannelId, input, images));
-
-                            setInput('');
-                        };
+            
+            {
+                clickedAddImg === false ?
+                <div>
+                    <input
+                    id='message-input'
+                    onKeyDown={handleKeyDown}
+                    autoComplete='off'
+                    placeholder='Send a message...'
+                    onChange={e => setInput(e.target.value)}
+                    value={input}
+                    style={{
+                        fontFamily: 'Roboto',
+                        fontSize: '18px',
+                        fontWeight: bold && 'bold',
+                        fontStyle: italic && 'italic',
+                        letterSpacing: '1px',
+                        color: 'white',
+                        backgroundColor: 'rgb(16, 16, 16)',
+                        width: '75vw',
+                        height: '11.5vh',
+                        border: '2px solid transparent',
+                        borderRadius: '8px'
                     }}
-                    style={{ marginRight: '1vw', cursor: 'pointer' }}>
-                </Send>
-            </div>
+                    className="flex-center">
+                    </input>
+
+                    <div style={{ display: 'flex', justifyContent: 'space-between', height: '2.4vh', padding: '2px' }}>
+                        <Delete
+                            onClick={() => setInput('')}
+                            style={{ marginLeft: '1vw', cursor: 'pointer' }}>
+                        </Delete>
+
+                        <Send
+                            onClick={() => {
+                                if (messageState.viewingChannel) {
+                                    dispatch(createChannelMessageThunk(user.id, messageState.currChannelId, input, images));
+
+                                    setInput('');
+                                    dispatch(clearMessageImgs());
+                                };
+                                if (messageState.viewingDm) {
+                                    dispatch(createDmMessageThunk(user.id, messageState.currChannelId, input, images));
+
+                                    setInput('');
+                                    dispatch(clearMessageImgs());
+                                };
+                            }}
+                            style={{ marginRight: '1vw', cursor: 'pointer' }}>
+                        </Send>
+                    </div>
+                </div>
+                :
+                <AddImages />
+            }
         </div>
     );
 };

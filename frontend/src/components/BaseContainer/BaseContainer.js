@@ -1,3 +1,5 @@
+import { useSelector, useDispatch } from "react-redux";
+
 import OrgContainer from "../Organization/OrgContainer.js";
 import DmChannelContainer from "../DmChannels/DmChannelContainer.js";
 import MessagingBox from "../MessagingBox/MessagingBox.js";
@@ -7,7 +9,15 @@ import ChannelContainer from "../ChannelsContainer/ChannelContainer.js";
 import UserProfileCardContainer from "../UserProfile/UserProfileCardContainer.js";
 import Logo from "../Logo/Logo.js";
 
+import { CloseOutline } from '@styled-icons/evaicons-outline/CloseOutline';
+
+import { clearCurrImgUrl } from "../../store/messagesReducer.js";
+
 const BaseContainer = () => {
+    const dispatch = useDispatch();
+
+    const currImgViewing = useSelector(state => state.messages.currImgUrl);
+
     return (
         <div style={{ borderRadius: '8px', boxShadow: '0px 0px 8px black' }}>
             <div
@@ -64,7 +74,9 @@ const BaseContainer = () => {
                         width: '79vw'
                     }}>
                     <div className='flex-center'>
-                        <div
+                        {
+                            currImgViewing.length < 1 ?
+                            <div
                             style={{
                                 background: 'rgb(200, 200, 0)',
                                 border: '4px solid rgb(30, 30, 30)',
@@ -73,8 +85,34 @@ const BaseContainer = () => {
                                 width: '78vw',
                                 overflowY: 'auto'
                             }}>
-                            <MsgContainer />
-                        </div>
+                                <MsgContainer />
+                            </div>
+                            :
+                            <div
+                            className="flex-center"
+                            style={{
+                                background: 'black',
+                                border: '4px solid rgb(30, 30, 30)',
+                                borderRadius: '12px',
+                                height: '70vh',
+                                width: '78vw',
+                                overflowY: 'auto'
+                            }}>
+                                <CloseOutline
+                                onClick={() => dispatch(clearCurrImgUrl())}
+                                style={{color: 'white', marginTop: '0.2vh', height: '4vh', cursor: 'pointer'}}>
+                                </CloseOutline>
+                                <img
+                                style={{
+                                    marginTop: '0.5vh',
+                                    borderRadius: '12px',
+                                    height: '69vh',
+                                    width: '69vw'
+                                }}
+                                src={currImgViewing}>
+                                </img>
+                            </div>
+                        }
                     </div>
 
                     <div className='flex-center'>

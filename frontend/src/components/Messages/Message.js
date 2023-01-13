@@ -7,8 +7,9 @@ import {
     deleteChannelMessageDataThunk,
     editDmMessageThunk,
     deleteDmMessageDataThunk,
+    setCurrImgUrl,
+    populateCurrMessages
 } from "../../store/messagesReducer";
-import { fetchOrgDataThunk } from "../../store/organizationReducer";
 
 const Message = ({ message, sessionUser }) => {
     const [clicked, setClicked] = useState(false);
@@ -20,20 +21,18 @@ const Message = ({ message, sessionUser }) => {
     const dispatch = useDispatch();
 
     const messageState = useSelector(state => state.messages);
-    const org = useSelector(state => state.organization.id);
 
     useEffect(() => {
         if (sessionUser.id === message.user_id) setValidOwner(true);
     }, [sessionUser.id]);
 
-    //! rerender needed after deletion
+    useEffect(() => {
+        if (clickDelete === true) {
+            dispatch(populateCurrMessages(messageState.currentMessages));
 
-    // useEffect(() => {
-    //     if (clickDelete === true) {
-    //         dispatch(fetchOrgDataThunk(org));
-    //         setClickDelete(false);
-    //     }
-    // }, [clickDelete]);
+            setClickDelete(false);
+        };
+    }, [clickDelete]);
 
     const handleKeyDown = e => {
         if (e.key === "Enter") {
@@ -145,6 +144,30 @@ const Message = ({ message, sessionUser }) => {
                         onChange={e => {
                             setEditMsg(e.target.value);
                         }}></input>
+
+                        <div style={{display: message.images.length > 0 ? 'flex' : 'none', padding: '1vh', maxWidth: '65vw', overflowX: 'auto'}}>
+                            {
+                                message.images.map((img, i) => {
+                                    return (
+                                        <img
+                                        src={img.url}
+                                        onClick={() => dispatch(setCurrImgUrl(img.url))}
+                                        style={{
+                                            marginTop: '0.1vh',
+                                            marginRight: '1vw',
+                                            minHeight: '16.4vh',
+                                            maxHeight: '16.4vh',
+                                            minWidth: '10vw',
+                                            maxWidth: '10vw',
+                                            borderRadius: '6px',
+                                            cursor: 'pointer'
+                                        }}
+                                        key={i}>
+                                        </img>
+                                    )
+                                })
+                            }
+                        </div>
                 </div>
             </div>
             <div
@@ -226,6 +249,7 @@ const Message = ({ message, sessionUser }) => {
                                                 message.id
                                             )
                                         );
+
                                         setClickDelete(true);
                                     }
 
@@ -233,7 +257,7 @@ const Message = ({ message, sessionUser }) => {
                                         dispatch(
                                             deleteDmMessageDataThunk(message.id)
                                         );
-                                        console.log(clickDelete);
+                                        
                                         setClickDelete(true);
                                     }
                                 }}

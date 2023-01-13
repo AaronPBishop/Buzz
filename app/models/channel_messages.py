@@ -32,7 +32,7 @@ class ChannelMessage(db.Model):
             'user_id': self.user_id,
             'user_name': self.cm_user.user_name,
             'last_update': self.last_update,
-            'cm_images': [image.to_dict() for image in self.cm_image]
+            'images': [image.to_dict() for image in self.cm_image]
         }
 
     def basic_dict(self):
