@@ -85,7 +85,7 @@ export const createChannelMessageThunk = (userId, channelId, message, images) =>
         body: JSON.stringify({
             message: message,
             last_update: Date(),
-            channelId: channelId,
+            currChannelId: channelId,
             userId: userId,
             images
         }),
@@ -146,7 +146,7 @@ export const createDmMessageThunk = (userId, dmMessage_channelId, message, image
         body: JSON.stringify({
             message: message,
             last_update: Date(),
-            dmMessage_channelId: dmMessage_channelId,
+            currChannelId: dmMessage_channelId,
             userId: userId,
             images
         })

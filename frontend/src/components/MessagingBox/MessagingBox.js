@@ -25,7 +25,7 @@ const MessagingBox = () => {
     const handleKeyDown = e => {
         if (e.key === 'Enter') {
             if (messageState.viewingChannel) {
-                dispatch(createChannelMessageThunk(user.id, messageState.currChannelId, input));
+                dispatch(createChannelMessageThunk(user.id, messageState.currChannelId, input, images));
 
                 setInput('');
             };
