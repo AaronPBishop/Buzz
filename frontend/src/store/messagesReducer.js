@@ -3,6 +3,7 @@ const initialState = {
     viewingDm: false,
     currChannelId: null,
     usersToAdd: [],
+    imagesToAdd: [],
     currentMessages: []
 };
 
@@ -47,6 +48,12 @@ export const addUserEmail = (email) => {
     };
 };
 
+export const addMessageImg = (imgUrl) => {
+    return {
+        type: "ADD_MESSAGE_IMG",
+        payload: imgUrl
+    };
+};
 
 export const clearUserEmails = () => {
     return {
@@ -54,6 +61,11 @@ export const clearUserEmails = () => {
     };
 };
 
+export const clearMessageImgs = () => {
+    return {
+        type: "CLEAR_MESSAGE_IMGS"
+    };
+};
 
 export const clearChannelMessageData = () => {
     return {
@@ -65,7 +77,8 @@ export const clearChannelMessageData = () => {
 
 //*  Channel Thunks
 
-export const createChannelMessageThunk = (userId, channelId, message) => async dispatch => {
+
+export const createChannelMessageThunk = (userId, channelId, message, images) => async dispatch => {
     const request = await fetch("/api/channelMessage/new", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -73,23 +86,12 @@ export const createChannelMessageThunk = (userId, channelId, message) => async d
             message: message,
             last_update: Date(),
             channelId: channelId,
-            userId: userId
+            userId: userId,
+            images
         }),
     });
 
-export const createChannelMessageThunk =
-    (userId, channelId, message, images) => async dispatch => {
-        const request = await fetch("/api/channelMessage/new", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                message: message,
-                last_update: Date(),
-                channelId: channelId,
-                userId: userId,
-                images
-            }),
-        });
+    const response = await request.json();
 
     dispatch(addMessage(response));
 };
@@ -127,7 +129,7 @@ export const createDmMessageChannelThunk = (ownerId, organizationId, userEmails)
         body: JSON.stringify({
             ownerId: ownerId,
             organization_id: organizationId,
-            users: userEmails,
+            users: userEmails
         })
     });
 
@@ -136,22 +138,9 @@ export const createDmMessageChannelThunk = (ownerId, organizationId, userEmails)
     dispatch(setViewingDm(responseJSON.id));
 };
 
-export const createDmMessageThunk =
-    (userId, dmMessage_channelId, message, images) => async dispatch => {
-        const request = await fetch("/api/dmMessage/new", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                message: message,
-                last_update: Date(),
-                currChannelId: dmMessage_channelId,
-                userId: userId,
-                images: images
-            }),
-        });
 
-export const createDmMessageThunk = (userId, dmMessage_channelId, message) => async dispatch => {
-    const request = await fetch("/api/dmMessage/", {
+export const createDmMessageThunk = (userId, dmMessage_channelId, message, images) => async dispatch => {
+    const request = await fetch("/api/dmMessage/new", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -159,7 +148,8 @@ export const createDmMessageThunk = (userId, dmMessage_channelId, message) => as
             last_update: Date(),
             dmMessage_channelId: dmMessage_channelId,
             userId: userId,
-        }),
+            images
+        })
     });
 
     const response = await request.json();
@@ -239,8 +229,20 @@ const messagesReducer = (state = initialState, action) => {
             return currentState;
         };
 
+        case 'ADD_MESSAGE_IMG': {
+            currentState.imagesToAdd.push(action.payload);
+
+            return currentState;
+        };
+
         case 'CLEAR_USER_EMAILS': {
             currentState.usersToAdd = [];
+
+            return currentState;
+        };
+
+        case 'CLEAR_MESSAGE_IMGS': {
+            currentState.imagesToAdd = [];
 
             return currentState;
         };

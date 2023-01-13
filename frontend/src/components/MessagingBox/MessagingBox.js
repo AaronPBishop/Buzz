@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Send } from '@styled-icons/boxicons-solid/Send';
@@ -15,14 +15,12 @@ const MessagingBox = () => {
 
     const user = useSelector(state => state.session.user);
     const messageState = useSelector(state => state.messages);
+    const images = useSelector(state => state.messages.imagesToAdd);
 
     const [input, setInput] = useState('');
 
     const [bold, setBold] = useState(false);
     const [italic, setItalic] = useState(false);
-
-    //! An image array builder is required with image urls
-    let images = []
 
     const handleKeyDown = e => {
         if (e.key === 'Enter') {
