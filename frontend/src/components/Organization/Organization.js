@@ -5,7 +5,7 @@ import { ExpandMore } from '@styled-icons/material-sharp/ExpandMore';
 import { ExpandLess } from '@styled-icons/material-twotone/ExpandLess';
 
 import { addUserToOrgThunk, fetchOrgDataThunk, deleteOrgThunk, editOrgThunk } from "../../store/organizationReducer";
-import { getUserThunk } from "../../store/sessionReducer.js";
+import { getUserThunk, setDeletedOrg } from "../../store/sessionReducer.js";
 
 import OrgUsersContainer from "./OrgUsersContainer.js";
 
@@ -36,14 +36,6 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
     useEffect(() => {
         if (addedUser === true) dispatch(getUserThunk(user.id));
     }, [addedUser]);
-
-    useEffect(() => {
-        if (clickedDelete === true) {
-            dispatch(getUserThunk(orgOwnerId));
-
-            setClickedDelete(false);
-        };
-    }, [clickedDelete]);
 
     useEffect(() => {
         if (clickedSave === true) {
@@ -141,7 +133,7 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
                     onClick={() => {
                         dispatch(deleteOrgThunk(orgId));
 
-                        setClickedDelete(true);
+                        dispatch(setDeletedOrg(true));
                     }}
                     style={{width: '6vw', marginLeft: '1.4vw'}}>
                         Delete

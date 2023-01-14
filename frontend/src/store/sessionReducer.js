@@ -1,10 +1,15 @@
-const initialState = { user: null };
+const initialState = { 
+  user: null,
+  createdOrg: false,
+  deletedOrg: false
+};
 
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
 
 
 // ACTION CREATORS
+
 
 const setUser = (user) => {
   return {
@@ -16,6 +21,20 @@ const setUser = (user) => {
 const removeUser = () => {
   return {
     type: REMOVE_USER
+  };
+};
+
+export const setCreatedOrg = (boolean) => {
+  return {
+    type: 'SET_CREATED_ORG',
+    payload: boolean
+  };
+};
+
+export const setDeletedOrg = (boolean) => {
+  return {
+    type: 'SET_DELETED_ORG',
+    payload: boolean
   };
 };
 
@@ -35,7 +54,7 @@ export const authenticate = () => async (dispatch) => {
 
     dispatch(setUser(data));
   };
-}
+};
 
 
 export const login = (email, password) => async (dispatch) => {
@@ -108,12 +127,13 @@ export const signUp = (username, firstName, lastName, email, password) => async 
 export const getUserThunk = (userId) => async (dispatch) => {
   const request = await fetch(`/api/users/${userId}`, {
     method: 'GET'
-  })
+  });
 
   const response = await request.json();
 
   dispatch(setUser(response));
 };
+
 
 export const editUserThunk = (user) => async (dispatch) => {
   const request = await fetch(`/api/users/${user.userId}`, {
@@ -134,8 +154,9 @@ export const editUserThunk = (user) => async (dispatch) => {
   if (request.ok) {
     const data = await request.json();
     dispatch(setUser(data));
-  }
-}
+  };
+};
+
 
 // REDUCER
 
@@ -144,9 +165,19 @@ const sessionReducer = (state = initialState, action) => {
 
   switch (action.type) {
     case SET_USER: {
-      delete currentState.user;
-
       currentState.user = action.payload;
+
+      return currentState;
+    };
+
+    case 'SET_CREATED_ORG': {
+      currentState.createdOrg = action.payload;
+
+      return currentState;
+    };
+
+    case 'SET_DELETED_ORG': {
+      currentState.deletedOrg = action.payload;
 
       return currentState;
     };

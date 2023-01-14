@@ -246,10 +246,16 @@ const messagesReducer = (state = initialState, action) => {
         }
 
         case 'DELETE_MESSAGE': {
-            for (let i = 0; i < currentState.currentMessages.length; i++) {
-                if (currentState.currentMessages[i].id === action.payload) currentState.currentMessages.splice(i, 1);
+            const messagesCopy = [ ...currentState.currentMessages ];
 
-                return currentState;
+            for (let i = 0; i < messagesCopy.length; i++) {
+                if (messagesCopy[i].id === action.payload){
+                    messagesCopy.splice(i, 1);
+
+                    currentState.currentMessages = messagesCopy;
+
+                    return currentState;
+                };
             };
 
             return currentState;
