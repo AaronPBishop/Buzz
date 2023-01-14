@@ -24,13 +24,13 @@ const SearchBar = () => {
                 className='flex-center'
                 style={{
                     marginTop: '1.2vh',
-                    marginRight: '10vw',
+                    marginRight: '8vw',
                     fontFamily: 'Roboto',
                     fontSize: '14px',
                     letterSpacing: '1px',
                     color: 'white',
                     backgroundColor: 'rgb(20, 20, 20)',
-                    width: '60vw',
+                    width: '50vw',
                     height: '4vh',
                     border: '2px solid rgb(30, 30, 30)',
                     borderRadius: '8px'

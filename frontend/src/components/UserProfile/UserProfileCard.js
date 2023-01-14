@@ -110,13 +110,15 @@ const UserProfileCard = ({ user, showUserCard }) => {
                         height: "100%",
                         backgroundColor: "black",
                         opacity: "0.8",
+                        bottom: "1px",
+                        left: '2px'
                     }}>
                     <form
                         style={{
                             width: "300px",
                             position: "relative",
-                            left: "50%",
-                            top: "20px",
+                            left: "52%",
+                            top: "15%",
                             marginLeft: "-150px",
                         }}
                         onSubmit={e => handleFormSubmission(e)}
@@ -137,6 +139,7 @@ const UserProfileCard = ({ user, showUserCard }) => {
                             <input
                                 type="text"
                                 value={email}
+                                required
                                 onChange={e => setEmail(e.target.value)}
                                 className="InputBox"
                             />
@@ -145,6 +148,7 @@ const UserProfileCard = ({ user, showUserCard }) => {
                             <label className="textLabelWrapper">First Name:</label>
                             <input
                                 type="text"
+                                required
                                 value={firstName}
                                 onChange={e => setFirstName(e.target.value)}
                                 className="InputBox"
@@ -155,6 +159,7 @@ const UserProfileCard = ({ user, showUserCard }) => {
                         </label><input
                                 type="text"
                                 value={lastName}
+                                required
                                 onChange={e => setLastName(e.target.value)}
                                 className="InputBox"
                             /></div>
@@ -167,6 +172,7 @@ const UserProfileCard = ({ user, showUserCard }) => {
                         <div style={{ display: "flex" }}> <label className="textLabelWrapper">Profile Image:</label><input
                                 type="text"
                                 value={profileImage}
+                                required
                                 onChange={e => setProfileImage(e.target.value)}
                                 className="InputBox"
                             /></div><label className="textLabelWrapper"></label>
@@ -175,6 +181,7 @@ const UserProfileCard = ({ user, showUserCard }) => {
                         </label><input
                                 type="text"
                                 value={username}
+                                required
                                 onChange={e => setUsername(e.target.value)}
                                 className="InputBox"
                             /></div>

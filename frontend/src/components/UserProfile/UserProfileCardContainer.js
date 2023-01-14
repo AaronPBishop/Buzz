@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import UserProfileCard from "./UserProfileCard";
+import './UserProfileCard.css'
 
 const UserProfileCardContainer = () => {
 
@@ -20,12 +21,14 @@ const UserProfileCardContainer = () => {
     return (
         <div style={{
             marginTop: '0.2vh',
-            marginLeft: '1vw'
+            marginLeft: '1vw',
+            height: '70px',
+            width: '70px',
         }}>
             {currentUser &&
-                <img src={`${currentUser.profile_img}`} onClick={(e) => handleClickProfileImage(e)} style={{
-                    height: '70px',
-                    width: '70px',
+                <img className='profile_img' src={`${currentUser.profile_img}`} onClick={(e) => handleClickProfileImage(e)} style={{
+                    // height: '70px',
+                    // width: '70px',
                     borderRadius: '20px',
                     display: 'flex',
                     justifyContent: 'center',

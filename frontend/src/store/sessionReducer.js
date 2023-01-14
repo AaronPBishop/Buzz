@@ -1,4 +1,4 @@
-const initialState = { 
+const initialState = {
   user: null,
   createdOrg: false,
   deletedOrg: false
@@ -144,9 +144,9 @@ export const editUserThunk = (user) => async (dispatch) => {
     body: JSON.stringify({
       bio: user.bio,
       email: user.email,
-      first_name: user.firstName,
-      last_name: user.lastName,
-      profile_img: user.profileImage,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      profile_img: user.profile_img,
       user_name: user.username
     }),
   });

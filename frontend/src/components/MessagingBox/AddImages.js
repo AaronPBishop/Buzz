@@ -54,9 +54,13 @@ const AddImages = () => {
                 <div
                 className="buzz-btn"
                 onClick={() => {
-                    dispatch(addMessageImg(input));
+                    if(input.length > 0)
+                    {dispatch(addMessageImg(input));
 
-                    setInput('');
+                    setInput('')}
+                    else {
+                        alert('Must include an url path')
+                    }
                 }}
                 style={{fontSize: '16px', marginTop: '2vh', height: '4vh', width: '20vw', lineHeight: '4vh'}}>
                     Add

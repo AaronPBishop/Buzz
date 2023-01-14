@@ -28,13 +28,13 @@ const MessagingBox = () => {
 
     const handleKeyDown = e => {
         if (e.key === 'Enter') {
-            if (messageState.viewingChannel) {
+            if (messageState.viewingChannel && (images.length > 0 || input.length > 0)) {
                 dispatch(createChannelMessageThunk(user.id, messageState.currChannelId, input, images));
 
                 setInput('');
                 dispatch(clearMessageImgs());
             };
-            if (messageState.viewingDm) {
+            if (messageState.viewingDm &&  (images.length > 0 || input.length > 0)) {
                 dispatch(createDmMessageThunk(user.id, messageState.currChannelId, input, images));
 
                 setInput('');
@@ -57,11 +57,11 @@ const MessagingBox = () => {
                 <div
                 className='buzz-btn'
                 onClick={() => setClickedAddImg(false)}
-                style={{display: clickedAddImg ? 'block' : 'none', height: '2.5vh', width: '3vw', marginLeft: '0.5vw'}}>
+                style={{display: clickedAddImg ? 'block' : 'none', height: '2.5vh', width: '3vw', marginLeft: '0.5vw', lineHeight: '2.7vh'}}>
                     Back
                 </div>
 
-                <Bold
+                {/* <Bold
                     onClick={() => setBold(bold => !bold)}
                     style={{display: !clickedAddImg ? 'block' : 'none', backgroundColor: bold && 'rgb(60, 60, 60)', borderRadius: '2px', marginLeft: '1vw', cursor: 'pointer' }}>
                 </Bold>
@@ -69,11 +69,11 @@ const MessagingBox = () => {
                 <Italic
                     onClick={() => setItalic(italic => !italic)}
                     style={{display: !clickedAddImg ? 'block' : 'none', backgroundColor: italic && 'rgb(60, 60, 60)', borderRadius: '2px', marginLeft: '0.5vw', cursor: 'pointer' }}>
-                </Italic>
+                </Italic> */}
 
                <ImageAdd
                 onClick={() => setClickedAddImg(true)}
-                style={{display: !clickedAddImg ? 'block' : 'none', backgroundColor: italic && 'rgb(60, 60, 60)', borderRadius: '2px', marginLeft: '0.5vw', cursor: 'pointer' }}>
+                style={{display: !clickedAddImg ? 'block' : 'none', backgroundColor: italic && 'rgb(60, 60, 60)', borderRadius: '2px', marginLeft: '1vw', cursor: 'pointer' }}>
 
                 </ImageAdd> {images.length === 0 ? (
                     <p></p>
@@ -120,13 +120,13 @@ const MessagingBox = () => {
 
                         <Send
                             onClick={() => {
-                                if (messageState.viewingChannel) {
+                                if (messageState.viewingChannel && (images.length > 0 || input.length > 0)) {
                                     dispatch(createChannelMessageThunk(user.id, messageState.currChannelId, input, images));
 
                                     setInput('');
                                     dispatch(clearMessageImgs());
                                 };
-                                if (messageState.viewingDm) {
+                                if (messageState.viewingDm &&  (images.length > 0 || input.length > 0)) {
                                     dispatch(createDmMessageThunk(user.id, messageState.currChannelId, input, images));
 
                                     setInput('');

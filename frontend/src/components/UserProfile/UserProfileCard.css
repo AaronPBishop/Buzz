@@ -8,6 +8,26 @@
     /* opacity: 0.8; */
 
 }
+@media  (731px < height < 1045px ) {
+    .profile_img {
+        height: 50px;
+        width: 50px
+
+    }
+}
+@media  (height >= 1045px) {
+    .profile_img {
+        height: 70px;
+        width: 70px
+    }
+}
+@media  (height <= 730px) {
+    .profile_img {
+        height: 40px;
+        width: 40px
+    }
+}
+
 
 .EditUserForm {
     display: flex;
