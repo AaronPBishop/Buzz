@@ -105,7 +105,7 @@ const ChannelContainer = () => {
                     <input
                         id='search-input'
                         autoComplete='off'
-                        placeHolder={`Channel name`}
+                        placeholder={`Channel name`}
                         onChange={e => setChannelName(e.target.value)}
                         value={channelName}
                         className='flex-center'

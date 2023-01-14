@@ -21,6 +21,7 @@ const OrgContainer = () => {
     const [orgName, setOrgName] = useState('');
     const [img, setImg] = useState('');
 
+
     useEffect(() => {
         if (clickedCreate === true) {
             dispatch(getUserThunk(currUser.id));
@@ -28,6 +29,7 @@ const OrgContainer = () => {
             setClickedCreate(false);
         };
     }, [clickedCreate]);
+
 
     return (
         <div style={{ maxWidth: '16vw' }}>
@@ -97,7 +99,7 @@ const OrgContainer = () => {
                     <input
                         id='search-input'
                         autoComplete='off'
-                        placeHolder={`Organization name`}
+                        placeholder={`Organization name`}
                         onChange={e => setOrgName(e.target.value)}
                         value={orgName}
                         className='flex-center'
@@ -119,7 +121,7 @@ const OrgContainer = () => {
                     <input
                         id='search-input'
                         autoComplete='off'
-                        placeHolder={`Organization image (URL)`}
+                        placeholder={`Organization image (URL)`}
                         onChange={e => setImg(e.target.value)}
                         value={img}
                         className='flex-center'
@@ -162,7 +164,7 @@ const OrgContainer = () => {
                 </div>
             </div>
             {
-                currUser && 
+                currUser.user_organizations && currUser.user_organizations.length > 0 &&
                 currUser.user_organizations.map((org, i) => <Organization orgId={org.organization_id} orgName={org.organization_name} orgOwnerId={org.organization_owner} totalUsers={org.total_users} totalChannels={org.total_channels} totalDmChannels={org.total_dm_channels} usersArr={org.users} key={i} />)
             }
         </div>

@@ -9,11 +9,20 @@ const AddImages = () => {
     const dispatch = useDispatch();
 
     const [input, setInput] = useState('');
+    const [clicked, setClicked] = useState(false);
 
     const currImages = useSelector(state => state.messages.imagesToAdd);
 
+    const handleKeyDown = e => {
+        if (e.key === "Enter") {
+                dispatch(addMessageImg(input));
+                setInput('');
+
+        }
+    };
+
     return (
-        <div 
+        <div
         style={{
             display: 'flex',
             marginTop: '1vh',
@@ -24,6 +33,7 @@ const AddImages = () => {
                 <input
                 id='message-input'
                 autoComplete='off'
+                onKeyDown={handleKeyDown}
                 placeholder='Add an Image (URL)'
                 onChange={e => setInput(e.target.value)}
                 value={input}
@@ -41,7 +51,7 @@ const AddImages = () => {
                 className="flex-center">
                 </input>
 
-                <div 
+                <div
                 className="buzz-btn"
                 onClick={() => {
                     dispatch(addMessageImg(input));
@@ -53,13 +63,13 @@ const AddImages = () => {
                 </div>
             </div>
 
-            <div 
+            <div
             style={{
-                display: 'flex', 
-                justifyContent: 'space-evenly', 
-                border: '1px solid rgb(30, 30, 30)', 
-                borderRadius: '12px', 
-                width: 'inherit', 
+                display: 'flex',
+                justifyContent: 'space-evenly',
+                border: '1px solid rgb(30, 30, 30)',
+                borderRadius: '12px',
+                width: 'inherit',
                 height: '17vh',
                 marginTop: '-3.5vh',
                 marginRight: '1vw',
@@ -74,11 +84,11 @@ const AddImages = () => {
                                 <DeleteForever
                                 onClick={() => dispatch(deleteMessageImg(img))}
                                 style={{
-                                    position: 'relative', 
+                                    position: 'relative',
                                     bottom: currImages.length < 4 && '14.2vh',
                                     left: currImages.length < 4 && '2.3vw',
-                                    height: '3vh', 
-                                    marginLeft: '0.8vw', 
+                                    height: '3vh',
+                                    marginLeft: '0.8vw',
                                     cursor: 'pointer'
                                 }}>
                                 </DeleteForever>

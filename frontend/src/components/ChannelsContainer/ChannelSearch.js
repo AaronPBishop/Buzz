@@ -15,7 +15,7 @@ const ChannelSearch = ({ type }) => {
             <input
             id='search-input'
             autoComplete='off'
-            placeHolder={type !== 'create' ? `Search ${currentOrg.name} users...` : `Add ${currentOrg.name} users...`}
+            placeholder={type !== 'create' ? `Search ${currentOrg.name} users...` : `Add ${currentOrg.name} users...`}
             onChange={e => setInput(e.target.value)}
             onClick={() => setClicked(true)}
             value={input}
@@ -41,8 +41,8 @@ const ChannelSearch = ({ type }) => {
                 marginLeft: '0.1vw',
                 marginBottom: '2vh',
                 border: '2px solid rgb(30, 30, 30)',
-                borderRadius: '8px', 
-                backgroundColor: 'rgb(15, 15, 15)', 
+                borderRadius: '8px',
+                backgroundColor: 'rgb(15, 15, 15)',
                 width: '14vw',
                 height: '22vh',
                 overflowY: 'auto'

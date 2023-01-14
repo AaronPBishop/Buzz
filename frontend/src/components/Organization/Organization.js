@@ -39,7 +39,7 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
 
     useEffect(() => {
         if (clickedDelete === true) {
-            dispatch(getUserThunk(user.id));
+            dispatch(getUserThunk(orgOwnerId));
 
             setClickedDelete(false);
         };
@@ -85,7 +85,7 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
                 onClick={e => {
                     e.stopPropagation();
                     setClicked(clicked => !clicked);
-                
+
                     if (!clicked) setClickedAddUser(false);
                 }}
                 style={{
@@ -102,7 +102,7 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
                     onClick={e => {
                         e.stopPropagation();
                         setClicked(clicked => !clicked);
-                    
+
                         if (!clicked) setClickedAddUser(false);
                     }}
                     style={{
@@ -118,8 +118,8 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
 
             <div style={{display: clicked ? 'flex' : 'none', justifyContent: 'center', flexWrap: 'wrap', marginTop: '2vh'}}>
                 <div style={{display: user.id === orgOwnerId ? 'flex' : 'none', marginTop: '-1vh', marginBottom: '4vh'}}>
-                    <div 
-                    className="buzz-btn" 
+                    <div
+                    className="buzz-btn"
                     onClick={() => {
                         if (clickedEdit === true) {
                             dispatch(editOrgThunk(orgId, editNameInput, editImgInput));
@@ -136,10 +136,10 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
                         {!clickedEdit ? 'Edit' : 'Save'}
                     </div>
 
-                    <div 
-                    className="buzz-btn" 
+                    <div
+                    className="buzz-btn"
                     onClick={() => {
-                        dispatch(deleteOrgThunk(orgId, orgOwnerId));
+                        dispatch(deleteOrgThunk(orgId));
 
                         setClickedDelete(true);
                     }}
@@ -203,7 +203,7 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
                                 <div style={{textAlign: 'left', width: '10vw', marginBottom: '1vh'}}>{keyMap[key]}:</div>
                                 <div style={{textAlign: 'right', width: '2vw'}}>
                                     {
-                                        key === 'organization_channels' ? totalChannels 
+                                        key === 'organization_channels' ? totalChannels
                                         : key === 'organization_dmMessage_channels' && totalDmChannels
                                     }
                                 </div>
@@ -212,8 +212,8 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
                     })
                 }
 
-                <div 
-                className="buzz-btn" 
+                <div
+                className="buzz-btn"
                 onClick={() => setClickedViewUsers(clicked => !clicked)}
                 style={{display: (totalUsers - 1 > 0) ? 'block' : 'none', height: '3.5vh', width: '14vw', marginTop: '2vh', marginBottom: '2vh', lineHeight: '3.6vh'}}>
                     View All {totalUsers - 1} Users
@@ -251,7 +251,7 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
                         <input
                         id='search-input'
                         autoComplete='off'
-                        placeHolder={`User email...`}
+                        placeholder={`User email...`}
                         onChange={e => setInput(e.target.value)}
                         value={input}
                         className='flex-center'

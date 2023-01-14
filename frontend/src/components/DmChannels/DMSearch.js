@@ -15,7 +15,7 @@ const DMSearch = () => {
             <input
             id='search-input'
             autoComplete='off'
-            placeHolder={`Search ${currentOrg.name} users...`}
+            placeholder={`Search ${currentOrg.name} users...`}
             onChange={e => setInput(e.target.value)}
             onClick={() => setClicked(true)}
             value={input}
@@ -41,8 +41,8 @@ const DMSearch = () => {
                 marginLeft: '0.1vw',
                 marginBottom: '2vh',
                 border: '2px solid rgb(30, 30, 30)',
-                borderRadius: '8px', 
-                backgroundColor: 'rgb(15, 15, 15)', 
+                borderRadius: '8px',
+                backgroundColor: 'rgb(15, 15, 15)',
                 width: '14vw',
                 height: '22vh',
                 overflowY: 'auto'

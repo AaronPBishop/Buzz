@@ -54,7 +54,7 @@ class User(db.Model, UserMixin):
             'email': self.email,
             'bio': self.bio,
             'profile_img': self.profile_img,
-            'user_organizations': [org.org_to_dict() for org in self.user_organization]
+            'user_organizations': [org.org_to_dict() for org in self.user_organization if org]
         }
 
     def basic_dict(self):

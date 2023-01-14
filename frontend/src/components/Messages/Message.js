@@ -8,7 +8,7 @@ import {
     editDmMessageThunk,
     deleteDmMessageDataThunk,
     setCurrImgUrl,
-    populateCurrMessages
+    populateCurrMessages, deleteMessage, deleteMessageImg
 } from "../../store/messagesReducer";
 
 const Message = ({ message, sessionUser }) => {
@@ -77,7 +77,7 @@ const Message = ({ message, sessionUser }) => {
                 backgroundColor: "black",
                 margin: "3px",
                 color: "white",
-            }}>
+            }}><div style={{display: 'flex', flexDirection: 'column'}}>
             <div style={{ display: "flex", marginLeft: "12px" }}>
                 <img
                     style={{
@@ -145,7 +145,10 @@ const Message = ({ message, sessionUser }) => {
                             setEditMsg(e.target.value);
                         }}></input>
 
-                        <div style={{display: message.images.length > 0 ? 'flex' : 'none', padding: '1vh', maxWidth: '65vw', overflowX: 'auto'}}>
+
+                </div>
+            </div>
+            <div style={{display: message.images.length > 0 ? 'flex' : 'none', padding: '1vh', maxWidth: '65vw', overflowX: 'auto', justifyContent: 'center', alignItems: 'center'}}>
                             {
                                 message.images.map((img, i) => {
                                     return (
@@ -155,9 +158,9 @@ const Message = ({ message, sessionUser }) => {
                                         style={{
                                             marginTop: '0.1vh',
                                             marginRight: '1vw',
-                                            minHeight: '16.4vh',
-                                            maxHeight: '16.4vh',
-                                            minWidth: '10vw',
+                                            minHeight: '3vh',
+                                            maxHeight: '14.4vh',
+                                            minWidth: '2vw',
                                             maxWidth: '10vw',
                                             borderRadius: '6px',
                                             cursor: 'pointer'
@@ -167,15 +170,14 @@ const Message = ({ message, sessionUser }) => {
                                     )
                                 })
                             }
-                        </div>
-                </div>
-            </div>
+                        </div></div>
             <div
                 className="dropdown"
                 style={{
                     display: "flex",
                     justifySelf: "end",
                     marginRight: "12px",
+                    alignSelf: 'center'
                 }}>
                 <DotsVerticalIcon
                     className={
@@ -197,27 +199,12 @@ const Message = ({ message, sessionUser }) => {
                             <button
                                 onClick={e => {
                                     e.stopPropagation()
-                                    if (
-                                        clicked === true &&
-                                        messageState.viewingChannel === true
-                                    ) {
-                                        dispatch(
-                                            editChannelMessageThunk(
-                                                message.id,
-                                                editMsg
-                                            )
-                                        );
+                                    if (clicked === true &&messageState.viewingChannel === true) {
+                                        dispatch(editChannelMessageThunk(message.id,editMsg));
                                     }
 
-                                    if (
-                                        clicked === true &&
-                                        messageState.viewingDm === true
-                                    ) {
-                                        dispatch(
-                                            editDmMessageThunk(
-                                                message.id,
-                                                editMsg
-                                            )
+                                    if (clicked === true &&messageState.viewingDm === true)
+                                    {dispatch(editDmMessageThunk(message.id,editMsg)
                                         );
                                     }
                                     setClicked(!clicked);
@@ -245,9 +232,7 @@ const Message = ({ message, sessionUser }) => {
                                     e.stopPropagation()
                                     if (messageState.viewingChannel === true) {
                                         dispatch(
-                                            deleteChannelMessageDataThunk(
-                                                message.id
-                                            )
+                                            deleteChannelMessageDataThunk(message.id)
                                         );
 
                                         setClickDelete(true);
@@ -257,9 +242,7 @@ const Message = ({ message, sessionUser }) => {
                                         dispatch(
                                             deleteDmMessageDataThunk(message.id)
                                         );
-
                                         setClickDelete(true);
-                                        console.log(clickDelete);
                                     }
                                 }}
                                 style={{

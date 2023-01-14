@@ -54,8 +54,8 @@ const MessagingBox = () => {
                 border: '3px solid rgb(30, 30, 30)'
             }}>
             <div style={{display: 'flex', justifyContent: 'flex-start', width: !clickedAddImg ? 'inherit' : '10vw', height: '2.4vh', padding: '2px' }}>
-                <div 
-                className='buzz-btn' 
+                <div
+                className='buzz-btn'
                 onClick={() => setClickedAddImg(false)}
                 style={{display: clickedAddImg ? 'block' : 'none', height: '2.5vh', width: '3vw', marginLeft: '0.5vw'}}>
                     Back
@@ -71,12 +71,21 @@ const MessagingBox = () => {
                     style={{display: !clickedAddImg ? 'block' : 'none', backgroundColor: italic && 'rgb(60, 60, 60)', borderRadius: '2px', marginLeft: '0.5vw', cursor: 'pointer' }}>
                 </Italic>
 
-                <ImageAdd
+               <ImageAdd
                 onClick={() => setClickedAddImg(true)}
                 style={{display: !clickedAddImg ? 'block' : 'none', backgroundColor: italic && 'rgb(60, 60, 60)', borderRadius: '2px', marginLeft: '0.5vw', cursor: 'pointer' }}>
-                </ImageAdd>
+
+                </ImageAdd> {images.length === 0 ? (
+                    <p></p>
+                ) : (
+                    images.length > 0 && (
+                        <p style={{marginLeft: '0.5vw',fontSize: '11px', color: 'yellow', fontWeight: 'bold', fontStyle: 'italic'}}> img total = {images.length}</p>
+                    )
+                )}
+
+
             </div>
-            
+
             {
                 clickedAddImg === false ?
                 <div>

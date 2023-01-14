@@ -5,6 +5,7 @@ const Logo = () => {
             style={{
                 display: 'flex',
                 justifyContent: 'center',
+                alignItems: "center",
                 width: '8vw',
                 height: '4.8vh',
                 backgroundColor: 'yellow',
@@ -12,13 +13,14 @@ const Logo = () => {
                 marginBottom: 'auto',
                 marginRight: '20px',
                 marginLeft: '-28vw',
+                cursor:"default"
             }}
             className="buzz-btn">
 
             <img
                 src={require('./bee.png').default}
                 style={{
-                    position: 'relative',
+                    // position: '',
                     bottom: '1.4vh',
                     zIndex: '100',
                     width: '60px',
