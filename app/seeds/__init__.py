@@ -55,7 +55,7 @@ def seed():
     seed_user_dm_message_channel()
     # seed_channel_messages()
     # seed_dm_messages()
-    seed_images()
+    # seed_images()
 
 
 # Creates the `flask seed undo` command
