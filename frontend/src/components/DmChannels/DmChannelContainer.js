@@ -14,7 +14,7 @@ const DmChannelContainer = () => {
     const dispatch = useDispatch();
 
     const user = useSelector(state => state.session.user);
-    const orgDmChannels = useSelector(state => state.organization.organization_dmMessage_channels);
+    const orgDmChannels = useSelector(state => state.organization.organization_dm_message_channels);
     const userEmails = useSelector(state => state.messages.usersToAdd);
     const currentOrg = useSelector(state => state.organization);
 
@@ -122,9 +122,9 @@ const DmChannelContainer = () => {
             </div>
 
             {
-                orgDmChannels && orgDmChannels.map((channel, i) => channel.dmMessage_channel_users.includes(user.username) && (
+                orgDmChannels && orgDmChannels.map((channel, i) => channel.dm_message_channel_users.includes(user.username) && (
                     <div className='flex-center'>
-                        <DmChannel messages={channel.dmMessage_channel_dmMessages} users={channel.dmMessage_channel_users} ownerId={channel.owner_id} id={channel.id} key={i} />
+                        <DmChannel messages={channel.dm_message_channel_dm_messages} users={channel.dm_message_channel_users} ownerId={channel.owner_id} id={channel.id} key={i} />
                     </div>
                 ))
             }

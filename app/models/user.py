@@ -24,14 +24,14 @@ class User(db.Model, UserMixin):
         "User_Org_Association", back_populates="child")
     user_cm = relationship(
         "ChannelMessage", back_populates="cm_user", cascade="all, delete")
-    user_dmMessage = relationship(
-        "DmMessage", back_populates="dmMessage_user", cascade="all, delete")
+    user_dm_message = relationship(
+        "DmMessage", back_populates="dm_message_user", cascade="all, delete")
     user_channel = relationship(
         "User_Channel_Association", back_populates="child")
-    user_dmMessage_channel = relationship(
+    user_dm_message_channel = relationship(
         "User_DmMessage_Channel", back_populates="child")
     owned_channels = relationship("Channel", back_populates="channel_owner")
-    owned_dmMessage_channels = relationship("DmMessage_Channel", back_populates="dmMessage_channel_owner")
+    owned_dm_message_channels = relationship("DmMessage_Channel", back_populates="dm_message_channel_owner")
 
     #? Methods
     @property

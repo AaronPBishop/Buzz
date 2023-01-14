@@ -35,8 +35,8 @@ def seed_dm_channels():
 def undo_dm_channels():
     if environment == "production":
         db.session.execute(
-            f"TRUNCATE table {SCHEMA}.dmMessage_channels RESTART IDENTITY CASCADE;")
+            f"TRUNCATE table {SCHEMA}.dm_message_channels RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute("DELETE FROM dmMessage_channels")
+        db.session.execute("DELETE FROM dm_message_channels")
 
     db.session.commit()

@@ -13,12 +13,12 @@ class Image(db.Model):
 
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     channel_message_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('channel_messages.id')))
-    dm_message_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('dmMessages.id')))
+    dm_message_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('dm_messages.id')))
 
     #! Relationships
     image_cm = relationship("ChannelMessage", back_populates="cm_image")
-    image_dmMessage = relationship(
-        "DmMessage", back_populates="dmMessage_image")
+    image_dm_message = relationship(
+        "DmMessage", back_populates="dm_message_image")
 
 #? Methods
     def to_dict(self):

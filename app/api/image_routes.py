@@ -46,7 +46,7 @@ def create_image():
     if req_data['viewingDm'] == True:
         new_message = DmMessage(
             message=None,
-            dmMessage_channel_id=req_data['currChannelId'],
+            dm_message_channel_id=req_data['currChannelId'],
             user_id=req_data['userId']
         )
 

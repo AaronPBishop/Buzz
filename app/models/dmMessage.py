@@ -4,7 +4,7 @@ from sqlalchemy.sql import func
 
 
 class DmMessage(db.Model):
-    __tablename__ = 'dmMessages'
+    __tablename__ = 'dm_messages'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
@@ -14,38 +14,38 @@ class DmMessage(db.Model):
     created_date = db.Column(db.DateTime(timezone=True), server_default=func.now())
     last_update = db.Column(db.String())
 
-    dmMessage_channel_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('dmMessage_channels.id')), nullable=False)
+    dm_message_channel_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('dm_message_channels.id')), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
 
     #! Relationships
-    dmMessage_dmMessage_channel = relationship(
-        "DmMessage_Channel", back_populates="dmMessage_channel_dmMessage")
-    dmMessage_user = relationship("User", back_populates="user_dmMessage")
-    dmMessage_image = relationship(
-        "Image", back_populates="image_dmMessage", cascade="all, delete")
+    dm_message_dm_message_channel = relationship(
+        "DmMessage_Channel", back_populates="dm_message_channel_dm_message")
+    dm_message_user = relationship("User", back_populates="user_dm_message")
+    dm_message_image = relationship(
+        "Image", back_populates="image_dm_message", cascade="all, delete")
 
 # ? Methods
 
     def to_dict(self):
         return {
             'id': self.id,
-            'user_name': self.dmMessage_user.user_name,
-            'first_name': self.dmMessage_user.first_name,
-            'last_name': self.dmMessage_user.last_name,
+            'user_name': self.dm_message_user.user_name,
+            'first_name': self.dm_message_user.first_name,
+            'last_name': self.dm_message_user.last_name,
             'message': self.message,
-            'dmMessage_channel_id': self.dmMessage_channel_id,
+            'dm_message_channel_id': self.dm_message_channel_id,
             'user_id': self.user_id,
             'last_update': self.last_update,
             'created_date': self.created_date,
-            'images': [image.to_dict() for image in self.dmMessage_image]
+            'images': [image.to_dict() for image in self.dm_message_image]
         }
 
     def basic_dict(self):
         return {
             'id': self.id,
             'user_id': self.user_id,
-            'user_name': self.dmMessage_user.user_name,
+            'user_name': self.dm_message_user.user_name,
             'message': self.message,
             'last_updated': self.last_update,
-            'dmMessage_images': [image.to_dict() for image in self.dmMessage_image]
+            'dm_message_images': [image.to_dict() for image in self.dm_message_image]
         }

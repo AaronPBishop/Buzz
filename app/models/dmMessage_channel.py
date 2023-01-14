@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 
 
 class DmMessage_Channel(db.Model):
-    __tablename__ = 'dmMessage_channels'
+    __tablename__ = 'dm_message_channels'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
@@ -13,13 +13,13 @@ class DmMessage_Channel(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
 
     #! Relationships
-    dmMessage_channel_owner = relationship(
-        "User", back_populates="owned_dmMessage_channels")
-    dmMessage_channel_organization = relationship(
-        "Organization", back_populates="organization_dmMessage_channel")
-    dmMessage_channel_dmMessage = relationship(
-        "DmMessage", back_populates="dmMessage_dmMessage_channel", cascade="all, delete")
-    dmMessage_channel_user = relationship(
+    dm_message_channel_owner = relationship(
+        "User", back_populates="owned_dm_message_channels")
+    dm_message_channel_organization = relationship(
+        "Organization", back_populates="organization_dm_message_channel")
+    dm_message_channel_dm_message = relationship(
+        "DmMessage", back_populates="dm_message_dm_message_channel", cascade="all, delete")
+    dm_message_channel_user = relationship(
         "User_DmMessage_Channel", back_populates="parent", cascade="all, delete")
 
     # ? Methods
@@ -28,15 +28,15 @@ class DmMessage_Channel(db.Model):
             'id': self.id,
             'owner_id': self.owner_id,
             'organization_id': self.organization_id,
-            'dmMessage_channel_users': [user.child.user_name for user in self.dmMessage_channel_user],
-            'dmMessage_channel_dmMessages': [dmMessage.to_dict() for dmMessage in self.dmMessage_channel_dmMessage]
+            'dm_message_channel_users': [user.child.user_name for user in self.dm_message_channel_user],
+            'dm_message_channel_dm_messages': [dm_message.to_dict() for dm_message in self.dm_message_channel_dm_message]
         }
 
     def basic_dict(self):
         return {
             'id': self.id,
-            'dmMessage_channel_users': [user.child.user_name for user in self.dmMessage_channel_user],
-            'dmMessage_channel_dmMessages': [dmMessage.to_dict() for dmMessage in self.dmMessage_channel_dmMessage]
+            'dm_message_channel_users': [user.child.user_name for user in self.dm_message_channel_user],
+            'dm_message_channel_dm_messages': [dm_message.to_dict() for dm_message in self.dm_message_channel_dm_message]
         }
 
     def org_dict(self):

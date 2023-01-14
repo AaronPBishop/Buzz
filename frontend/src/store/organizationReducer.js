@@ -78,8 +78,8 @@ export const deleteChannelThunk = (channelToDeleteId) => async (dispatch) => {
 
 // DM CHANNEL THUNKS
 
-export const removeDmMessageChannelUserThunk = (dmMessageChannelId, userToRemoveId) => async (dispatch) => {
-    await fetch(`/api/dmMessage_channels/${dmMessageChannelId}`, {
+export const removeDmMessageChannelUserThunk = (dm_messageChannelId, userToRemoveId) => async (dispatch) => {
+    await fetch(`/api/dm_message_channels/${dm_messageChannelId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -89,8 +89,8 @@ export const removeDmMessageChannelUserThunk = (dmMessageChannelId, userToRemove
 };
 
 
-export const deleteDmMessageChannelThunk = (dmMessageChannelId) => async () => {
-    await fetch(`/api/dmMessage_channels/${dmMessageChannelId}`, {
+export const deleteDmMessageChannelThunk = (dm_messageChannelId) => async () => {
+    await fetch(`/api/dm_message_channels/${dm_messageChannelId}`, {
         method: 'DELETE'
     });
 };

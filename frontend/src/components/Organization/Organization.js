@@ -46,7 +46,7 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
 
     const keyMap = {
         organization_channels: 'Channels',
-        organization_dmMessage_channels: 'Direct Messages'
+        organization_dm_message_channels: 'Direct Messages'
     };
 
 
@@ -210,7 +210,7 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
                                 <div style={{textAlign: 'right', width: '2vw'}}>
                                     {
                                         key === 'organization_channels' ? totalChannels
-                                        : key === 'organization_dmMessage_channels' && totalDmChannels
+                                        : key === 'organization_dm_message_channels' && totalDmChannels
                                     }
                                 </div>
                             </div>

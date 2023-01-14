@@ -23,7 +23,7 @@ const store = {
                     ownerId: 5
                 }
             ],
-            dmMessage_channel: [
+            dm_message_channel: [
                 {
                     id: 1,
                     owner_id: 1,
@@ -57,7 +57,7 @@ const store = {
                     name: 'Buzz Channel'
                 }
             ],
-            organization_dmMessage_channel: [
+            organization_dm_message_channel: [
                 {
                     id: 1,
                     owner_id: 1,
@@ -96,13 +96,13 @@ const store = {
         },
     },
 
-    dmMessage_channel: {
+    dm_message_channel: {
         1: {
             id: 1,
             owner_id: 1,
             name: {aggregateData},
             organization_id: 2,
-            dmMessage_channel_users: [
+            dm_message_channel_users: [
                 {
                     id: 1,
                     user_name: 'BuzzyBee'
@@ -112,12 +112,12 @@ const store = {
                     user_name: 'BeeBuzzer'
                 }
             ],
-            dmMessage_channel_dmMessage: [
+            dm_message_channel_dm_message: [
                 {
                     user_id: 1,
                     user_name: 'BuzzyBee',
                     message: 'Have a buzzy day!',
-                    dmMessage_image: [
+                    dm_message_image: [
                         {
                             id: 1,
                             url: 'img.img'

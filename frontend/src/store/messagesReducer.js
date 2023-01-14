@@ -153,7 +153,7 @@ export const deleteChannelMessageDataThunk = channelMessageId => async (dispatch
 
 export const createDmMessageChannelThunk =
     (ownerId, organizationId, userEmails) => async dispatch => {
-        const request = await fetch(`/api/dmMessage_channels/create`, {
+        const request = await fetch(`/api/dm_message_channels/create`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -169,14 +169,14 @@ export const createDmMessageChannelThunk =
     };
 
 export const createDmMessageThunk =
-    (userId, dmMessage_channelId, message, images) => async dispatch => {
-        const request = await fetch("/api/dmMessage/new", {
+    (userId, dm_message_channelId, message, images) => async dispatch => {
+        const request = await fetch("/api/dm_message/new", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 message: message,
                 last_update: Date(),
-                currChannelId: dmMessage_channelId,
+                currChannelId: dm_message_channelId,
                 userId: userId,
                 images,
             }),
@@ -188,12 +188,12 @@ export const createDmMessageThunk =
     };
 
 export const editDmMessageThunk =
-    (dmMessageId, dmMessageToEdit) => async dispatch => {
-        const request = await fetch(`/api/dmMessage/${dmMessageId}`, {
+    (dm_messageId, dm_messageToEdit) => async dispatch => {
+        const request = await fetch(`/api/dm_message/${dm_messageId}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                message: dmMessageToEdit,
+                message: dm_messageToEdit,
                 last_update: Date(),
             }),
         });
@@ -203,12 +203,12 @@ export const editDmMessageThunk =
         dispatch(editMessage(response));
     };
 
-export const deleteDmMessageDataThunk = dmMessageId => async (dispatch) => {
-    await fetch(`/api/dmMessage/${dmMessageId}`, {
+export const deleteDmMessageDataThunk = dm_messageId => async (dispatch) => {
+    await fetch(`/api/dm_message/${dm_messageId}`, {
         method: "DELETE",
     });
 
-    dispatch(deleteMessage(dmMessageId));
+    dispatch(deleteMessage(dm_messageId));
 };
 
 //! REDUCER
