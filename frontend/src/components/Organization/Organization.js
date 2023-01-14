@@ -30,7 +30,7 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
 
     useEffect(() => {
         if (orgId === user.user_organizations[0].organization_id) dispatch(fetchOrgDataThunk(orgId));
-    }, [dispatch, orgId, user.id, user.user_organizations])
+    }, [dispatch, orgId, user.id, user.user_organizations]);
 
     useEffect(() => {
         if (addedUser === true) dispatch(getUserThunk(user.id));

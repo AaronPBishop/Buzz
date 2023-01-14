@@ -1,9 +1,7 @@
-import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { populateCurrMessages, setViewingDm } from '../../store/messagesReducer.js';
-import { deleteDmMessageChannelThunk } from '../../store/organizationReducer.js';
-import { fetchOrgDataThunk } from "../../store/organizationReducer.js";
+import { populateCurrMessages, setViewingDm, clearChannelMessageData } from '../../store/messagesReducer.js';
+import { deleteDmMessageChannelThunk, clearDmChannel } from '../../store/organizationReducer.js';
 
 import { CloseCircle } from '@styled-icons/ionicons-outline/CloseCircle';
 
@@ -11,24 +9,7 @@ const DmChannel = ({ messages, users, ownerId, id }) => {
     const dispatch = useDispatch();
 
     const user = useSelector(state => state.session.user);
-    const currOrg = useSelector(state => state.organization);
     const messageState = useSelector(state => state.messages);
-
-    const [validUsers] = useState(users.filter(el => el !== user.username));
-    const [clickedDeleted, setClickedDeleted] = useState(false);
-    const [switched, setSwitched] = useState(false);
-
-    useEffect(() => {
-        if (clickedDeleted === true) dispatch(fetchOrgDataThunk(currOrg.id));
-    }, [dispatch, clickedDeleted, currOrg.id]);
-
-    useEffect(() => {
-        if (messageState.viewingDm === true && messageState.currChannelId === id) setSwitched(true);
-    }, [messageState, id]);
-
-    useEffect(() => {
-        if (switched === true) dispatch(populateCurrMessages(messages));
-    }, [dispatch, switched, messages]);
 
     const formatNames = (names) => {
         let formatted = '';
@@ -68,14 +49,14 @@ const DmChannel = ({ messages, users, ownerId, id }) => {
             borderTop: '2px solid rgb(30, 30, 30)',
             borderBottom: '2px solid rgb(30, 30, 30)'
         }}>
-            {validUsers.length > 1 ? formatNames(validUsers) : validUsers}
+            {users.length > 2 ? formatNames(users.filter(el => el !== user.username)) : users[0]}
 
             <CloseCircle
             onClick={e => {
                 e.stopPropagation();
 
                 dispatch(deleteDmMessageChannelThunk(id));
-                setClickedDeleted(true);
+                dispatch(clearDmChannel(id));
             }}
             style={{
                 display: user.id !== ownerId && 'none',

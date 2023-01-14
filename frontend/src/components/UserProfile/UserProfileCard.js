@@ -3,13 +3,11 @@ import { useDispatch } from "react-redux";
 
 import { editUserThunk, logout } from "../../store/sessionReducer";
 import { Close } from "@styled-icons/evil/Close";
-import { useHistory } from "react-router-dom";
 
 import "./UserProfileCard.css";
 
 const UserProfileCard = ({ user, showUserCard }) => {
     const dispatch = useDispatch();
-    const history = useHistory();
 
     const [showEditForm, setShowEditForm] = useState(false);
     const [showCardDropDown, setShowCardDropDown] = useState(true);
@@ -22,8 +20,8 @@ const UserProfileCard = ({ user, showUserCard }) => {
 
     const handleLogout = e => {
         e.preventDefault();
+
         dispatch(logout());
-        history.push("/");
     };
 
     const handleEditUser = e => {

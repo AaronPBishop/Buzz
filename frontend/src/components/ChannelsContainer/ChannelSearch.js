@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import CSUser from './CSUser.js';
 
-const ChannelSearch = ({ type }) => {
+const ChannelSearch = ({ users, type }) => {
     const currentOrg = useSelector(state => state.organization);
     const currUser = useSelector(state => state.session.user);
 
@@ -70,31 +70,60 @@ const ChannelSearch = ({ type }) => {
                     Close
                 </div>
 
-                <div className="flex-center">
-                    {
-                        input.length < 1 && currentOrg.organization_users ?
-                        currentOrg.organization_users.map((user, i) => {
-                            if (user.id !== currUser.id) return (
-                                <CSUser currOrgId={currentOrg.id} userToAddId={user.id} firstName={user.first_name} lastName={user.last_name} userEmail={user.email} type={type} key={i} />
-                            );
-                        })
-                        :
-                        input.length > 0 && currentOrg.organization_users &&
-                        currentOrg.organization_users.map((user, i) => {
-                            if (user.id !== currUser.id && (user.first_name.toLowerCase() + user.last_name.toLowerCase()) === input.replace(/\s/g, '').toLowerCase()) return (
-                                <CSUser currOrgId={currentOrg.id} userToAddId={user.id} userName={user.username} firstName={user.first_name} lastName={user.last_name} userEmail={user.email} type={type} key={i} />
-                            );
+                {
+                    type === 'create' ?
+                    <div className="flex-center">
+                        {
+                            input.length < 1 && currentOrg.organization_users ?
+                            currentOrg.organization_users.map((user, i) => {
+                                if (user.id !== currUser.id) return (
+                                    <CSUser currOrgId={currentOrg.id} userToAddId={user.id} firstName={user.first_name} lastName={user.last_name} userEmail={user.email} type={type} key={i} />
+                                );
+                            })
+                            :
+                            input.length > 0 && currentOrg.organization_users &&
+                            currentOrg.organization_users.map((user, i) => {
+                                if (user.id !== currUser.id && (user.first_name.toLowerCase() + user.last_name.toLowerCase()) === input.replace(/\s/g, '').toLowerCase()) return (
+                                    <CSUser currOrgId={currentOrg.id} userToAddId={user.id} userName={user.username} firstName={user.first_name} lastName={user.last_name} userEmail={user.email} type={type} key={i} />
+                                );
 
-                            if (user.id !== currUser.id && user.first_name.toLowerCase() === input.toLowerCase()) return (
-                                <CSUser currOrgId={currentOrg.id} userToAddId={user.id} userName={user.username} firstName={user.first_name} lastName={user.last_name} userEmail={user.email} type={type} key={i} />
-                            );
+                                if (user.id !== currUser.id && user.first_name.toLowerCase() === input.toLowerCase()) return (
+                                    <CSUser currOrgId={currentOrg.id} userToAddId={user.id} userName={user.username} firstName={user.first_name} lastName={user.last_name} userEmail={user.email} type={type} key={i} />
+                                );
 
-                            if (user.id !== currUser.id && user.last_name.toLowerCase() === input.toLowerCase()) return (
-                                <CSUser currOrgId={currentOrg.id} userToAddId={user.id} userName={user.username} firstName={user.first_name} lastName={user.last_name} userEmail={user.email} type={type} key={i} />
-                            );
-                        })
-                    }
-                </div>
+                                if (user.id !== currUser.id && user.last_name.toLowerCase() === input.toLowerCase()) return (
+                                    <CSUser currOrgId={currentOrg.id} userToAddId={user.id} userName={user.username} firstName={user.first_name} lastName={user.last_name} userEmail={user.email} type={type} key={i} />
+                                );
+                            })
+                        }
+                    </div>
+                    :
+                    <div className="flex-center">
+                        {
+                            input.length < 1 && currentOrg.organization_users ?
+                            currentOrg.organization_users.map((user, i) => {
+                                if (user.id !== currUser.id && !users.includes(user.username)) return (
+                                    <CSUser currOrgId={currentOrg.id} userToAddId={user.id} firstName={user.first_name} lastName={user.last_name} userEmail={user.email} type={type} key={i} />
+                                );
+                            })
+                            :
+                            input.length > 0 && currentOrg.organization_users &&
+                            currentOrg.organization_users.map((user, i) => {
+                                if (user.id !== currUser.id && !users.includes(user.username) && (user.first_name.toLowerCase() + user.last_name.toLowerCase()) === input.replace(/\s/g, '').toLowerCase()) return (
+                                    <CSUser currOrgId={currentOrg.id} userToAddId={user.id} userName={user.username} firstName={user.first_name} lastName={user.last_name} userEmail={user.email} type={type} key={i} />
+                                );
+
+                                if (user.id !== currUser.id && !users.includes(user.username) && user.first_name.toLowerCase() === input.toLowerCase()) return (
+                                    <CSUser currOrgId={currentOrg.id} userToAddId={user.id} userName={user.username} firstName={user.first_name} lastName={user.last_name} userEmail={user.email} type={type} key={i} />
+                                );
+
+                                if (user.id !== currUser.id && !users.includes(user.username) && user.last_name.toLowerCase() === input.toLowerCase()) return (
+                                    <CSUser currOrgId={currentOrg.id} userToAddId={user.id} userName={user.username} firstName={user.first_name} lastName={user.last_name} userEmail={user.email} type={type} key={i} />
+                                );
+                            })
+                        }
+                    </div>
+                }
             </div>
         </div>
     );

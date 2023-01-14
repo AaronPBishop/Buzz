@@ -49,7 +49,7 @@ const DmChannelContainer = () => {
                     fontSize: '16px',
                     marginTop: '1vh',
                 }}>
-                    <p style={{ maxWidth: '8vw', ontWeight: 'bold', fontSize: '19px', border: '1px dotted white', padding: '7px', backgroundColor: 'yellow', color: 'black' }}>Direct Messages:</p>
+                    <p style={{maxWidth: '8vw', fontWeight: 'bold', fontSize: '16px', textShadow: '0px 1px 2px yellow'}}>Direct Messages</p>
 
                     <ExpandMore
                         onClick={e => {
@@ -122,9 +122,10 @@ const DmChannelContainer = () => {
             </div>
 
             {
-                orgDmChannels && orgDmChannels.map((channel, i) => channel.dm_message_channel_users.includes(user.username) && (
-                    <div className='flex-center'>
-                        <DmChannel messages={channel.dm_message_channel_dm_messages} users={channel.dm_message_channel_users} ownerId={channel.owner_id} id={channel.id} key={i} />
+                orgDmChannels && orgDmChannels.length > 0 && 
+                orgDmChannels.map((channel, i) => channel.dm_message_channel_users.includes(user.username) && (
+                    <div className='flex-center' key={i}>
+                        <DmChannel messages={channel.dm_message_channel_dm_messages} users={channel.dm_message_channel_users} ownerId={channel.owner_id} id={channel.id} />
                     </div>
                 ))
             }

@@ -74,9 +74,11 @@ const Message = ({ message, sessionUser }) => {
                 alignItems: "center",
                 padding: "14px",
                 fontFamily: "Roboto",
-                borderRadius: "6px",
+                border: '2px solid yellow',
+                borderRadius: "12px",
                 backgroundColor: "black",
-                margin: "3px",
+                margin: "1vh",
+                marginBottom: '2vh',
                 color: "white",
             }}><div style={{display: 'flex', flexDirection: 'column'}}>
             <div style={{ display: "flex", marginLeft: "12px" }}>

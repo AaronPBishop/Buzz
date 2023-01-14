@@ -62,7 +62,7 @@ const ChannelContainer = () => {
                     fontSize: '16px',
                     marginTop: '1vh'
                 }}>
-                    <p style={{ maxWidth: '8vw', ontWeight: 'bold', fontSize: '19px', border: '1px dotted white', padding: '7px', backgroundColor: 'yellow', color: 'black'}}>Channels:</p>
+                    <p style={{maxWidth: '8vw', fontWeight: 'bold', fontSize: '16px', textShadow: '0px 1px 2px yellow'}}>Channels</p>
 
                     <ExpandMore
                         onClick={e => {

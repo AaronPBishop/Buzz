@@ -35,9 +35,11 @@ const SearchUser = ({ currOrgId, email, firstName, lastName }) => {
 
             <div
             onClick={() => {
-                if (startedDm === false) dispatch(createDmMessageChannelThunk(user.id, currOrgId, [email]));
+                if (startedDm === false) {
+                    dispatch(createDmMessageChannelThunk(user.id, currOrgId, [email]));
 
-                setStartedDm(true);
+                    setStartedDm(true);
+                };
             }}
             style={{
                 marginTop: '1.2vh',
