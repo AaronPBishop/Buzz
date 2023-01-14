@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+
 
 import OrgContainer from "../Organization/OrgContainer.js";
 import DmChannelContainer from "../DmChannels/DmChannelContainer.js";
@@ -18,8 +20,13 @@ const BaseContainer = () => {
 
     const currImgViewing = useSelector(state => state.messages.currImgUrl);
 
+    useEffect(() => {
+        const htmlElement = document.querySelector("html");
+        htmlElement.style.backgroundColor = 'black';
+    }, []);
+
     return (
-        <div style={{ borderRadius: '8px', boxShadow: '0px 0px 8px black' }}>
+        <div style={{ borderRadius: '8px', boxShadow: '0px 0px 6px 1px yellow' }}>
             <div
                 // Navbar parent container
                 style={{
@@ -78,11 +85,11 @@ const BaseContainer = () => {
                             currImgViewing.length < 1 ?
                             <div
                             style={{
-                                background: 'rgb(200, 200, 0)',
+                                backgroundColor: 'rgb(15, 15, 15)',
                                 border: '4px solid rgb(30, 30, 30)',
                                 borderRadius: '12px',
                                 height: '70vh',
-                                width: '78vw',
+                                width: '76vw',
                                 overflowY: 'auto'
                             }}>
                                 <MsgContainer />
@@ -95,7 +102,7 @@ const BaseContainer = () => {
                                 border: '4px solid rgb(30, 30, 30)',
                                 borderRadius: '12px',
                                 height: '70vh',
-                                width: '78vw',
+                                width: '80vw',
                                 overflowY: 'auto'
                             }}>
                                 <CloseOutline

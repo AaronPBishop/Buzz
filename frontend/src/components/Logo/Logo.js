@@ -7,7 +7,7 @@ const Logo = () => {
                 justifyContent: 'center',
                 alignItems: "center",
                 width: '8vw',
-                height: '4.8vh',
+                height: '4.4vh',
                 backgroundColor: 'yellow',
                 marginTop: '0.6vh',
                 marginBottom: 'auto',

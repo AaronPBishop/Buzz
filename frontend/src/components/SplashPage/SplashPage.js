@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 import DemoLogin from "../auth/DemoLogin.js";
 
 import LogInForm from "../auth/LoginForm.js";
@@ -9,6 +10,11 @@ import "./styles.css";
 const SplashPage = () => {
     const [clickedLogIn, setClickedLogIn] = useState(false);
     const [clickedSignUp, setClickedSignUp] = useState(false);
+
+    useEffect(() => {
+        const htmlElement = document.querySelector("html");
+        htmlElement.style.backgroundColor = 'rgb(240, 210, 10)';
+    }, []);
 
     return (
         <div
@@ -22,7 +28,7 @@ const SplashPage = () => {
                 width: "50vw",
                 height: "84vh",
                 margin: "auto",
-                marginTop: "4vh",
+                marginTop: '4vh'
             }}>
             {!clickedLogIn && !clickedSignUp ? (
                 <div style={{ display: "flex", justifyContent: "center" }}>

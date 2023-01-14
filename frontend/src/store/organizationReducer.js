@@ -17,6 +17,13 @@ export const clearOrgData = () => {
     };
 };
 
+export const clearDmChannel = (id) => {
+    return {
+        type: 'CLEAR_DM_CHANNEL',
+        payload: id
+    };
+};
+
 
 // CHANNEL THUNKS
 
@@ -189,6 +196,22 @@ const organizationReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'POPULATE_ORG_DATA': {
             for (let key in action.payload) currentState[key] = action.payload[key];
+
+            return currentState;
+        };
+
+        case 'CLEAR_DM_CHANNEL': {
+            const dmChannelsCopy = [ ...currentState.organization_dm_message_channels ];
+
+            for (let i = 0; i < dmChannelsCopy.length; i++) {
+                if (dmChannelsCopy[i].id === action.payload) {
+                    dmChannelsCopy.splice(i, 1);
+
+                    currentState.organization_dm_message_channels = dmChannelsCopy;
+
+                    return currentState;
+                };
+            };
 
             return currentState;
         };

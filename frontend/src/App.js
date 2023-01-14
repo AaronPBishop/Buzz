@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import SplashPage from './components/SplashPage/SplashPage.js';
 import BaseContainer from './components/BaseContainer/BaseContainer.js';
+import ProtectedRoute from './components/auth/ProtectedRoute.js';
 
 import { authenticate } from './store/sessionReducer';
 
@@ -24,13 +25,15 @@ const App = () => {
     <BrowserRouter>
       <Switch>
 
+        
         <Route path='/' exact={true}>
           <SplashPage />
         </Route>
 
-        <Route path='/home' exact={true} >
+
+        <ProtectedRoute path='/home' exact={true} >
           <BaseContainer />
-        </Route>
+        </ProtectedRoute>
 
       </Switch>
     </BrowserRouter>

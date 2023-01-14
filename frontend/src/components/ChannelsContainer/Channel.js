@@ -198,7 +198,7 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers, usersA
                 </div>
 
                 <div style={{ display: clickedAddUser ? 'block' : 'none', marginTop: '4vh' }}>
-                    <ChannelSearch />
+                    <ChannelSearch users={usersArr.map((user) => user.username)} />
                 </div>
             </div>
         </div>

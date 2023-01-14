@@ -1,7 +1,7 @@
 html {
     font-family: 'Roboto', sans-serif;
     
-    background: linear-gradient(rgb(240, 210, 10), rgb(200, 170, 10));
+    background-color: black;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
