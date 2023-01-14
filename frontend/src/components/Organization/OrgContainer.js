@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ExpandMore } from '@styled-icons/material-sharp/ExpandMore';
 import { ExpandLess } from '@styled-icons/material-twotone/ExpandLess';
 
-import { getUserThunk } from '../../store/sessionReducer.js';
+import { getUserThunk, setCreatedOrg, setDeletedOrg } from '../../store/sessionReducer.js';
 import { createOrgThunk } from '../../store/organizationReducer.js';
 
 import Organization from "./Organization.js";
@@ -13,21 +13,29 @@ const OrgContainer = () => {
     const dispatch = useDispatch();
 
     const currUser = useSelector(state => state.session.user);
+    const session = useSelector(state => state.session);
 
     const [clickedCreateOrg, setClickedCreateOrg] = useState(false);
     const [clickedExpand, setClickedExpand] = useState(false);
-    const [clickedCreate, setClickedCreate] = useState(false);
 
     const [orgName, setOrgName] = useState('');
     const [img, setImg] = useState('');
 
     useEffect(() => {
-        if (clickedCreate === true) {
+        if (session.createdOrg === true) {
             dispatch(getUserThunk(currUser.id));
 
-            setClickedCreate(false);
+            dispatch(setCreatedOrg(false));
         };
-    }, [clickedCreate]);
+    }, [session.createdOrg]);
+
+    useEffect(() => {
+        if (session.deletedOrg === true) {
+            dispatch(getUserThunk(currUser.id));
+
+            dispatch(setDeletedOrg(false));
+        };
+    }, [session.deletedOrg]);
 
     return (
         <div style={{ maxWidth: '16vw' }}>
@@ -141,8 +149,7 @@ const OrgContainer = () => {
                     <div
                         onClick={() => {
                             dispatch(createOrgThunk(orgName, currUser.id, img));
-
-                            setClickedCreate(true);
+                            dispatch(setCreatedOrg(true));
 
                             setImg('');
                             setOrgName('');
@@ -162,7 +169,7 @@ const OrgContainer = () => {
                 </div>
             </div>
             {
-                currUser && 
+                currUser && currUser.user_organizations && currUser.user_organizations.length > 0 &&
                 currUser.user_organizations.map((org, i) => <Organization orgId={org.organization_id} orgName={org.organization_name} orgOwnerId={org.organization_owner} totalUsers={org.total_users} totalChannels={org.total_channels} totalDmChannels={org.total_dm_channels} usersArr={org.users} key={i} />)
             }
         </div>

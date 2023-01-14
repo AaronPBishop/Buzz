@@ -173,13 +173,10 @@ export const editOrgThunk = (orgId, orgNameToEdit, orgImgToEdit) => async (dispa
 };
 
 
-export const deleteOrgThunk = (orgId, ownerId) => async () => {
+export const deleteOrgThunk = (orgId) => async () => {
     await fetch(`/api/organizations/${orgId}`, {
         method: 'DELETE',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-            owner_id: ownerId
-        })
+        headers: {'Content-Type': 'application/json'}
     });
 };
 

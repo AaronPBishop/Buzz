@@ -8,7 +8,8 @@ import {
     editDmMessageThunk,
     deleteDmMessageDataThunk,
     setCurrImgUrl,
-    populateCurrMessages
+    populateCurrMessages,
+    deleteMessage
 } from "../../store/messagesReducer";
 
 const Message = ({ message, sessionUser }) => {
@@ -250,6 +251,8 @@ const Message = ({ message, sessionUser }) => {
                                             )
                                         );
 
+                                        dispatch(deleteMessage(message.id));
+
                                         setClickDelete(true);
                                     }
 
@@ -257,6 +260,8 @@ const Message = ({ message, sessionUser }) => {
                                         dispatch(
                                             deleteDmMessageDataThunk(message.id)
                                         );
+
+                                        dispatch(deleteMessage(message.id));
                                         
                                         setClickDelete(true);
                                     }
