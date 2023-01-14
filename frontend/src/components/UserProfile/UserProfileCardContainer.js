@@ -24,8 +24,8 @@ const UserProfileCardContainer = () => {
         }}>
             {currentUser &&
                 <img src={`${currentUser.profile_img}`} onClick={(e) => handleClickProfileImage(e)} style={{
-                    height: '50px',
-                    width: '50px',
+                    height: '70px',
+                    width: '70px',
                     borderRadius: '20px',
                     display: 'flex',
                     justifyContent: 'center',

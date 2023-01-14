@@ -33,6 +33,16 @@ const ChannelContainer = () => {
         };
     }, [dispatch, clickedCreate, currentOrg.id]);
 
+    // const handleKeyDown = e => {
+    //     if (e.key === "Enter") {
+    //             dispatch(clearUserEmails());
+    //             dispatch(createChannelThunk(channelName, currentOrg.id, currentUser.id, isPublic, userEmails));
+
+    //             setClickedCreate(true);
+    //             setClickedCreateChannel(false);
+    //             setClickedExpand(false);
+    // }}
+
     if (!currentUser) return <div>Loading...</div>
 
     if (currentUser) return (
@@ -52,7 +62,7 @@ const ChannelContainer = () => {
                     fontSize: '16px',
                     marginTop: '1vh'
                 }}>
-                    <p style={{ marginLeft: '0.4vw', maxWidth: '8vw' }}>Channels</p>
+                    <p style={{ maxWidth: '8vw', ontWeight: 'bold', fontSize: '19px', border: '1px dotted white', padding: '7px', backgroundColor: 'yellow', color: 'black'}}>Channels:</p>
 
                     <ExpandMore
                         onClick={e => {
@@ -111,6 +121,7 @@ const ChannelContainer = () => {
                         id='search-input'
                         autoComplete='off'
                         placeholder={`Channel name`}
+                        // onKeyDown={handleKeyDown}
                         onChange={e => setChannelName(e.target.value)}
                         value={channelName}
                         className='flex-center'

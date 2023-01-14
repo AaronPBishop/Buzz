@@ -49,6 +49,21 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
         organization_dmMessage_channels: 'Direct Messages'
     };
 
+
+    const handleKeyDown = e => {
+        if (e.key === "Enter") {
+            if (!validateEmail(input)) {setError(true)}
+            if (validateEmail(input)) {
+                setError(false);
+                setClickedAddUser(false);
+
+                dispatch(addUserToOrgThunk(orgId, input));
+
+                setAddedUser(true);
+                setInput('');
+            };
+    }}
+
     const validateEmail = (email) => {
         return email.match(
           /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -242,6 +257,7 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
                         <input
                         id='search-input'
                         autoComplete='off'
+                        onKeyDown={handleKeyDown}
                         placeholder={`User email...`}
                         onChange={e => setInput(e.target.value)}
                         value={input}

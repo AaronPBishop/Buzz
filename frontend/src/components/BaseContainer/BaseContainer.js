@@ -43,13 +43,13 @@ const BaseContainer = () => {
                     style={{
                         borderBottomLeftRadius: '8px',
                         height: '91vh',
-                        width: '20vw',
+                        width: '100%',
                         backgroundColor: 'black',
                         color: 'white'
                     }}>
                     <div
                         className='flex-center'
-                        style={{ height: '29.7vh', width: 'inherit', borderBottom: '2px solid yellow', overflowY: 'auto' }}>
+                        style={{ height: '29.7vh', width: 'inherit', borderBottom: '3px double gray', overflowY: 'auto' }}>
                         <OrgContainer />
                     </div>
 
@@ -61,7 +61,7 @@ const BaseContainer = () => {
 
                     <div
                         className='flex-center'
-                        style={{ height: '29.7vh', width: 'inherit', borderTop: '2px solid yellow', borderBottomLeftRadius: '8px', overflowY: 'auto' }}>
+                        style={{ height: '29.7vh', width: 'inherit', borderTop: '3px double gray', borderBottomLeftRadius: '8px', overflowY: 'auto' }}>
                         <DmChannelContainer />
                     </div>
                 </div>
@@ -71,7 +71,7 @@ const BaseContainer = () => {
                     style={{
                         backgroundColor: 'black',
                         borderBottomRightRadius: '8px',
-                        width: '79vw'
+                        width: '77.7vw'
                     }}>
                     <div className='flex-center'>
                         {
@@ -120,8 +120,9 @@ const BaseContainer = () => {
                             style={{
                                 backgroundColor: 'black',
                                 marginTop: '0.4vh',
+                                marginRight: '0.5vw',
                                 height: '18vh',
-                                width: '76vw',
+                                width: '77.3vw',
                                 color: 'white'
                             }}>
                             <MessagingBox />

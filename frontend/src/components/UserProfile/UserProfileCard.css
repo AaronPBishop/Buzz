@@ -5,22 +5,22 @@
 }
 
 .actionButtons:hover {
-    opacity: 0.8;
+    /* opacity: 0.8; */
 
 }
 
 .EditUserForm {
     display: flex;
     flex-direction: column;
-    /* background-color: white; */
-    width: 300px;
-    height: 500px;
+    background-color: white;
+    width: 360px;
+    height: 440px;
     border-radius: 20px;
     justify-content: center;
     color: black;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 200px;
+    /* margin-left: auto;
+    margin-right: auto; */
+    margin-top: 80px;
     border: 1.2px solid rgb(181, 180, 180);
     box-shadow: rgb(0 0 0 / 28%) 0px 8px 28px;
 }
@@ -31,14 +31,9 @@
     font-size: 30px;
     display: flex;
     justify-content: center;
+    margin-bottom: 20px;
 }
 
-.InputBox {
-    height: 30px;
-    border-radius: 5px;
-    border: 1.2px solid rgb(181, 180, 180);
-    margin-bottom: 10px;
-}
 
 .EditButton {
     width: 200px;
@@ -49,13 +44,28 @@
     font-size: 18px;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 15px;
     cursor: pointer;
 }
 
+.InputBox {
+    height: 30px;
+    border-radius: 3px;
+    border: 1.2px solid rgb(181, 180, 180);
+    display: flex;
+    margin-bottom: 5px;
+    margin-left: 4px;
+    text-align: start;
+    color: rgb(169, 31, 169);
+
+}
 .textLabelWrapper {
-    text-align: center;
-    margin-left: 50px;
+    text-align: start;
+    margin-bottom: 5px;
+    padding-left: 4px;
     display: flex;
     flex-direction: column;
-    width: 200px;
+    justify-content: center;
+    width: 80px;
+    color: black;
 }
