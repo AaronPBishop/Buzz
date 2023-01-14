@@ -65,13 +65,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('channel_id', 'user_id')
     )
-    op.create_table('user_dmMessage_channels',
-    sa.Column('dmMessage_channel_id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['dmMessage_channel_id'], ['dmMessage_channels.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('dmMessage_channel_id', 'user_id')
-    )
     op.create_table('dmMessage_channels',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('organization_id', sa.Integer(), nullable=False),
@@ -79,6 +72,13 @@ def upgrade():
     sa.ForeignKeyConstraint(['organization_id'], ['organizations.id'], ),
     sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('user_dmMessage_channels',
+    sa.Column('dmMessage_channel_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['dmMessage_channel_id'], ['dmMessage_channels.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('dmMessage_channel_id', 'user_id')
     )
     op.create_table('channel_messages',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -120,8 +120,8 @@ def upgrade():
         op.execute(f"ALTER TABLE user_organizations SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE channels SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE user_channels SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE user_dmMessage_channels SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE dmMessage_channels SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE user_dmMessage_channels SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE channel_messages SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE dmMessages SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE images SET SCHEMA {SCHEMA};")
