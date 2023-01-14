@@ -13,7 +13,7 @@ const CSUser = ({ currOrgId, userToAddId, firstName, lastName, userEmail, type }
 
     useEffect(() => {
         if (clickedAdd === true && type !== 'create') dispatch(fetchOrgDataThunk(currOrgId));
-    }, [clickedAdd]);
+    }, [dispatch, clickedAdd, currOrgId, type]);
 
     return (
         <div

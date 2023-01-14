@@ -33,7 +33,7 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers, usersA
 
             setClickedDelete(false);
         };
-    }, [clickedDelete]);
+    }, [dispatch, clickedDelete, currOrg.id]);
 
     useEffect(() => {
         if (clickedSave === true) {
@@ -41,7 +41,7 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers, usersA
 
             setClickedSave(false);
         };
-    }, [clickedSave]);
+    }, [dispatch, clickedSave, currOrg.id]);
 
     return (
         <div 

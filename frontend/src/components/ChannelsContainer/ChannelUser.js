@@ -19,7 +19,7 @@ const ChannelUser = ({ channelId, ownerId, userId, firstName, lastName }) => {
 
             setDeleted(false);
         };
-    }, [deleted]);
+    }, [dispatch, deleted, currOrg.id]);
 
     return (
         <div 

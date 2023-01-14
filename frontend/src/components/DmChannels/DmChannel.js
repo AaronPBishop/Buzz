@@ -20,15 +20,15 @@ const DmChannel = ({ messages, users, ownerId, id }) => {
 
     useEffect(() => {
         if (clickedDeleted === true) dispatch(fetchOrgDataThunk(currOrg.id));
-    }, [clickedDeleted]);
+    }, [dispatch, clickedDeleted, currOrg.id]);
 
     useEffect(() => {
         if (messageState.viewingDm === true && messageState.currChannelId === id) setSwitched(true);
-    }, [messageState]);
+    }, [messageState, id]);
 
     useEffect(() => {
         if (switched === true) dispatch(populateCurrMessages(messages));
-    }, [switched]);
+    }, [dispatch, switched, messages]);
 
     const formatNames = (names) => {
         let formatted = '';

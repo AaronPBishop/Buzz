@@ -25,7 +25,7 @@ const Message = ({ message, sessionUser }) => {
 
     useEffect(() => {
         if (sessionUser.id === message.user_id) setValidOwner(true);
-    }, [sessionUser.id]);
+    }, [sessionUser.id, message.user_id]);
 
     useEffect(() => {
         if (clickDelete === true) {
@@ -33,7 +33,7 @@ const Message = ({ message, sessionUser }) => {
 
             setClickDelete(false);
         };
-    }, [clickDelete]);
+    }, [dispatch, clickDelete, messageState.currentMessages]);
 
     const handleKeyDown = e => {
         if (e.key === "Enter") {

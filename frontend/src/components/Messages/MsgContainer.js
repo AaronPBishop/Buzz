@@ -17,11 +17,11 @@ const MsgContainer = () => {
 
     useEffect(() => {
         setTotalMessages(messages.length);
-    }, [messageState]);
+    }, [messageState, messages.length]);
 
     useEffect(() => {
         dispatch(populateCurrMessages(messages));
-    }, [totalMessages]);
+    }, [dispatch, totalMessages, messages]);
 
     useEffect(() => msgRef.current.scrollIntoView(false), [totalMessages]);
 

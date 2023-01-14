@@ -20,7 +20,6 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
     const [clickedViewUsers, setClickedViewUsers] = useState(false);
     const [addedUser, setAddedUser] = useState(false);
 
-    const [clickedDelete, setClickedDelete] = useState(false);
     const [clickedEdit, setClickedEdit] = useState(false);
     const [clickedSave, setClickedSave] = useState(false);
     const [editNameInput, setEditNameInput] = useState(orgName);
@@ -31,11 +30,11 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
 
     useEffect(() => {
         if (orgId === user.user_organizations[0].organization_id) dispatch(fetchOrgDataThunk(orgId));
-    }, [user.id])
+    }, [dispatch, orgId, user.id, user.user_organizations])
 
     useEffect(() => {
         if (addedUser === true) dispatch(getUserThunk(user.id));
-    }, [addedUser]);
+    }, [dispatch, addedUser, user.id]);
 
     useEffect(() => {
         if (clickedSave === true) {
@@ -43,7 +42,7 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
 
             setClickedSave(false);
         };
-    }, [clickedSave]);
+    }, [dispatch, clickedSave, user.id]);
 
     const keyMap = {
         organization_channels: 'Channels',

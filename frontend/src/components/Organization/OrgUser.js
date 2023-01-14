@@ -19,7 +19,7 @@ const OrgUser = ({ orgId, ownerId, userId, firstName, lastName }) => {
 
             setDeleted(false);
         };
-    }, [deleted]);
+    }, [dispatch, deleted, currUser.id]);
 
     return (
         <div 

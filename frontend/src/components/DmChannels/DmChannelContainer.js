@@ -23,8 +23,12 @@ const DmChannelContainer = () => {
     const [clickedCreate, setClickedCreate] = useState(false);
 
     useEffect(() => {
-        if (clickedCreate === true) dispatch(fetchOrgDataThunk(currentOrg.id));
-    }, [clickedCreate]);
+        if (clickedCreate === true) {
+            dispatch(fetchOrgDataThunk(currentOrg.id));
+
+            setClickedCreate(false);
+        };
+    }, [dispatch, clickedCreate, currentOrg.id]);
 
     if (!user) return <div>Loading...</div>;
 

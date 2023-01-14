@@ -13,7 +13,7 @@ const SearchUser = ({ currOrgId, email, firstName, lastName }) => {
 
     useEffect(() => {
         if (startedDm === true) dispatch(fetchOrgDataThunk(currOrgId));
-    }, [startedDm]);
+    }, [dispatch, startedDm, currOrgId]);
 
     return (
         <div

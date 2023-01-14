@@ -25,8 +25,13 @@ const ChannelContainer = () => {
     const [clickedCreate, setClickedCreate] = useState(false);
 
     useEffect(() => {
-        if (clickedCreate === true) dispatch(fetchOrgDataThunk(currentOrg.id));
-    }, [clickedCreate]);
+        if (clickedCreate === true) {
+            dispatch(fetchOrgDataThunk(currentOrg.id));
+            dispatch(clearUserEmails());
+
+            setClickedCreate(false);
+        };
+    }, [dispatch, clickedCreate, currentOrg.id]);
 
     if (!currentUser) return <div>Loading...</div>
 
@@ -148,12 +153,13 @@ const ChannelContainer = () => {
 
                     <div
                         onClick={() => {
-                            dispatch(clearUserEmails());
                             dispatch(createChannelThunk(channelName, currentOrg.id, currentUser.id, isPublic, userEmails));
 
                             setClickedCreate(true);
                             setClickedCreateChannel(false);
                             setClickedExpand(false);
+                            setChannelName('');
+                            setIsPublic(false);
                         }}
                         className='flex-center'
                         style={{

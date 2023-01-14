@@ -28,7 +28,7 @@ const OrgContainer = () => {
 
             dispatch(setCreatedOrg(false));
         };
-    }, [session.createdOrg]);
+    }, [dispatch, session, currUser.id]);
 
     useEffect(() => {
         if (session.deletedOrg === true) {
@@ -36,7 +36,7 @@ const OrgContainer = () => {
 
             dispatch(setDeletedOrg(false));
         };
-    }, [session.deletedOrg]);
+    }, [dispatch, session, currUser.id]);
 
 
     return (
