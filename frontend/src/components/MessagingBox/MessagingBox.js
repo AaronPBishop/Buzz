@@ -48,6 +48,7 @@ const MessagingBox = () => {
             style={{
                 display: 'block',
                 width: '76.1vw',
+                marginTop: '1vh',
                 marginLeft: '0.6vw',
                 height: 'inherit',
                 borderRadius: '12px',
