@@ -31,7 +31,7 @@ def edit_user(id):
             setattr(queried_user, key, generate_password_hash(val))
 
     db.session.commit()
-    return queried_user.basic_dict()
+    return queried_user.to_dict()
 
 
 # * Delete a user ************************************************************
