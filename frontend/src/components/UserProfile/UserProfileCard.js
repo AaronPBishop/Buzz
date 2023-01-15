@@ -102,6 +102,8 @@ const UserProfileCard = ({ user, showUserCard }) => {
             {showEditForm && (
                 <div
                     style={{
+                        display: 'flex',
+                        justifyContent: 'center',
                         zIndex: "100",
                         position: "fixed",
                         width: "100%",
@@ -115,9 +117,7 @@ const UserProfileCard = ({ user, showUserCard }) => {
                         style={{
                             width: "300px",
                             position: "relative",
-                            left: "52%",
-                            top: "15%",
-                            marginLeft: "-150px",
+                            top: "5%"
                         }}
                         onSubmit={e => handleFormSubmission(e)}
                         className="EditUserForm">
