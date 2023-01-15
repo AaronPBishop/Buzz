@@ -18,3 +18,21 @@
 
     cursor: pointer;
 }
+
+
+@media screen and (height< 979px) {
+    .splash_img {
+        display: none;
+    }
+}
+@media screen and (height >= 980px) {
+    .splash_img {
+        display: flex;
+        align-self: center;
+        background-color: rgb(240, 210, 10);
+        width: 230px;
+        height: 220px;
+        border-radius: 110px;
+        margin-bottom: 4vh;
+    }
+}

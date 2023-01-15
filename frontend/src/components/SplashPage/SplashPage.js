@@ -31,23 +31,27 @@ const SplashPage = () => {
                 marginTop: '4vh'
             }}>
             {!clickedLogIn && !clickedSignUp ? (
-                <div style={{ display: "flex", justifyContent: "center" }}>
+                <div style={{ display: "flex", justifyContent: "start", flexDirection: 'column' }}>
                     <p
                         style={{
-                            fontSize: "40px",
+                            fontSize: "90px",
                             fontWeight: "bold",
-                            position: "absolute",
+                            // position: "absolute",
                             color: "rgb(240, 210, 10)",
+                            display: 'flex',
+                            alignSelf: 'center',
+                            paddingBottom: '2vh'
                         }}>
                         Buzz
                     </p>
+                    <img className="splash_img" src={require("../Logo/bee.png").default} ></img>
                     <div style={{ display: "flex", flexDirection: "column" }}>
                         <div
                             style={{
                                 display: "flex",
                                 justifyContent: "center",
                                 alignContent: "center",
-                                marginTop: "34vh",
+                                marginTop: "4vh",
                             }}>
                             <button
                                 className="login-buttons"
