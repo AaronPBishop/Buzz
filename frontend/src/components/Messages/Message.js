@@ -126,7 +126,7 @@ const Message = ({ message, sessionUser }) => {
                     <p
                         style={{
                             display: !clicked ? "block" : "none",
-                            justifySel: "center",
+                            justifySelf: "center",
                             alignSelf: "center",
                         }}>
                         {message.message}
@@ -134,14 +134,20 @@ const Message = ({ message, sessionUser }) => {
                     <input
                         type="text"
                         onKeyDown={handleKeyDown}
+                        id='search-input'
                         style={{
                             display: clicked ? "block" : "none",
-                            backgroundColor: "yellow",
-                            border: "none",
-                            outline: "none",
-                            color: "black",
-                            height: "30px",
-                            alignSelf: "center",
+                            marginTop: '1.2vh',
+                            marginBottom: '1vh',
+                            fontFamily: 'Roboto',
+                            fontSize: '14px',
+                            letterSpacing: '1px',
+                            color: 'white',
+                            backgroundColor: 'rgb(20, 20, 20)',
+                            width: '56vw',
+                            height: '12vh',
+                            border: '2px solid rgb(30, 30, 30)',
+                            borderRadius: '8px'
                         }}
                         value={editMsg}
                         onChange={e => {
@@ -180,7 +186,8 @@ const Message = ({ message, sessionUser }) => {
                     display: "flex",
                     justifySelf: "end",
                     marginRight: "12px",
-                    alignSelf: 'center'
+                    alignSelf: 'center',
+                    marginBottom: showMenu ? '2vh' : '0.4vh'
                 }}>
                 <DotsVerticalIcon
                     className={
@@ -192,14 +199,16 @@ const Message = ({ message, sessionUser }) => {
                     <div className="div-dropdown">
                         <div
                             style={{
-                                height: "25px",
-                                width: "50px",
+                                height: "30px",
+                                width: "80px",
                                 display: "block",
                                 display: "flex",
                                 fontSize: "12px",
-                                marginRight: "20px",
+                                marginLeft: "10px",
+                                marginBottom: '1vh'
                             }}>
                             <button
+                            className="buzz-btn"
                                 onClick={e => {
                                     e.stopPropagation()
                                     if (clicked === true &&messageState.viewingChannel === true) {
@@ -216,21 +225,26 @@ const Message = ({ message, sessionUser }) => {
                                     width: "100%",
                                     fontSize: "12px",
                                     marginTop: "8px",
+                                    height: '4vh',
+                                    borderLeft: '3px solid transparent',
+                                    borderRight: '3px solid transparent',
+                                    borderTop: '3px solid transparent',
+                                    borderBottom: '3px solid rgb(165, 165, 0)'
                                 }}>
                                 {" "}
-                                <b>Edit</b>
+                                <b>{!clicked ? 'Edit' : 'Save'}</b>
                             </button>
                         </div>
                         <div
                             style={{
-                                height: "25px",
-                                width: "50px",
+                                height: "30px",
+                                width: "80px",
                                 display: "block",
                                 display: "flex",
-
-                                marginRight: "20px",
+                                marginLeft: "10px"
                             }}>
                             <button
+                                className="buzz-btn"
                                 onClick={e => {
                                     e.stopPropagation()
                                     if (messageState.viewingChannel === true) {
@@ -258,6 +272,11 @@ const Message = ({ message, sessionUser }) => {
                                     fontSize: "12px",
                                     marginTop: "8px",
                                     fontWeight: "bold",
+                                    height: '4vh',
+                                    borderLeft: '3px solid transparent',
+                                    borderRight: '3px solid transparent',
+                                    borderTop: '3px solid transparent',
+                                    borderBottom: '3px solid rgb(165, 165, 0)'
                                 }}>
                                 Delete
                             </button>
