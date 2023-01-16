@@ -1,6 +1,9 @@
 .actionButtons {
-    height: 3.5vh;
-    width: 14vw;
+    line-height: 2.5vh;
+
+    height: 4vh;
+    width: 8vw;
+    
     margin-top: 10px;
 }
 
@@ -28,27 +31,11 @@
     }
 }
 
-
-.EditUserForm {
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    width: 360px;
-    height: 440px;
-    border-radius: 20px;
-    justify-content: center;
-    color: black;
-    /* margin-left: auto;
-    margin-right: auto; */
-    margin-top: 80px;
-    border: 1.2px solid rgb(181, 180, 180);
-    box-shadow: rgb(0 0 0 / 28%) 0px 8px 28px;
-}
-
-.SignUpFormWrapper {}
-
 .EditUserMessage {
+    font-family: 'Roboto';
+    font-weight: bold;
     font-size: 30px;
+
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
@@ -80,12 +67,10 @@
 
 }
 .textLabelWrapper {
-    text-align: start;
-    margin-bottom: 5px;
-    padding-left: 4px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 80px;
-    color: black;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+
+    width: 8vw;
+
+    line-height: 5vh;
 }
