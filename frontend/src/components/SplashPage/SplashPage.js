@@ -25,10 +25,10 @@ const SplashPage = () => {
                 border: "1px black solid",
                 borderRadius: "20px",
                 boxShadow: "0px 0px 8px black",
-                width: "50vw",
-                height: "84vh",
+                width: "28vw",
+                height: "auto",
                 margin: "auto",
-                marginTop: '4vh'
+                marginTop: '23vh'
             }}>
             {!clickedLogIn && !clickedSignUp ? (
                 <div style={{ display: "flex", justifyContent: "start", flexDirection: 'column' }}>
@@ -65,6 +65,9 @@ const SplashPage = () => {
                                 display: "flex",
                                 alignSelf: "center",
                                 paddingTop: "3vh",
+                                marginBottom: "2vh",
+                                width: "auto",
+                                minWIdth: '8vw'
                             }}>
                             <DemoLogin />
                         </div>
