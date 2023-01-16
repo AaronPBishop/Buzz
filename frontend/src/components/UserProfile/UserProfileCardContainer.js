@@ -18,20 +18,16 @@ const UserProfileCardContainer = () => {
 
     return (
         <div style={{
-            marginTop: '0.2vh',
-            marginLeft: '1vw',
+            marginTop: '0.8vh',
+            marginLeft: '0.6vw',
             height: '70px',
             width: '70px',
         }}>
             {
                 currentUser &&
                 <img className='profile_img' src={`${currentUser.profile_img}`} onClick={(e) => handleClickProfileImage(e)} style={{
-                    borderRadius: '20px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                    borderTop: '2px solid rgb(30, 30, 30)',
-                    borderBottom: '2px solid rgb(30, 30, 30)'
+                    borderRadius: '10px',
+                    cursor: 'pointer'
                 }}>
                 </img>
             }

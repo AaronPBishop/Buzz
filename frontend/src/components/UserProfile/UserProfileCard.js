@@ -27,6 +27,8 @@ const UserProfileCard = ({ user, showUserCard }) => {
                     zIndex: "100",
                     fontWeight: 'bold',
                     position: "absolute",
+                    top: '9vh',
+                    left: '2vw',
                     background: "black",
                     border: "2px solid yellow",
                     borderRadius: "8px",
@@ -39,7 +41,7 @@ const UserProfileCard = ({ user, showUserCard }) => {
                     flexWrap: "wrap",
                     padding: "10px",
                     textAlign: "center",
-                    marginTop: "10px",
+                    boxShadow: '0px 0px 6px yellow'
                 }}>
                     <div style={{marginBottom: '1vh'}}>{user.username}</div>
                     <div style={{marginBottom: '1vh'}}>{user.email}</div>

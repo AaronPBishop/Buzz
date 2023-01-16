@@ -74,9 +74,9 @@ const Message = ({ message, sessionUser }) => {
                     <img
                     style={{
                         height: "60px",
-                        borderRadius: "8px",
-                        paddingRight: "10px",
-                        paddingLeft: "8px",
+                        borderRadius: "10px",
+                        marginLeft: '0.5vw',
+                        marginRight: '1vw',
                         display: "flex",
                         alignSelf: "center",
                     }}
@@ -111,7 +111,6 @@ const Message = ({ message, sessionUser }) => {
                                     }}>
                                         {message.created_date}
                                     </span>
-                                
                             }
                         </h4>
                         <p
