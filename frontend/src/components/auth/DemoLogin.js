@@ -16,10 +16,10 @@ const DemoLogin = () => {
         <div onClick={handleButtonClick}>
             <button
                 style={{
-                    fontSize: "22px",
+                    fontSize: "18px",
                     borderRadius: "7px",
-                    height: "38px",
-                    width: "200px",
+                    height: "36px",
+                    width: "180px",
                     backgroundColor: "rgb(10, 91, 240)",
                     color: "white",
                     fontWeight: "bold",
