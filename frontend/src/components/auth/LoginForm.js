@@ -32,6 +32,21 @@ const LoginForm = () => {
     return (
         <form onSubmit={onLogin} className="formWrapper">
             <div className="formTitle">Log In</div>
+            <div style={{paddingBottom: '8px'}}>
+                {errors.map((error, ind) => (
+                    <div
+                        style={{
+                            color: "white",
+                            fontSize: "12px",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                        key={ind}>
+                        {error}
+                    </div>
+                ))}
+            </div>
 
             <div className="fieldWrapper">
                 <label htmlFor="email"></label>
@@ -55,21 +70,7 @@ const LoginForm = () => {
                     className="inputFields"
                 />
             </div>
-            <div style={{paddingBottom: '8px'}}>
-                {errors.map((error, ind) => (
-                    <div
-                        style={{
-                            color: "white",
-                            fontSize: "12px",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                        }}
-                        key={ind}>
-                        {error}
-                    </div>
-                ))}
-            </div>
+
             <button type="submit" className="submitButton">
                 Login
             </button>

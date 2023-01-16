@@ -68,7 +68,7 @@ const SplashPage = () => {
                                 paddingTop: "3vh",
                                 marginBottom: "2vh",
                                 width: "auto",
-                                minWIdth: '8vw'
+                            
                             }}>
                             <DemoLogin />
                         </div>

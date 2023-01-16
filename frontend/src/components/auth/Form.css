@@ -3,7 +3,8 @@
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    margin-top: 20vh;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
     height: 40vh;
     justify-content: center;
 }
