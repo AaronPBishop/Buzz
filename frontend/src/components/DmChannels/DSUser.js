@@ -1,12 +1,11 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { addUserEmail } from '../../store/messagesReducer.js';
 
 const DSUser = ({ userEmail, firstName, lastName }) => {
     const dispatch = useDispatch();
 
-    const [clickedAdd, setClickedAdd] = useState(false);
+    const usersToAdd = useSelector(state => state.messages.usersToAdd);
 
     return (
         <div
@@ -28,9 +27,7 @@ const DSUser = ({ userEmail, firstName, lastName }) => {
 
             <div
             onClick={() => {
-                dispatch(addUserEmail(userEmail));
-
-                setClickedAdd(true);
+                if (!usersToAdd.includes(userEmail)) dispatch(addUserEmail(userEmail));
             }}
             style={{
                 fontWeight: 'bold',
@@ -48,7 +45,7 @@ const DSUser = ({ userEmail, firstName, lastName }) => {
                 borderRadius: '6px',
                 cursor: 'pointer'
             }}>
-                {clickedAdd ? 'Added' : 'Add'}
+                {usersToAdd.includes(userEmail) ? 'Added' : !usersToAdd.includes(userEmail) && 'Add'}
             </div>
         </div>
     );

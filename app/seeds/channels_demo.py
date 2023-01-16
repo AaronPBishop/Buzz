@@ -6,13 +6,13 @@ def seed_channels():
         {
             "name": "coding_bros", "organization_id": 1,
             "owner_id": 1, "is_public":  True}, {
-            "name": "programer_elite", "organization_id": 1,
+            "name": "elite_programming", "organization_id": 1,
             "owner_id": 54, "is_public":  False}, {
-            "name": "no_more_assessments", "organization_id": 3,
+            "name": "assessment_mondays", "organization_id": 3,
             "owner_id": 1, "is_public":  True}, {
-            "name": "everyDay_coding", "organization_id": 4,
+            "name": "everyday_programmers", "organization_id": 4,
             "owner_id": 1, "is_public":  True}, {
-            "name": "Leathery Colicwood",
+            "name": "Birchcraft Boys",
             "organization_id": 5,
             "owner_id": 1, "is_public": True
         },
@@ -25,7 +25,7 @@ def seed_channels():
             "organization_id": 7,
             "owner_id": 1, "is_public": True
         }, {
-            "name": "Jones' Selenia",
+            "name": "Jones Selenia",
             "organization_id": 8,
             "owner_id": 1, "is_public": True
         }, {
@@ -44,7 +44,7 @@ def seed_channels():
             "name": "Sapota",
             "organization_id": 13,
             "owner_id": 1, "is_public": True}, {
-            "name": "Hillside Broomrape",
+            "name": "Hillside Vikings",
             "organization_id": 14,
             "owner_id": 1, "is_public": True}, {
             "name": "Biennial Cinquefoil",

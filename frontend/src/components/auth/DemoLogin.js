@@ -7,25 +7,29 @@ const DemoLogin = () => {
     const user = useSelector(state => state.session.user);
 
     const handleButtonClick = async () => {
-        await dispatch(login("demoUser@buzz.com", "password"));
+        await dispatch(login("buzzybee@buzz.com", "password"));
     };
 
     if (user) return <Redirect to="/home" />;
 
     return (
-        <div onClick={handleButtonClick}>
+        <div 
+        className="buzz-btn" 
+        style={{marginTop: '6vh', padding: '0.5vw', width: '18vw', height: '5.4vh'}} 
+        onClick={handleButtonClick}>
             <button
-                style={{
-                    fontSize: "18px",
-                    borderRadius: "7px",
-                    height: "36px",
-                    width: "180px",
-                    backgroundColor: "rgb(10, 91, 240)",
-                    color: "white",
-                    fontWeight: "bold",
-                    cursor: "pointer"
-
-                }}>
+            style={{
+                fontSize: "16px",
+                fontWeight: "bold",
+                marginBottom: '1vh',
+                borderRadius: '14px',
+                backgroundColor: 'black',
+                color: 'white',
+                height: "5.8vh",
+                marginTop: '0.1vh',
+                width: "12vw",
+                cursor: "pointer"
+            }}>
                 Demo Login
             </button>
         </div>

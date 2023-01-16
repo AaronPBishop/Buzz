@@ -5,6 +5,7 @@ import { ExpandMore } from '@styled-icons/material-sharp/ExpandMore';
 import { ExpandLess } from '@styled-icons/material-twotone/ExpandLess';
 
 import { fetchOrgDataThunk, createChannelThunk } from '../../store/organizationReducer.js';
+import { getUserThunk } from '../../store/sessionReducer.js';
 import { clearUserEmails } from '../../store/messagesReducer.js';
 
 import Channel from "./Channel";
@@ -28,12 +29,13 @@ const ChannelContainer = () => {
     if (currentUser) return (
         <div>
             <div
-                className='flex-center'
-                style={{
-                    fontSize: '14px',
-                    marginTop: '0.5vh',
-                    borderBottom: '2px solid rgb(30, 30, 30)'
-                }}>
+            className='flex-center'
+            style={{
+                fontSize: '14px',
+                marginTop: '0.5vh',
+                marginBottom: '1vh',
+                borderBottom: '2px solid rgb(30, 30, 30)'
+            }}>
                 <div style={{
                     display: 'flex',
                     justifyContent: 'space-between',
@@ -145,6 +147,7 @@ const ChannelContainer = () => {
                     onClick={async () => {
                         await dispatch(createChannelThunk(channelName, currentOrg.id, currentUser.id, isPublic, userEmails));
                         await dispatch(fetchOrgDataThunk(currentOrg.id));
+                        await dispatch(getUserThunk(currentUser.id))
                         await dispatch(clearUserEmails());
 
                         setClickedCreateChannel(false);

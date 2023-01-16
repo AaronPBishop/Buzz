@@ -17,16 +17,19 @@ const UserProfileCard = ({ user, showUserCard }) => {
     const [lastName, setLastName] = useState(user.last_name);
     const [bio, setBio] = useState(user.bio);
     const [profileImage, setProfileImage] = useState(user.profile_img);
+    const [error, setError] = useState('');
 
     return (
         <div>
             {
-                showCardDropDown && 
+                showCardDropDown &&
                 <div
                 style={{
                     zIndex: "100",
                     fontWeight: 'bold',
                     position: "absolute",
+                    top: '9vh',
+                    left: '2vw',
                     background: "black",
                     border: "2px solid yellow",
                     borderRadius: "8px",
@@ -39,7 +42,7 @@ const UserProfileCard = ({ user, showUserCard }) => {
                     flexWrap: "wrap",
                     padding: "10px",
                     textAlign: "center",
-                    marginTop: "10px",
+                    boxShadow: '0px 0px 6px yellow'
                 }}>
                     <div style={{marginBottom: '1vh'}}>{user.username}</div>
                     <div style={{marginBottom: '1vh'}}>{user.email}</div>
@@ -59,7 +62,7 @@ const UserProfileCard = ({ user, showUserCard }) => {
                             className="actionButtons buzz-btn">
                             Edit Profile
                         </button>
-                        
+
                         <button
                             onClick={() => dispatch(logout())}
                             className="actionButtons buzz-btn">
@@ -70,7 +73,7 @@ const UserProfileCard = ({ user, showUserCard }) => {
             }
 
             {
-                showEditForm && 
+                showEditForm &&
                 <div
                 className="flex-center"
                 style={{
@@ -86,11 +89,11 @@ const UserProfileCard = ({ user, showUserCard }) => {
                     <div
                     className="flex-center"
                     style={{
-                        width: "34vw", 
-                        height: '64vh', 
-                        backgroundColor: 'rgb(240, 210, 10)', 
-                        borderBottom: '4px solid rgb(165, 165, 0)', 
-                        borderRadius: '12px', 
+                        width: "34vw",
+                        height: '64vh',
+                        backgroundColor: 'rgb(240, 210, 10)',
+                        borderBottom: '4px solid rgb(165, 165, 0)',
+                        borderRadius: '12px',
                         marginBottom: '24vh',
                         boxShadow: '0px 0px 6px yellow'
                     }}>
@@ -110,9 +113,17 @@ const UserProfileCard = ({ user, showUserCard }) => {
 
                         <div style={{width: '28vw', height: '60vh', backgroundColor: 'black', color: 'white', borderRadius: '12px', marginTop: '2vh'}}>
                             <div className="flex-center">
-                                <p style={{fontSize: '20px', fontWeight: 'bold', marginBottom: '5vh'}}>{user.username}'s Profile</p>
+                                <p style={{fontSize: '22px', fontWeight: 'bold', marginBottom: '2vh', color:'yellow', fontWeight: 'bold'}}>{user.username}'s Profile</p>
                             </div>
-                            
+                            {error.length > 0 && (<p style={{
+                                color: "white",
+                                fontSize: "16px",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                paddingBottom: "1px",
+                                }}>{error}</p>)}
+
                             <div style={{ display: "flex", justifyContent: 'space-evenly', marginBottom: '1.5vh' }}>
                                 <label className="textLabelWrapper">Email</label>
                                 <input
@@ -147,7 +158,7 @@ const UserProfileCard = ({ user, showUserCard }) => {
                             </div>
 
                             <div style={{ display: "flex", justifyContent: 'space-evenly', marginBottom: '1.5vh' }}>
-                                <label className="textLabelWrapper">Bio</label> 
+                                <label className="textLabelWrapper">Bio</label>
                                 <input
                                 style={{width: '14vw', height: '4vh'}}
                                 type="text"
@@ -156,7 +167,7 @@ const UserProfileCard = ({ user, showUserCard }) => {
                                 className="buzz-input"/>
                             </div>
 
-                            <div style={{ display: "flex", justifyContent: 'space-evenly', marginBottom: '1.5vh' }}> 
+                            <div style={{ display: "flex", justifyContent: 'space-evenly', marginBottom: '1.5vh' }}>
                                 <label className="textLabelWrapper">Profile Image</label>
                                 <input
                                 style={{width: '14vw', height: '4vh'}}
@@ -178,10 +189,14 @@ const UserProfileCard = ({ user, showUserCard }) => {
                                 className="buzz-input"/>
                             </div>
 
-                            <div 
+                            <div
                             className="buzz-btn flex-center"
                             onClick={async () => {
-                                await dispatch(editUserThunk({
+                                if (!username || !email || !firstName || !lastName || !profileImage){
+                                    setError("All fields except 'Bio' must be filled!")
+                                    return
+                                } else
+                                {await dispatch(editUserThunk({
                                         userId: user.id,
                                         username,
                                         first_name: firstName,
@@ -195,6 +210,7 @@ const UserProfileCard = ({ user, showUserCard }) => {
                                 setShowEditForm(false);
                                 setShowCardDropDown(true);
                                 showUserCard(false);
+                                setError('')}
                             }}
                             style={{lineHeight: '4vh', width: '12vw', height: '4vh', marginTop: '3vh'}}>
                                 Confirm Edit

@@ -24,7 +24,7 @@ const SearchBar = () => {
                 className='flex-center'
                 style={{
                     marginTop: '1.2vh',
-                    marginRight: '8vw',
+                    marginRight: '14vw',
                     fontFamily: 'Roboto',
                     fontSize: '14px',
                     letterSpacing: '1px',

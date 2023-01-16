@@ -14,6 +14,7 @@ const SplashPage = () => {
     useEffect(() => {
         const htmlElement = document.querySelector("html");
         htmlElement.style.backgroundColor = 'rgb(240, 210, 10)';
+        htmlElement.style.paddingTop = '6vh';
     }, []);
 
     return (
@@ -25,13 +26,14 @@ const SplashPage = () => {
                 border: "1px black solid",
                 borderRadius: "20px",
                 boxShadow: "0px 0px 8px black",
-                width: "50vw",
-                height: "84vh",
+                width: "44vw",
+                minHeight: "60vh",
+                maxHeight: 'auto',
                 margin: "auto",
-                marginTop: '4vh'
+                paddingBottom: '6vh'
             }}>
             {!clickedLogIn && !clickedSignUp ? (
-                <div style={{ display: "flex", justifyContent: "start", flexDirection: 'column' }}>
+                <div style={{ display: "flex", flexDirection: 'column' }}>
                     <p className="buzz_txt">
                         Buzz
                     </p>
@@ -65,6 +67,9 @@ const SplashPage = () => {
                                 display: "flex",
                                 alignSelf: "center",
                                 paddingTop: "3vh",
+                                marginBottom: "2vh",
+                                width: "auto",
+
                             }}>
                             <DemoLogin />
                         </div>

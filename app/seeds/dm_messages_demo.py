@@ -3,8 +3,8 @@ from app.models import db, DmMessage, environment, SCHEMA
 
 def seed_dm_messages():
     dm_messages = [{
-        "message": "Hey Bro!", "dm_message_channel_id": 1, "user_id": 2},
-        {"message": "How is it going?", "dm_message_channel_id": 1, "user_id": 1}, {
+        "message": "Welcome to the channel!", "dm_message_channel_id": 1, "user_id": 2},
+        {"message": "How is it going everyone?", "dm_message_channel_id": 1, "user_id": 1}, {
         "message": "ac nulla sed vel enim sit amet nunc viverra dapibus nulla suscipit ligula in lacus curabitur",
         "dm_message_channel_id": 1,
         "user_id": 3

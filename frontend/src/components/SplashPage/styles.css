@@ -10,35 +10,56 @@
     background-color: rgb(240, 210, 10);
     color: black;
 
-    height: 8vh;
-    width: 10vw;
+    height: 6vh;
+    width: auto;
+    min-width: 6vw;
 
     margin-right: 2vw;
     margin-left: 2vw;
+    padding-right: 7px;
 
     cursor: pointer;
 }
 
-@media screen and (height< 779px) {
+@media screen and (height <= 499px) {
     .splash_img {
         display: none;
     }
 }
-@media screen and (height >= 780px) {
+@media screen and (height >= 500px) {
     .splash_img {
         display: flex;
         align-self: center;
         background-color: rgb(240, 210, 10);
-        width: 220px;
-        height: 210px;
+        width: 130px;
+        height: 120px;
         border-radius: 110px;
         margin-bottom: 2vh;
     }
 }
-@media screen and (height < 510px) {
+@media (max-width: 700px) {
+    .splash_img {
+        display: none;
+    }
+}
+@media (max-width: 2000px) {
+    .splash_img {
+        display: flex;
+        align-self: center;
+        background-color: rgb(240, 210, 10);
+        width: 130px;
+        height: 120px;
+        border-radius: 110px;
+        margin-bottom: 2vh;
+    }
+}
+
+
+
+@media screen and (height < 499px) {
     .buzz_txt {
         display: flex;
-        font-size: 50px;
+        font-size: 35px;
         background-color: rgb(240, 210, 10);
         align-self: center;
         padding-bottom: 0.2vh;
@@ -50,10 +71,38 @@
 @media screen and (height >= 511px) {
     .buzz_txt {
         display: flex;
-        font-size: 90px;
+        font-size: 50px;
         background-color: rgb(240, 210, 10);
         align-self: center;
         padding-bottom: 0.3vh;
+        border-radius: 20px;
+        border-bottom: 4px solid rgb(165, 165, 0);
+        background-color: rgb(240, 210, 10);
+        padding-left: 25px;
+        padding-right: 25px
+    }
+}
+
+@media (width >= 701px) {
+    .buzz_txt {
+        display: flex;
+        font-size: 60px;
+        background-color: rgb(240, 210, 10);
+        align-self: center;
+        padding-bottom: 0.3vh;
+        border-radius: 20px;
+        border-bottom: 4px solid rgb(165, 165, 0);
+        background-color: rgb(240, 210, 10);
+    }
+}
+
+@media  (width <= 700px) {
+    .buzz_txt {
+        display: flex;
+        font-size: 35px;
+        background-color: rgb(240, 210, 10);
+        align-self: center;
+        padding-bottom: 0.2vh;
         border-radius: 20px;
         border-bottom: 4px solid rgb(165, 165, 0);
         background-color: rgb(240, 210, 10);
