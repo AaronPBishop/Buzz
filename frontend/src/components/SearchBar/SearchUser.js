@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { createDmMessageChannelThunk } from '../../store/messagesReducer';
 import { fetchOrgDataThunk } from '../../store/organizationReducer';
+import { getUserThunk } from '../../store/sessionReducer';
 
 const SearchUser = ({ currOrgId, email, firstName, lastName }) => {
     const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const SearchUser = ({ currOrgId, email, firstName, lastName }) => {
             onClick={async () => {
                 if (startedDm === false) {
                     await dispatch(createDmMessageChannelThunk(user.id, currOrgId, [email]));
+                    await dispatch(getUserThunk(user.id))
                     await dispatch(fetchOrgDataThunk(currOrgId));
 
                     setStartedDm(true);

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { ExpandMore } from '@styled-icons/material-sharp/ExpandMore';
 import { ExpandLess } from '@styled-icons/material-twotone/ExpandLess';
-
+import { getUserThunk } from '../../store/sessionReducer.js';
 import { fetchOrgDataThunk } from '../../store/organizationReducer.js';
 import { clearUserEmails, createDmMessageChannelThunk } from '../../store/messagesReducer.js';
 
@@ -93,6 +93,7 @@ const DmChannelContainer = () => {
                     <div
                         onClick={async () => {
                             await dispatch(createDmMessageChannelThunk(user.id, currentOrg.id, userEmails));
+                            await dispatch(getUserThunk(user.id))
                             await dispatch(fetchOrgDataThunk(currentOrg.id));
                             await dispatch(clearUserEmails());
 
@@ -113,7 +114,7 @@ const DmChannelContainer = () => {
             </div>
 
             {
-                orgDmChannels && orgDmChannels.length > 0 && 
+                orgDmChannels && orgDmChannels.length > 0 &&
                 orgDmChannels.map((channel, i) => channel.dm_message_channel_users.includes(user.username) && (
                     <div className='flex-center' key={i}>
                         <DmChannel messages={channel.dm_message_channel_dm_messages} users={channel.dm_message_channel_users} ownerId={channel.owner_id} id={channel.id} />

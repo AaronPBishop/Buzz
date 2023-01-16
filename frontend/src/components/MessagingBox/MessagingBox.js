@@ -8,10 +8,12 @@ import { Italic } from '@styled-icons/boxicons-regular/Italic';
 import { ImageAdd } from '@styled-icons/boxicons-regular/ImageAdd';
 
 import { createDmMessageThunk, createChannelMessageThunk, clearMessageImgs } from '../../store/messagesReducer.js';
+import { fetchOrgDataThunk } from '../../store/organizationReducer.js';
 
 import AddImages from './AddImages.js';
 
 import './styles.css';
+
 
 const MessagingBox = () => {
     const dispatch = useDispatch();
@@ -19,6 +21,7 @@ const MessagingBox = () => {
     const user = useSelector(state => state.session.user);
     const messageState = useSelector(state => state.messages);
     const images = useSelector(state => state.messages.imagesToAdd);
+    const currentOrg = useSelector(state => state.organization)
 
     const [input, setInput] = useState('');
 
@@ -26,17 +29,18 @@ const MessagingBox = () => {
     const [italic, setItalic] = useState(false);
     const [clickedAddImg, setClickedAddImg] = useState(false);
 
-    const handleKeyDown = e => {
+    const handleKeyDown = async e => {
         if (e.key === 'Enter') {
             if (messageState.viewingChannel && (images.length > 0 || input.length > 0)) {
-                dispatch(createChannelMessageThunk(user.id, messageState.currChannelId, input, images));
+                await dispatch(createChannelMessageThunk(user.id, messageState.currChannelId, input, images));
+                await dispatch(fetchOrgDataThunk(currentOrg.id))
 
                 setInput('');
                 dispatch(clearMessageImgs());
             };
             if (messageState.viewingDm &&  (images.length > 0 || input.length > 0)) {
-                dispatch(createDmMessageThunk(user.id, messageState.currChannelId, input, images));
-
+                await dispatch(createDmMessageThunk(user.id, messageState.currChannelId, input, images));
+                await dispatch(fetchOrgDataThunk(currentOrg.id))
                 setInput('');
                 dispatch(clearMessageImgs());
             };
@@ -110,7 +114,8 @@ const MessagingBox = () => {
                         width: '75vw',
                         height: '11.5vh',
                         border: '2px solid transparent',
-                        borderRadius: '8px'
+                        borderRadius: '8px',
+
                     }}
                     className="flex-center">
                     </input>
@@ -122,15 +127,17 @@ const MessagingBox = () => {
                         </Delete>
 
                         <Send
-                            onClick={() => {
+                            onClick={async () => {
                                 if (messageState.viewingChannel && (images.length > 0 || input.length > 0)) {
-                                    dispatch(createChannelMessageThunk(user.id, messageState.currChannelId, input, images));
+                                   await dispatch(createChannelMessageThunk(user.id, messageState.currChannelId, input, images));
+                                    await dispatch(fetchOrgDataThunk(currentOrg.id))
 
                                     setInput('');
                                     dispatch(clearMessageImgs());
                                 };
                                 if (messageState.viewingDm &&  (images.length > 0 || input.length > 0)) {
-                                    dispatch(createDmMessageThunk(user.id, messageState.currChannelId, input, images));
+                                   await dispatch(createDmMessageThunk(user.id, messageState.currChannelId, input, images));
+                                    await dispatch(fetchOrgDataThunk(currentOrg.id))
 
                                     setInput('');
                                     dispatch(clearMessageImgs());
