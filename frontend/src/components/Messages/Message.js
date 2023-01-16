@@ -69,8 +69,8 @@ const Message = ({ message, sessionUser }) => {
             marginBottom: '2vh',
             color: "white",
         }}>
-            <div style={{display: 'flex', flexDirection: 'column'}}>
-                <div style={{ display: "flex", marginLeft: "12px" }}>
+            <div style={{display: 'flex', flexDirection: 'column',  }}>
+                <div style={{ display: "flex", marginLeft: "12px" , }}>
                     <img
                     style={{
                         height: "60px",
@@ -82,12 +82,13 @@ const Message = ({ message, sessionUser }) => {
                     }}
                     src={sessionUser.profile_img}/>
 
-                    <div style={{ paddingLeft: "10px" }}>
+                    <div style={{ paddingLeft: "10px"
+                    }}>
                         <h4 style={{ color: "yellow", fontSize: "18px" }}>
                             {message.first_name} {message.last_name}
 
                             {
-                                message && message.last_update !== null ? 
+                                message && message.last_update !== null ?
                                 <span
                                 style={{
                                     color: "gray",
@@ -98,7 +99,7 @@ const Message = ({ message, sessionUser }) => {
                                 }}>
                                     {message.last_update}
                                 </span>
-                                : 
+                                :
                                 message &&
                                 message.created_date &&
                                     <span
@@ -118,6 +119,8 @@ const Message = ({ message, sessionUser }) => {
                             display: !clicked ? "block" : "none",
                             justifySelf: "center",
                             alignSelf: "center",
+                            position: "relative", wordBreak: "break-all"
+
                         }}>
                             {message.message}
                         </p>
@@ -146,18 +149,18 @@ const Message = ({ message, sessionUser }) => {
                 </div>
             </div>
 
-                <div 
+                <div
                 style={{
-                    display: message.images && message.images.length > 0 ? 'flex' : 'none', 
-                    padding: '1vh', 
-                    maxWidth: '65vw', 
-                    overflowX: 'auto', 
-                    justifyContent: 'center', 
+                    display: message.images && message.images.length > 0 ? 'flex' : 'none',
+                    padding: '1vh',
+                    maxWidth: '65vw',
+                    overflowX: 'auto',
+                    justifyContent: 'center',
                     alignItems: 'center'
                 }}>
                     {
                         message.images && message.images.length > 0 &&
-                        message.images.map((img, i) => 
+                        message.images.map((img, i) =>
                             <img
                             src={img.url}
                             onClick={() => dispatch(setCurrImgUrl(img.url))}
@@ -194,7 +197,7 @@ const Message = ({ message, sessionUser }) => {
                 />
 
                 {
-                    showMenu && validOwner && 
+                    showMenu && validOwner &&
                     <div className="div-dropdown">
                         <div
                         style={{
@@ -213,7 +216,7 @@ const Message = ({ message, sessionUser }) => {
 
                                     if (clicked === true && messageState.viewingChannel === true) dispatch(editChannelMessageThunk(message.id, editMsg));
                                     if (clicked === true &&messageState.viewingDm === true) dispatch(editDmMessageThunk(message.id, editMsg));
-                                    
+
                                     setClicked(!clicked);
                                 }}
                                 style={{

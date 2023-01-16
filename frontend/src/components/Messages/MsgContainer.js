@@ -28,7 +28,7 @@ const MsgContainer = () => {
     if (!messages) <div className="flex-center">Loading...</div>;
 
     return (
-        <div ref={msgRef}>
+        <div ref={msgRef} style={{ overflowX: 'hidden'}}>
             {
                 messages.map((msgEl, i) => <Message message={msgEl} key={i} sessionUser={sessionUser} />)
             }

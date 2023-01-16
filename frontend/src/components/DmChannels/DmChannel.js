@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 
 import { clearChannelMessageData, populateCurrMessages, setViewingDm } from '../../store/messagesReducer.js';
+import { getUserThunk } from '../../store/sessionReducer.js';
 import { deleteDmMessageChannelThunk, clearDmChannel, fetchOrgDataThunk } from '../../store/organizationReducer.js';
 
 import { CloseCircle } from '@styled-icons/ionicons-outline/CloseCircle';
@@ -25,7 +26,7 @@ const DmChannel = ({ messages, users, ownerId, id }) => {
                 if (i < 2) formatted += names[i] + ', ';
                 else formatted += names[i];
             };
-    
+
             return formatted + '...';
         };
     };
@@ -39,7 +40,7 @@ const DmChannel = ({ messages, users, ownerId, id }) => {
             await dispatch(populateCurrMessages(messages));
         }}
         style={{
-            display: 'flex', 
+            display: 'flex',
             justifyContent: user.id === ownerId ? 'space-between' : 'center',
             textAlign: 'center',
             minWidth: '16vw',
@@ -54,12 +55,13 @@ const DmChannel = ({ messages, users, ownerId, id }) => {
             {users.length > 2 ? formatNames(users.filter(el => el !== user.username)) : users[0]}
 
             <CloseCircle
-            onClick={e => {
+            onClick={async e => {
                 e.stopPropagation();
 
-                dispatch(deleteDmMessageChannelThunk(id));
-                dispatch(clearDmChannel(id));
-                dispatch(clearChannelMessageData());
+                await dispatch(deleteDmMessageChannelThunk(id));
+                await dispatch(getUserThunk(user.id))
+                await dispatch(clearDmChannel(id));
+                await dispatch(clearChannelMessageData());
             }}
             style={{
                 display: user.id !== ownerId && 'none',
