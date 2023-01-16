@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { populateCurrMessages, setViewingChannel, clearChannelMessageData } from '../../store/messagesReducer.js';
-import { deleteChannelThunk, fetchOrgDataThunk, editChannelThunk } from "../../store/organizationReducer.js";
+import { deleteChannelThunk, fetchOrgDataThunk, editChannelThunk, clearChannel } from "../../store/organizationReducer.js";
 
 import { ExpandMore } from '@styled-icons/material-sharp/ExpandMore';
 import { ExpandLess } from '@styled-icons/material-twotone/ExpandLess';
@@ -21,34 +21,16 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers, usersA
     const [clickedAddUser, setClickedAddUser] = useState(false);
     const [clickedViewUsers, setClickedViewUsers] = useState(false);
     
-    const [clickedDelete, setClickedDelete] = useState(false);
     const [clickedEdit, setClickedEdit] = useState(false);
-    const [clickedSave, setClickedSave] = useState(false);
     const [input, setInput] = useState(channelName);
-
-    useEffect(() => {
-        if (clickedDelete === true) {
-            dispatch(fetchOrgDataThunk(currOrg.id));
-            dispatch(clearChannelMessageData());
-
-            setClickedDelete(false);
-        };
-    }, [dispatch, clickedDelete, currOrg.id]);
-
-    useEffect(() => {
-        if (clickedSave === true) {
-            dispatch(fetchOrgDataThunk(currOrg.id));
-
-            setClickedSave(false);
-        };
-    }, [dispatch, clickedSave, currOrg.id]);
 
     return (
         <div 
         className="flex-center"
-        onClick={() => {
-            dispatch(setViewingChannel(channelId));
-            dispatch(populateCurrMessages(messages));
+        onClick={async () => {
+            await dispatch(setViewingChannel(channelId));
+            await dispatch(fetchOrgDataThunk(currOrg.id));
+            await dispatch(populateCurrMessages(messages));
         }}>
             <div style={{
                 display: 'flex',
@@ -104,13 +86,12 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers, usersA
                 <div style={{display: user.id === ownerId ? 'flex' : 'none', justifyContent: 'space-between', marginTop: '-1vh', marginBottom: '4vh'}}>
                     <div 
                     className="buzz-btn" 
-                    onClick={() => {
+                    onClick={async () => {
                         if (clickedEdit === true) {
-                            dispatch(editChannelThunk(channelId, input));
+                            await dispatch(editChannelThunk(channelId, input));
+                            await dispatch(fetchOrgDataThunk(currOrg.id));
 
                             setClickedEdit(false);
-                            setClickedSave(true);
-
                             return;
                         };
 
@@ -124,8 +105,8 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers, usersA
                     className="buzz-btn" 
                     onClick={() => {
                         dispatch(deleteChannelThunk(channelId));
-
-                        setClickedDelete(true);
+                        dispatch(clearChannel(channelId));
+                        dispatch(clearChannelMessageData());
                     }}
                     style={{width: '6vw', marginLeft: '1.5vw'}}>
                         Delete

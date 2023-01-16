@@ -20,15 +20,6 @@ const DmChannelContainer = () => {
 
     const [clickedCreateGC, setClickedCreateGC] = useState(false);
     const [clickedExpand, setClickedExpand] = useState(false);
-    const [clickedCreate, setClickedCreate] = useState(false);
-
-    useEffect(() => {
-        if (clickedCreate === true) {
-            dispatch(fetchOrgDataThunk(currentOrg.id));
-
-            setClickedCreate(false);
-        };
-    }, [dispatch, clickedCreate, currentOrg.id]);
 
     if (!user) return <div>Loading...</div>;
 
@@ -100,11 +91,11 @@ const DmChannelContainer = () => {
                     <DMSearch />
 
                     <div
-                        onClick={() => {
-                            dispatch(clearUserEmails());
-                            dispatch(createDmMessageChannelThunk(user.id, currentOrg.id, userEmails));
+                        onClick={async () => {
+                            await dispatch(createDmMessageChannelThunk(user.id, currentOrg.id, userEmails));
+                            await dispatch(fetchOrgDataThunk(currentOrg.id));
+                            await dispatch(clearUserEmails());
 
-                            setClickedCreate(true);
                             setClickedCreateGC(false);
                             setClickedExpand(false);
                         }}

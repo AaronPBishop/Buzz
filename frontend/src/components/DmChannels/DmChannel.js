@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 
-import { populateCurrMessages, setViewingDm, clearChannelMessageData } from '../../store/messagesReducer.js';
-import { deleteDmMessageChannelThunk, clearDmChannel } from '../../store/organizationReducer.js';
+import { clearChannelMessageData, populateCurrMessages, setViewingDm } from '../../store/messagesReducer.js';
+import { deleteDmMessageChannelThunk, clearDmChannel, fetchOrgDataThunk } from '../../store/organizationReducer.js';
 
 import { CloseCircle } from '@styled-icons/ionicons-outline/CloseCircle';
 
@@ -10,6 +10,7 @@ const DmChannel = ({ messages, users, ownerId, id }) => {
 
     const user = useSelector(state => state.session.user);
     const messageState = useSelector(state => state.messages);
+    const currOrg = useSelector(state => state.organization);
 
     const formatNames = (names) => {
         let formatted = '';
@@ -32,9 +33,10 @@ const DmChannel = ({ messages, users, ownerId, id }) => {
     return (
         <div
         className={messageState.currChannelId === id && 'selected'}
-        onClick={() => {
-            dispatch(setViewingDm(id));
-            dispatch(populateCurrMessages(messages));
+        onClick={async () => {
+            await dispatch(setViewingDm(id));
+            await dispatch(fetchOrgDataThunk(currOrg.id));
+            await dispatch(populateCurrMessages(messages));
         }}
         style={{
             display: 'flex', 
@@ -57,6 +59,7 @@ const DmChannel = ({ messages, users, ownerId, id }) => {
 
                 dispatch(deleteDmMessageChannelThunk(id));
                 dispatch(clearDmChannel(id));
+                dispatch(clearChannelMessageData());
             }}
             style={{
                 display: user.id !== ownerId && 'none',

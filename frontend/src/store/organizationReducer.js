@@ -17,6 +17,13 @@ export const clearOrgData = () => {
     };
 };
 
+export const clearChannel = (id) => {
+    return {
+        type: 'CLEAR_CHANNEL',
+        payload: id
+    };
+};
+
 export const clearDmChannel = (id) => {
     return {
         type: 'CLEAR_DM_CHANNEL',
@@ -196,6 +203,22 @@ const organizationReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'POPULATE_ORG_DATA': {
             for (let key in action.payload) currentState[key] = action.payload[key];
+
+            return currentState;
+        };
+
+        case 'CLEAR_CHANNEL': {
+            const channelsCopy = [ ...currentState.organization_channels ];
+
+            for (let i = 0; i < channelsCopy.length; i++) {
+                if (channelsCopy[i].id === action.payload) {
+                    channelsCopy.splice(i, 1);
+
+                    currentState.organization_channels = channelsCopy;
+
+                    return currentState;
+                };
+            };
 
             return currentState;
         };

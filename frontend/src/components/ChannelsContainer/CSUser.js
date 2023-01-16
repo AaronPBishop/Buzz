@@ -11,10 +11,6 @@ const CSUser = ({ currOrgId, userToAddId, firstName, lastName, userEmail, type }
 
     const [clickedAdd, setClickedAdd] = useState(false);
 
-    useEffect(() => {
-        if (clickedAdd === true && type !== 'create') dispatch(fetchOrgDataThunk(currOrgId));
-    }, [dispatch, clickedAdd, currOrgId, type]);
-
     return (
         <div
         style={{
@@ -34,11 +30,18 @@ const CSUser = ({ currOrgId, userToAddId, firstName, lastName, userEmail, type }
             <p style={{marginLeft: '0.5vw'}}>{firstName} {lastName}</p>
 
             <div
-            onClick={() => {
-                if (type === 'create') dispatch(addUserEmail(userEmail));
-                if (type !== 'create') dispatch(addUserToChannelThunk(channelId, userToAddId));
+            onClick={async () => {
+                if (type === 'create') {
+                    setClickedAdd(true);
+                    dispatch(addUserEmail(userEmail));
+                };
 
-                setClickedAdd(true);
+                if (type !== 'create') {
+                    setClickedAdd(true);
+
+                    await dispatch(addUserToChannelThunk(channelId, userToAddId));
+                    await dispatch(fetchOrgDataThunk(currOrgId));
+                };
             }}
             style={{
                 fontWeight: 'bold',

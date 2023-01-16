@@ -9,16 +9,14 @@ const AddImages = () => {
     const dispatch = useDispatch();
 
     const [input, setInput] = useState('');
-    const [clicked, setClicked] = useState(false);
 
     const currImages = useSelector(state => state.messages.imagesToAdd);
 
     const handleKeyDown = e => {
         if (e.key === "Enter") {
-                dispatch(addMessageImg(input));
-                setInput('');
-
-        }
+            dispatch(addMessageImg(input));
+            setInput('');
+        };
     };
 
     return (

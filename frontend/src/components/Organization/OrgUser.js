@@ -1,5 +1,4 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect, useState } from 'react';
 
 import { getUserThunk } from '../../store/sessionReducer.js';
 import { removeUserFromOrgThunk } from '../../store/organizationReducer.js';
@@ -10,16 +9,6 @@ const OrgUser = ({ orgId, ownerId, userId, firstName, lastName }) => {
     const dispatch = useDispatch();
 
     const currUser = useSelector(state => state.session.user);
-
-    const [deleted, setDeleted] = useState(false);
-
-    useEffect(() => {
-        if (deleted === true) {
-            dispatch(getUserThunk(currUser.id));
-
-            setDeleted(false);
-        };
-    }, [dispatch, deleted, currUser.id]);
 
     return (
         <div 
@@ -38,11 +27,11 @@ const OrgUser = ({ orgId, ownerId, userId, firstName, lastName }) => {
             <div>{firstName} {lastName}</div>
 
             <PersonRemove 
-            onClick={e => {
+            onClick={async e => {
                 e.stopPropagation();
-                dispatch(removeUserFromOrgThunk(orgId, userId));
 
-                setDeleted(true);
+                await dispatch(removeUserFromOrgThunk(orgId, userId));
+                await dispatch(getUserThunk(currUser.id));
             }}
             style={{
                 display: currUser.id === ownerId ? 'block' : 'none',

@@ -8,9 +8,9 @@ const Logo = () => {
                 justifyContent: "center",
                 alignItems: "center",
                 width: "8vw",
-                height: "4.8vh",
+                height: "4vh",
                 backgroundColor: "yellow",
-                marginTop: "0.6vh",
+                marginTop: "0.8vh",
                 marginBottom: "auto",
                 marginRight: "20px",
                 marginLeft: "-28vw",
@@ -20,14 +20,14 @@ const Logo = () => {
             <div style={{display: 'flex',}} >
                 <img
                 className="logo_img"
-                    src={require("./bee.png").default}
-                    style={{
-                        // position: '',
-                        bottom: "1.4vh",
-                        zIndex: "100",
-                        width: "100%",
-                        height: "55px",
-                    }}></img>
+                src={require("./bee.png").default}
+                style={{
+                    bottom: "1.4vh",
+                    zIndex: "100",
+                    width: "100%",
+                    height: "55px",
+                }}>
+                </img>
             </div>
 
             <div

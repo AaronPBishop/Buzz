@@ -5,7 +5,7 @@ import { ExpandMore } from '@styled-icons/material-sharp/ExpandMore';
 import { ExpandLess } from '@styled-icons/material-twotone/ExpandLess';
 
 import { addUserToOrgThunk, fetchOrgDataThunk, deleteOrgThunk, editOrgThunk } from "../../store/organizationReducer";
-import { getUserThunk, setDeletedOrg } from "../../store/sessionReducer.js";
+import { getUserThunk } from "../../store/sessionReducer.js";
 
 import OrgUsersContainer from "./OrgUsersContainer.js";
 
@@ -18,10 +18,8 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
     const [clicked, setClicked] = useState(false);
     const [clickedAddUser, setClickedAddUser] = useState(false);
     const [clickedViewUsers, setClickedViewUsers] = useState(false);
-    const [addedUser, setAddedUser] = useState(false);
 
     const [clickedEdit, setClickedEdit] = useState(false);
-    const [clickedSave, setClickedSave] = useState(false);
     const [editNameInput, setEditNameInput] = useState(orgName);
     const [editImgInput, setEditImgInput] = useState('');
 
@@ -30,39 +28,25 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
 
     useEffect(() => {
         if (orgId === user.user_organizations[0].organization_id) dispatch(fetchOrgDataThunk(orgId));
-    }, [dispatch, orgId, user.id, user.user_organizations]);
-
-    useEffect(() => {
-        if (addedUser === true) dispatch(getUserThunk(user.id));
-    }, [dispatch, addedUser, user.id]);
-
-    useEffect(() => {
-        if (clickedSave === true) {
-            dispatch(getUserThunk(user.id));
-
-            setClickedSave(false);
-        };
-    }, [dispatch, clickedSave, user.id]);
+    }, []);
 
     const keyMap = {
         organization_channels: 'Channels',
         organization_dm_message_channels: 'Direct Messages'
     };
 
-
     const handleKeyDown = e => {
         if (e.key === "Enter") {
-            if (!validateEmail(input)) {setError(true)}
+            if (!validateEmail(input)) setError(true);
             if (validateEmail(input)) {
                 setError(false);
                 setClickedAddUser(false);
 
                 dispatch(addUserToOrgThunk(orgId, input));
 
-                setAddedUser(true);
                 setInput('');
             };
-    }}
+    }};
 
     const validateEmail = (email) => {
         return email.match(
@@ -126,13 +110,12 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
                 <div style={{display: user.id === orgOwnerId ? 'flex' : 'none', marginTop: '-1vh', marginBottom: '4vh'}}>
                     <div
                     className="buzz-btn"
-                    onClick={() => {
+                    onClick={async () => {
                         if (clickedEdit === true) {
-                            dispatch(editOrgThunk(orgId, editNameInput, editImgInput));
+                            await dispatch(editOrgThunk(orgId, editNameInput, editImgInput));
+                            await dispatch(getUserThunk(user.id));
 
                             setClickedEdit(false);
-                            setClickedSave(true);
-
                             return;
                         };
 
@@ -144,10 +127,9 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
 
                     <div
                     className="buzz-btn"
-                    onClick={() => {
-                        dispatch(deleteOrgThunk(orgId));
-
-                        dispatch(setDeletedOrg(true));
+                    onClick={async () => {
+                        await dispatch(deleteOrgThunk(orgId));
+                        await dispatch(getUserThunk(user.id));
                     }}
                     style={{width: '6vw', marginLeft: '1.4vw'}}>
                         Delete
@@ -236,7 +218,6 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
                     e.stopPropagation();
 
                     setClickedAddUser(clicked => !clicked);
-                    setAddedUser(false);
                 }}
                 style={{
                     display: (orgOwnerId === user.id) && !clickedAddUser ? 'block' : 'none',
@@ -277,15 +258,15 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
 
                         <div
                         className="buzz-btn"
-                        onClick={() => {
+                        onClick={async () => {
                             if (!validateEmail(input)) setError(true);
                             if (validateEmail(input)) {
                                 setError(false);
                                 setClickedAddUser(false);
 
-                                dispatch(addUserToOrgThunk(orgId, input));
+                                await dispatch(addUserToOrgThunk(orgId, input));
+                                await dispatch(getUserThunk(user.id));
 
-                                setAddedUser(true);
                                 setInput('');
                             };
                         }}
