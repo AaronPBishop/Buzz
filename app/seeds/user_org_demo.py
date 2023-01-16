@@ -2,7 +2,7 @@ from app.models import db, User_Org_Association, environment, SCHEMA
 
 
 def seed_user_orgs():
-    user_orgs = [{"organization_id": 1, "user_id": 2}, {"organization_id": 1, "user_id": 3}, {"organization_id": 1, "user_id": 4}, {"organization_id": 1, "user_id": 54}, {"organization_id": 1, "user_id": 6}, {
+    user_orgs = [{"organization_id": 1, "user_id": 1}, {"organization_id": 1, "user_id": 2}, {"organization_id": 1, "user_id": 3}, {"organization_id": 1, "user_id": 4}, {"organization_id": 1, "user_id": 54}, {"organization_id": 1, "user_id": 6}, {
         "organization_id": 1, "user_id": 5}, {"organization_id": 1, "user_id": 9}, {"organization_id": 1, "user_id": 7}, {"organization_id": 1, "user_id": 10}, {"organization_id": 1, "user_id": 11},]
 
     db.session.add_all([User_Org_Association(**user) for user in user_orgs])

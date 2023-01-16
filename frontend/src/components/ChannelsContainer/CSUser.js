@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { addUserEmail } from '../../store/messagesReducer.js';
@@ -7,6 +7,7 @@ import { fetchOrgDataThunk, addUserToChannelThunk } from '../../store/organizati
 const CSUser = ({ currOrgId, userToAddId, firstName, lastName, userEmail, type }) => {
     const dispatch = useDispatch();
 
+    const usersToAdd = useSelector(state => state.messages.usersToAdd);
     const channelId = useSelector(state => state.messages.currChannelId);
 
     const [clickedAdd, setClickedAdd] = useState(false);
@@ -32,8 +33,7 @@ const CSUser = ({ currOrgId, userToAddId, firstName, lastName, userEmail, type }
             <div
             onClick={async () => {
                 if (type === 'create') {
-                    setClickedAdd(true);
-                    dispatch(addUserEmail(userEmail));
+                    if (!usersToAdd.includes(userEmail)) dispatch(addUserEmail(userEmail));
                 };
 
                 if (type !== 'create') {
@@ -59,7 +59,8 @@ const CSUser = ({ currOrgId, userToAddId, firstName, lastName, userEmail, type }
                 borderRadius: '6px',
                 cursor: 'pointer'
             }}>
-                {clickedAdd ? 'Added' : 'Add'}
+                {(type === 'create' && usersToAdd.includes(userEmail)) ? 'Added' : (type === 'create' && !usersToAdd.includes(userEmail)) && 'Add'}
+                {(type !== 'create' && clickedAdd === true) ? 'Added' : (type !== 'create' && clickedAdd === false) && 'Add'}
             </div>
         </div>
     );

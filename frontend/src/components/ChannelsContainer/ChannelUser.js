@@ -5,7 +5,7 @@ import { fetchOrgDataThunk, removeUserFromChannelThunk } from '../../store/organ
 
 import { PersonRemove } from '@styled-icons/ionicons-sharp/PersonRemove';
 
-const ChannelUser = ({ channelId, ownerId, userId, firstName, lastName }) => {
+const ChannelUser = ({ channelId, ownerId, userId, firstName, lastName, userName }) => {
     const dispatch = useDispatch();
 
     const currUser = useSelector(state => state.session.user);
@@ -15,7 +15,7 @@ const ChannelUser = ({ channelId, ownerId, userId, firstName, lastName }) => {
         <div 
         className='buzz-btn'
         style={{
-            display: 'flex',
+            display: currUser.username !== userName ? 'flex' : 'none',
             justifyContent: currUser.id === ownerId ? 'space-between' : 'center',
             margin: 'auto',
             width: '10vw',

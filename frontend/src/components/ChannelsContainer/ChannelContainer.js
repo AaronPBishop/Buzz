@@ -28,12 +28,13 @@ const ChannelContainer = () => {
     if (currentUser) return (
         <div>
             <div
-                className='flex-center'
-                style={{
-                    fontSize: '14px',
-                    marginTop: '0.5vh',
-                    borderBottom: '2px solid rgb(30, 30, 30)'
-                }}>
+            className='flex-center'
+            style={{
+                fontSize: '14px',
+                marginTop: '0.5vh',
+                marginBottom: '1vh',
+                borderBottom: '2px solid rgb(30, 30, 30)'
+            }}>
                 <div style={{
                     display: 'flex',
                     justifyContent: 'space-between',

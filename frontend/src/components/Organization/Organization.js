@@ -83,7 +83,6 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
                     marginTop: '1.4vh',
                     color: 'yellow',
                     height: '4vh',
-                    width: '2vw',
                     cursor: 'pointer'
                 }}>
                 </ExpandMore>

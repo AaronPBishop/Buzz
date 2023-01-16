@@ -2,8 +2,8 @@ from app.models import db, DmMessage_Channel, environment, SCHEMA
 
 
 def seed_dm_channels():
-    dm_channels = [{
-        "organization_id": 1, "owner_id": 1},
+    dm_channels = [
+        {"organization_id": 1, "owner_id": 1},
         {"organization_id": 2, "owner_id": 54},
         {"organization_id": 3, "owner_id": 1},
         {"organization_id": 4, "owner_id": 1},

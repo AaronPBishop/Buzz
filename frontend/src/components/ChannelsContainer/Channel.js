@@ -24,6 +24,8 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers, usersA
     const [clickedEdit, setClickedEdit] = useState(false);
     const [input, setInput] = useState(channelName);
 
+    const userNames = usersArr.map(user => user.username);
+
     return (
         <div 
         className="flex-center"
@@ -39,7 +41,6 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers, usersA
                 height: '6vh',
                 textAlign: 'center',
                 fontSize: '16px',
-                marginTop: '1vh',
                 marginBottom: '1vh',
                 padding: '0.8vh',
                 cursor: 'pointer',
@@ -103,10 +104,10 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers, usersA
 
                     <div 
                     className="buzz-btn" 
-                    onClick={() => {
-                        dispatch(deleteChannelThunk(channelId));
-                        dispatch(clearChannel(channelId));
-                        dispatch(clearChannelMessageData());
+                    onClick={async () => {
+                        await dispatch(deleteChannelThunk(channelId));
+                        await dispatch(clearChannel(channelId));
+                        await dispatch(clearChannelMessageData());
                     }}
                     style={{width: '6vw', marginLeft: '1.5vw'}}>
                         Delete
@@ -154,7 +155,7 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers, usersA
                     lineHeight: '3.6vh',
                     width: '14vw'
                 }}>
-                    View All {totalUsers - 1} Users
+                    {userNames.includes(user.username) ? `View ${totalUsers - 1} Users` : `View ${totalUsers} Users`}
                 </div>
 
                 <div
