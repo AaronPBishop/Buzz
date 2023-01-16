@@ -5,7 +5,9 @@
     flex-direction: column;
     margin-top: 5vh;
     margin-bottom: 5vh;
-    height: 40vh;
+    height: auto;
+    padding: 30px;
+    align-self: center;
     justify-content: center;
 }
 
