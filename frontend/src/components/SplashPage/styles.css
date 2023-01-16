@@ -1,5 +1,5 @@
 .login-buttons {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-weight: bold;
     font-size: 16px;
 
@@ -19,20 +19,43 @@
     cursor: pointer;
 }
 
-
-@media screen and (height< 979px) {
+@media screen and (height< 779px) {
     .splash_img {
         display: none;
     }
 }
-@media screen and (height >= 980px) {
+@media screen and (height >= 780px) {
     .splash_img {
         display: flex;
         align-self: center;
         background-color: rgb(240, 210, 10);
-        width: 230px;
-        height: 220px;
+        width: 220px;
+        height: 210px;
         border-radius: 110px;
-        margin-bottom: 4vh;
+        margin-bottom: 2vh;
+    }
+}
+@media screen and (height < 510px) {
+    .buzz_txt {
+        display: flex;
+        font-size: 50px;
+        background-color: rgb(240, 210, 10);
+        align-self: center;
+        padding-bottom: 0.2vh;
+        border-radius: 20px;
+        border-bottom: 4px solid rgb(165, 165, 0);
+        background-color: rgb(240, 210, 10);
+    }
+}
+@media screen and (height >= 511px) {
+    .buzz_txt {
+        display: flex;
+        font-size: 90px;
+        background-color: rgb(240, 210, 10);
+        align-self: center;
+        padding-bottom: 0.3vh;
+        border-radius: 20px;
+        border-bottom: 4px solid rgb(165, 165, 0);
+        background-color: rgb(240, 210, 10);
     }
 }
