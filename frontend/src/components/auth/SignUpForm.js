@@ -18,6 +18,7 @@ const SignUpForm = () => {
     const [repeatPassword, setRepeatPassword] = useState("");
 
     const [errors, setErrors] = useState([]);
+    const [passError, setPassError] = useState('');
 
     const onSignUp = async e => {
         e.preventDefault();
@@ -29,13 +30,17 @@ const SignUpForm = () => {
                     firstName,
                     lastName,
                     email,
+                    password,
                     bio,
                     profile_img,
-                    password
                 )
             );
 
             if (data) setErrors(data);
+        }
+        if (password !== repeatPassword) {
+
+            setPassError("Both password must match!");
         }
     };
 
@@ -46,8 +51,25 @@ const SignUpForm = () => {
             <div className="formTitle">Sign Up</div>
             <div>
                 {errors.map((error, ind) => (
-                    <div key={ind}>{error}</div>
+                    <div key={ind} style={{
+                        color: "white",
+                        fontSize: "12px",
+                        display: "flex",
+                        justifyContent: "center",
+                        // fontWeight: 'bold',
+                        alignItems: "center",paddingBottom: "2px"
+                    }}>{error} </div>
                 ))}
+                {passError.length > 0 && (<div style={{
+                        color: "white",
+                        fontSize: "12px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                       
+                        paddingBottom: "2px"
+                    }}>{passError}</div>)}
+
             </div>
 
             <div className="fieldWrapper">
@@ -57,6 +79,7 @@ const SignUpForm = () => {
                     onChange={e => setUsername(e.target.value)}
                     placeholder="Username"
                     value={username}
+                    required
                     className="inputFields"></input>
             </div>
 
@@ -67,6 +90,7 @@ const SignUpForm = () => {
                     onChange={e => setFirstName(e.target.value)}
                     placeholder="First Name"
                     value={firstName}
+                    required
                     className="inputFields"></input>
             </div>
 
@@ -77,6 +101,7 @@ const SignUpForm = () => {
                     onChange={e => setLastName(e.target.value)}
                     placeholder="Last Name"
                     value={lastName}
+                    required
                     className="inputFields"></input>
             </div>
 
@@ -86,6 +111,7 @@ const SignUpForm = () => {
                     name="email"
                     onChange={e => setEmail(e.target.value)}
                     placeholder="Email"
+                    required
                     value={email}
                     className="inputFields"></input>
             </div>
@@ -108,7 +134,7 @@ const SignUpForm = () => {
                     onChange={e => setProfile_img(e.target.value)}
                     placeholder="Profile Image"
                     value={profile_img}
-                    // required={true}
+                    required
                     className="inputFields"></input>
             </div>
 
@@ -119,6 +145,7 @@ const SignUpForm = () => {
                     onChange={e => setPassword(e.target.value)}
                     placeholder="Password"
                     value={password}
+                    required
                     className="inputFields"></input>
             </div>
 
@@ -129,11 +156,12 @@ const SignUpForm = () => {
                     onChange={e => setRepeatPassword(e.target.value)}
                     placeholder="Repeat Password"
                     value={repeatPassword}
-                    required={true}
+                    required
                     className="inputFields"></input>
             </div>
 
-            <button type="submit" className="submitButton">
+            <button type="submit" className="submitButton" onClick={()=> {setErrors([]);
+                    setPassError('')}}>
                 Sign Up
             </button>
         </form>
