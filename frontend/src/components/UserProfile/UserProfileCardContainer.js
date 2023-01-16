@@ -12,11 +12,9 @@ const UserProfileCardContainer = () => {
     const handleClickProfileImage = (e) => {
         e.preventDefault();
         setClicked(!clicked);
-    }
+    };
 
-    const showUserCard = (boolean) => {
-        setClicked(boolean);
-    }
+    const showUserCard = (boolean) => setClicked(boolean);
 
     return (
         <div style={{
@@ -25,23 +23,25 @@ const UserProfileCardContainer = () => {
             height: '70px',
             width: '70px',
         }}>
-            {currentUser &&
+            {
+                currentUser &&
                 <img className='profile_img' src={`${currentUser.profile_img}`} onClick={(e) => handleClickProfileImage(e)} style={{
-                    // height: '70px',
-                    // width: '70px',
                     borderRadius: '20px',
                     display: 'flex',
                     justifyContent: 'center',
                     cursor: 'pointer',
                     borderTop: '2px solid rgb(30, 30, 30)',
                     borderBottom: '2px solid rgb(30, 30, 30)'
-                }}></img>
+                }}>
+                </img>
             }
-            {currentUser && clicked && (
+
+            {
+                currentUser && clicked && 
                 <UserProfileCard user={currentUser} showUserCard={showUserCard} />
-            )}
+            }
         </div>
-    )
-}
+    );
+};
 
 export default UserProfileCardContainer;

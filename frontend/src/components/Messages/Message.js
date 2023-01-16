@@ -8,13 +8,11 @@ import {
     editDmMessageThunk,
     deleteDmMessageDataThunk,
     setCurrImgUrl,
-    populateCurrMessages,
     deleteMessage
 } from "../../store/messagesReducer";
 
 const Message = ({ message, sessionUser }) => {
     const [clicked, setClicked] = useState(false);
-    const [clickDelete, setClickDelete] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
     const [editMsg, setEditMsg] = useState(message.message);
     const [validOwner, setValidOwner] = useState(false);
@@ -27,26 +25,18 @@ const Message = ({ message, sessionUser }) => {
         if (sessionUser.id === message.user_id) setValidOwner(true);
     }, [sessionUser.id, message.user_id]);
 
-    useEffect(() => {
-        if (clickDelete === true) {
-            dispatch(populateCurrMessages(messageState.currentMessages));
-
-            setClickDelete(false);
-        };
-    }, [dispatch, clickDelete, messageState.currentMessages]);
-
     const handleKeyDown = e => {
         if (e.key === "Enter") {
             if (messageState.viewingChannel === true) {
                 dispatch(editChannelMessageThunk(message.id, editMsg));
                 setClicked(!clicked);
-            }
+            };
 
             if (messageState.viewingDm === true) {
                 dispatch(editDmMessageThunk(message.id, editMsg));
                 setClicked(!clicked);
-            }
-        }
+            };
+        };
     };
 
     const openMenu = () => {
@@ -57,9 +47,7 @@ const Message = ({ message, sessionUser }) => {
     useEffect(() => {
         if (!showMenu) return;
 
-        const closeMenu = () => {
-            setShowMenu(false);
-        };
+        const closeMenu = () => setShowMenu(false);
 
         document.addEventListener("click", closeMenu);
 
@@ -68,21 +56,22 @@ const Message = ({ message, sessionUser }) => {
 
     return (
         <div
-            style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "14px",
-                fontFamily: "Roboto",
-                border: '2px solid yellow',
-                borderRadius: "12px",
-                backgroundColor: "black",
-                margin: "1vh",
-                marginBottom: '2vh',
-                color: "white",
-            }}><div style={{display: 'flex', flexDirection: 'column'}}>
-            <div style={{ display: "flex", marginLeft: "12px" }}>
-                <img
+        style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "14px",
+            fontFamily: "Roboto",
+            border: '2px solid yellow',
+            borderRadius: "12px",
+            backgroundColor: "black",
+            margin: "1vh",
+            marginBottom: '2vh',
+            color: "white",
+        }}>
+            <div style={{display: 'flex', flexDirection: 'column'}}>
+                <div style={{ display: "flex", marginLeft: "12px" }}>
+                    <img
                     style={{
                         height: "60px",
                         borderRadius: "8px",
@@ -91,13 +80,15 @@ const Message = ({ message, sessionUser }) => {
                         display: "flex",
                         alignSelf: "center",
                     }}
-                    src={sessionUser.profile_img}
-                />
-                <div style={{ paddingLeft: "10px" }}>
-                    <h4 style={{ color: "yellow", fontSize: "18px" }}>
-                        {message.first_name} {message.last_name}{" "}
-                        {message && message.last_update !== null ? (
-                            <span
+                    src={sessionUser.profile_img}/>
+
+                    <div style={{ paddingLeft: "10px" }}>
+                        <h4 style={{ color: "yellow", fontSize: "18px" }}>
+                            {message.first_name} {message.last_name}
+
+                            {
+                                message && message.last_update !== null ? 
+                                <span
                                 style={{
                                     color: "gray",
                                     fontWeight: "300",
@@ -105,12 +96,12 @@ const Message = ({ message, sessionUser }) => {
                                     fontSize: "10px",
                                     paddingBottom: "10px",
                                 }}>
-                                {message.last_update}{" "}
-                            </span>
-                        ) : (
-                            message &&
-                            message.created_date && (
-                                <span
+                                    {message.last_update}
+                                </span>
+                                : 
+                                message &&
+                                message.created_date &&
+                                    <span
                                     style={{
                                         color: "gray",
                                         fontWeight: "300",
@@ -118,20 +109,21 @@ const Message = ({ message, sessionUser }) => {
                                         fontSize: "10px",
                                         paddingBottom: "10px",
                                     }}>
-                                    {message.created_date}
-                                </span>
-                            )
-                        )}
-                    </h4>
-                    <p
+                                        {message.created_date}
+                                    </span>
+                                
+                            }
+                        </h4>
+                        <p
                         style={{
                             display: !clicked ? "block" : "none",
                             justifySelf: "center",
                             alignSelf: "center",
                         }}>
-                        {message.message}
-                    </p>
-                    <input
+                            {message.message}
+                        </p>
+
+                        <input
                         type="text"
                         onKeyDown={handleKeyDown}
                         id='search-input'
@@ -150,75 +142,79 @@ const Message = ({ message, sessionUser }) => {
                             borderRadius: '8px'
                         }}
                         value={editMsg}
-                        onChange={e => {
-                            setEditMsg(e.target.value);
-                        }}></input>
-
-
+                        onChange={e => setEditMsg(e.target.value)}>
+                        </input>
                 </div>
             </div>
-            <div style={{display: message.images.length > 0 ? 'flex' : 'none', padding: '1vh', maxWidth: '65vw', overflowX: 'auto', justifyContent: 'center', alignItems: 'center'}}>
-                            {
-                                message.images.map((img, i) => {
-                                    return (
-                                        <img
-                                        src={img.url}
-                                        onClick={() => dispatch(setCurrImgUrl(img.url))}
-                                        style={{
-                                            marginTop: '0.1vh',
-                                            marginRight: '1vw',
-                                            minHeight: '3vh',
-                                            maxHeight: '14.4vh',
-                                            minWidth: '2vw',
-                                            maxWidth: '10vw',
-                                            borderRadius: '6px',
-                                            cursor: 'pointer'
-                                        }}
-                                        key={i}>
-                                        </img>
-                                    )
-                                })
-                            }
-                        </div></div>
-            <div
-                className="dropdown"
+
+                <div 
                 style={{
-                    display: "flex",
-                    justifySelf: "end",
-                    marginRight: "12px",
-                    alignSelf: 'center',
-                    marginBottom: showMenu ? '2vh' : '0.4vh'
+                    display: message.images && message.images.length > 0 ? 'flex' : 'none', 
+                    padding: '1vh', 
+                    maxWidth: '65vw', 
+                    overflowX: 'auto', 
+                    justifyContent: 'center', 
+                    alignItems: 'center'
                 }}>
-                <DotsVerticalIcon
-                    className={
-                        !showMenu && validOwner ? "dropbtn" : "dropbtn_closed"
+                    {
+                        message.images && message.images.length > 0 &&
+                        message.images.map((img, i) => 
+                            <img
+                            src={img.url}
+                            onClick={() => dispatch(setCurrImgUrl(img.url))}
+                            style={{
+                                marginTop: '0.1vh',
+                                marginRight: '1vw',
+                                minHeight: '3vh',
+                                maxHeight: '14.4vh',
+                                minWidth: '2vw',
+                                maxWidth: '10vw',
+                                borderRadius: '6px',
+                                cursor: 'pointer'
+                            }}
+                            key={i}>
+                            </img>
+                        )
                     }
-                    onClick={openMenu}
+                </div>
+            </div>
+
+            <div
+            className="dropdown"
+            style={{
+                display: "flex",
+                justifySelf: "end",
+                marginRight: "12px",
+                alignSelf: 'center',
+                marginBottom: showMenu ? '2vh' : '0.4vh'
+            }}>
+
+                <DotsVerticalIcon
+                className={!showMenu && validOwner ? "dropbtn" : "dropbtn_closed"}
+                onClick={openMenu}
                 />
-                {showMenu && validOwner && (
+
+                {
+                    showMenu && validOwner && 
                     <div className="div-dropdown">
                         <div
-                            style={{
-                                height: "30px",
-                                width: "80px",
-                                display: "block",
-                                display: "flex",
-                                fontSize: "12px",
-                                marginLeft: "10px",
-                                marginBottom: '1vh'
-                            }}>
+                        style={{
+                            height: "30px",
+                            width: "80px",
+                            display: "block",
+                            display: "flex",
+                            fontSize: "12px",
+                            marginLeft: "10px",
+                            marginBottom: '1vh'
+                        }}>
                             <button
                             className="buzz-btn"
-                                onClick={e => {
+                            onClick={e => {
                                     e.stopPropagation()
-                                    if (clicked === true &&messageState.viewingChannel === true) {
-                                        dispatch(editChannelMessageThunk(message.id,editMsg));
-                                    }
 
-                                    if (clicked === true &&messageState.viewingDm === true)
-                                    {dispatch(editDmMessageThunk(message.id,editMsg)
-                                        );
-                                    }
+                                    if (clicked === true && messageState.viewingChannel === true) dispatch(editChannelMessageThunk(message.id, editMsg));
+                                    if (clicked === true &&messageState.viewingDm === true) dispatch(editDmMessageThunk(message.id, editMsg));
+                                    
                                     setClicked(!clicked);
                                 }}
                                 style={{
@@ -231,58 +227,49 @@ const Message = ({ message, sessionUser }) => {
                                     borderTop: '3px solid transparent',
                                     borderBottom: '3px solid rgb(165, 165, 0)'
                                 }}>
-                                {" "}
-                                <b>{!clicked ? 'Edit' : 'Save'}</b>
+                                    <b>{!clicked ? 'Edit' : 'Save'}</b>
                             </button>
                         </div>
+
                         <div
-                            style={{
-                                height: "30px",
-                                width: "80px",
-                                display: "block",
-                                display: "flex",
-                                marginLeft: "10px"
-                            }}>
+                        style={{
+                            height: "30px",
+                            width: "80px",
+                            display: "block",
+                            display: "flex",
+                            marginLeft: "10px"
+                        }}>
                             <button
-                                className="buzz-btn"
-                                onClick={e => {
-                                    e.stopPropagation()
-                                    if (messageState.viewingChannel === true) {
-                                        dispatch(
-                                            deleteChannelMessageDataThunk(message.id)
-                                        );
+                            className="buzz-btn"
+                            onClick={e => {
+                                e.stopPropagation()
 
-                                        dispatch(deleteMessage(message.id));
+                                if (messageState.viewingChannel === true) {
+                                    dispatch(deleteChannelMessageDataThunk(message.id));
+                                    dispatch(deleteMessage(message.id));
+                                };
 
-                                        setClickDelete(true);
-                                    }
-
-                                    if (messageState.viewingDm === true) {
-                                        dispatch(
-                                            deleteDmMessageDataThunk(message.id)
-                                        );
-
-                                        dispatch(deleteMessage(message.id));
-                                        
-                                        setClickDelete(true);
-                                    }
-                                }}
-                                style={{
-                                    width: "100%",
-                                    fontSize: "12px",
-                                    marginTop: "8px",
-                                    fontWeight: "bold",
-                                    height: '4vh',
-                                    borderLeft: '3px solid transparent',
-                                    borderRight: '3px solid transparent',
-                                    borderTop: '3px solid transparent',
-                                    borderBottom: '3px solid rgb(165, 165, 0)'
-                                }}>
+                                if (messageState.viewingDm === true) {
+                                    dispatch(deleteDmMessageDataThunk(message.id));
+                                    dispatch(deleteMessage(message.id));
+                                };
+                            }}
+                            style={{
+                                width: "100%",
+                                fontSize: "12px",
+                                marginTop: "8px",
+                                fontWeight: "bold",
+                                height: '4vh',
+                                borderLeft: '3px solid transparent',
+                                borderRight: '3px solid transparent',
+                                borderTop: '3px solid transparent',
+                                borderBottom: '3px solid rgb(165, 165, 0)'
+                            }}>
                                 Delete
                             </button>
                         </div>
                     </div>
-                )}
+                }
             </div>
         </div>
     );

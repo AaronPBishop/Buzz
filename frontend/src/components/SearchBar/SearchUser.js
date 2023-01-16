@@ -11,10 +11,6 @@ const SearchUser = ({ currOrgId, email, firstName, lastName }) => {
 
     const [startedDm, setStartedDm] = useState(false);
 
-    useEffect(() => {
-        if (startedDm === true) dispatch(fetchOrgDataThunk(currOrgId));
-    }, [dispatch, startedDm, currOrgId]);
-
     return (
         <div
         style={{
@@ -34,9 +30,10 @@ const SearchUser = ({ currOrgId, email, firstName, lastName }) => {
             <p style={{marginLeft: '2vw'}}>{firstName} {lastName}</p>
 
             <div
-            onClick={() => {
+            onClick={async () => {
                 if (startedDm === false) {
-                    dispatch(createDmMessageChannelThunk(user.id, currOrgId, [email]));
+                    await dispatch(createDmMessageChannelThunk(user.id, currOrgId, [email]));
+                    await dispatch(fetchOrgDataThunk(currOrgId));
 
                     setStartedDm(true);
                 };

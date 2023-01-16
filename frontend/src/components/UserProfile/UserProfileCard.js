@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { editUserThunk, logout } from "../../store/sessionReducer";
-import { Close } from "@styled-icons/evil/Close";
+import { CloseCircle } from "@styled-icons/evaicons-solid/CloseCircle";
 
 import "./UserProfileCard.css";
 
@@ -18,177 +18,191 @@ const UserProfileCard = ({ user, showUserCard }) => {
     const [bio, setBio] = useState(user.bio);
     const [profileImage, setProfileImage] = useState(user.profile_img);
 
-    const handleLogout = e => {
-        e.preventDefault();
-
-        dispatch(logout());
-    };
-
-    const handleEditUser = e => {
-        e.preventDefault();
-        setShowEditForm(true);
-        setShowCardDropDown(false);
-    };
-
-    const handleFormSubmission = e => {
-        e.preventDefault();
-        dispatch(
-            editUserThunk({
-                userId: user.id,
-                username,
-                first_name: firstName,
-                last_name: lastName,
-                email,
-                bio,
-                profile_img: profileImage,
-            })
-        );
-        setShowEditForm(false);
-        setShowCardDropDown(true);
-        showUserCard(false);
-    };
-
-    const handleCloseFunction = e => {
-        e.preventDefault();
-        setShowEditForm(false);
-        setShowCardDropDown(true);
-        showUserCard(false);
-    };
-
     return (
         <div>
-            {showCardDropDown && (
+            {
+                showCardDropDown && 
                 <div
+                style={{
+                    zIndex: "100",
+                    fontWeight: 'bold',
+                    position: "absolute",
+                    background: "black",
+                    border: "2px solid yellow",
+                    borderRadius: "8px",
+                    display: "flex",
+                    flexDirection: "column",
+                    color: "yellow",
+                    justifyContent: "center",
+                    width: "16vw",
+                    height: '24vh',
+                    flexWrap: "wrap",
+                    padding: "10px",
+                    textAlign: "center",
+                    marginTop: "10px",
+                }}>
+                    <div style={{marginBottom: '1vh'}}>{user.username}</div>
+                    <div style={{marginBottom: '1vh'}}>{user.email}</div>
+                    <div style={{marginBottom: '1vh'}}>{user.first_name} {user.last_name}</div>
+
+                    <div
                     style={{
-                        zIndex: "100",
-                        position: "absolute",
-                        background: "black",
-                        border: "1px solid yellow",
-                        borderRadius: "5px",
                         display: "flex",
                         flexDirection: "column",
-                        color: "yellow",
-                        justifyContent: "center",
-                        width: "fit-content",
-                        flexWrap: "wrap",
-                        padding: "10px",
-                        textAlign: "center",
-                        marginTop: "10px",
+                        alignItems: "center",
                     }}>
-                    <div>{user.username}</div>
-                    <div>{user.email}</div>
-                    <div>
-                        {user.first_name} {user.last_name}
-                    </div>
-                    <div
-                        style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                        }}>
                         <button
-                            onClick={e => handleEditUser(e)}
+                            onClick={() => {
+                                setShowEditForm(true);
+                                setShowCardDropDown(false);
+                            }}
                             className="actionButtons buzz-btn">
-                            Edit User
+                            Edit Profile
                         </button>
+                        
                         <button
-                            onClick={e => handleLogout(e)}
+                            onClick={() => dispatch(logout())}
                             className="actionButtons buzz-btn">
                             Logout
                         </button>
                     </div>
                 </div>
-            )}
-            {showEditForm && (
+            }
+
+            {
+                showEditForm && 
                 <div
+                className="flex-center"
+                style={{
+                    zIndex: "100",
+                    position: "fixed",
+                    width: "100%",
+                    height: "100%",
+                    backgroundColor: "black",
+                    opacity: "0.8",
+                    bottom: "0.1vh",
+                    right: '0.1vw'
+                }}>
+                    <div
+                    className="flex-center"
                     style={{
-                        zIndex: "100",
-                        position: "fixed",
-                        width: "100%",
-                        height: "100%",
-                        backgroundColor: "black",
-                        opacity: "0.8",
-                        bottom: "1px",
-                        left: '2px'
+                        width: "34vw", 
+                        height: '64vh', 
+                        backgroundColor: 'rgb(240, 210, 10)', 
+                        borderBottom: '4px solid rgb(165, 165, 0)', 
+                        borderRadius: '12px', 
+                        marginBottom: '24vh',
+                        boxShadow: '0px 0px 6px yellow'
                     }}>
-                    <form
+                        <CloseCircle
                         style={{
-                            width: "300px",
-                            position: "relative",
-                            left: "52%",
-                            top: "15%",
-                            marginLeft: "-150px",
+                            position: 'absolute',
+                            marginRight: '32vw',
+                            height: "4vh",
+                            cursor: "pointer"
                         }}
-                        onSubmit={e => handleFormSubmission(e)}
-                        className="EditUserForm">
-                        <Close
-                            style={{
-                                height: "40px",
-                                width: "40px",
-                                marginRight: "auto",
-                                marginLeft: "6%",
-                                cursor: "pointer",
-                                fontWeight: 'bold'
-                            }}
-                            onClick={e => handleCloseFunction(e)}></Close>
-                        <div className="EditUserMessage">Edit User</div>
-                        <div style={{ display: "flex" }}>
-                            <label className="textLabelWrapper"> Email:</label>
-                            <input
+                        onClick={() => {
+                            setShowEditForm(false);
+                            setShowCardDropDown(true);
+                            showUserCard(false);
+                        }}>
+                        </CloseCircle>
+
+                        <div style={{width: '28vw', height: '60vh', backgroundColor: 'black', color: 'white', borderRadius: '12px', marginTop: '2vh'}}>
+                            <div className="flex-center">
+                                <p style={{fontSize: '20px', fontWeight: 'bold', marginBottom: '5vh'}}>{user.username}'s Profile</p>
+                            </div>
+                            
+                            <div style={{ display: "flex", justifyContent: 'space-evenly', marginBottom: '1.5vh' }}>
+                                <label className="textLabelWrapper">Email</label>
+                                <input
+                                style={{width: '14vw', height: '4vh'}}
                                 type="text"
                                 value={email}
                                 required
                                 onChange={e => setEmail(e.target.value)}
-                                className="InputBox"
-                            />
-                        </div>
-                        <div style={{ display: "flex" }}>
-                            <label className="textLabelWrapper">First Name:</label>
-                            <input
-                                type="text"
-                                required
-                                value={firstName}
-                                onChange={e => setFirstName(e.target.value)}
-                                className="InputBox"
-                            />
-                        </div>
-                        <div style={{ display: "flex" }}><label className="textLabelWrapper">Last Name:
+                                className="buzz-input"/>
+                            </div>
 
-                        </label><input
+                            <div style={{ display: "flex", justifyContent: 'space-evenly', marginBottom: '1.5vh' }}>
+                                <label className="textLabelWrapper">First Name</label>
+                                <input
+                                style={{width: '14vw', height: '4vh'}}
+                                    type="text"
+                                    required
+                                    value={firstName}
+                                    onChange={e => setFirstName(e.target.value)}
+                                    className="buzz-input"/>
+                            </div>
+
+                            <div style={{ display: "flex", justifyContent: 'space-evenly', marginBottom: '1.5vh' }}>
+                                <label className="textLabelWrapper">Last Name</label>
+                                <input
+                                style={{width: '14vw', height: '4vh'}}
                                 type="text"
                                 value={lastName}
                                 required
                                 onChange={e => setLastName(e.target.value)}
-                                className="InputBox"
-                            /></div>
-                        <div style={{ display: "flex" }}><label className="textLabelWrapper">Bio:</label> <input
+                                className="buzz-input"/>
+                            </div>
+
+                            <div style={{ display: "flex", justifyContent: 'space-evenly', marginBottom: '1.5vh' }}>
+                                <label className="textLabelWrapper">Bio</label> 
+                                <input
+                                style={{width: '14vw', height: '4vh'}}
                                 type="text"
                                 value={bio}
                                 onChange={e => setBio(e.target.value)}
-                                className="InputBox"
-                            /></div>
-                        <div style={{ display: "flex" }}> <label className="textLabelWrapper">Profile Image:</label><input
+                                className="buzz-input"/>
+                            </div>
+
+                            <div style={{ display: "flex", justifyContent: 'space-evenly', marginBottom: '1.5vh' }}> 
+                                <label className="textLabelWrapper">Profile Image</label>
+                                <input
+                                style={{width: '14vw', height: '4vh'}}
                                 type="text"
                                 value={profileImage}
                                 required
                                 onChange={e => setProfileImage(e.target.value)}
-                                className="InputBox"
-                            /></div><label className="textLabelWrapper"></label>
-                        <div style={{ display: "flex" }}><label className="textLabelWrapper">Username:
+                                className="buzz-input"/>
+                            </div>
 
-                        </label><input
+                            <div style={{ display: "flex", justifyContent: 'space-evenly' }}>
+                                <label className="textLabelWrapper">Username</label>
+                                <input
+                                style={{width: '14vw', height: '4vh'}}
                                 type="text"
                                 value={username}
                                 required
                                 onChange={e => setUsername(e.target.value)}
-                                className="InputBox"
-                            /></div>
-                        <button type="submit" className="EditButton">
-                            Confirm Edit
-                        </button>
-                    </form>
+                                className="buzz-input"/>
+                            </div>
+
+                            <div 
+                            className="buzz-btn flex-center"
+                            onClick={async () => {
+                                await dispatch(editUserThunk({
+                                        userId: user.id,
+                                        username,
+                                        first_name: firstName,
+                                        last_name: lastName,
+                                        email,
+                                        bio,
+                                        profile_img: profileImage,
+                                    })
+                                );
+
+                                setShowEditForm(false);
+                                setShowCardDropDown(true);
+                                showUserCard(false);
+                            }}
+                            style={{lineHeight: '4vh', width: '12vw', height: '4vh', marginTop: '3vh'}}>
+                                Confirm Edit
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            )}
+            }
         </div>
     );
 };

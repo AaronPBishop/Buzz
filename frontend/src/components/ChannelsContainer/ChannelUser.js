@@ -11,16 +11,6 @@ const ChannelUser = ({ channelId, ownerId, userId, firstName, lastName }) => {
     const currUser = useSelector(state => state.session.user);
     const currOrg = useSelector(state => state.organization);
 
-    const [deleted, setDeleted] = useState(false);
-
-    useEffect(() => {
-        if (deleted === true) {
-            dispatch(fetchOrgDataThunk(currOrg.id));
-
-            setDeleted(false);
-        };
-    }, [dispatch, deleted, currOrg.id]);
-
     return (
         <div 
         className='buzz-btn'
@@ -38,10 +28,9 @@ const ChannelUser = ({ channelId, ownerId, userId, firstName, lastName }) => {
             <div>{firstName} {lastName}</div>
 
             <PersonRemove 
-            onClick={() => {
-                dispatch(removeUserFromChannelThunk(channelId, userId));
-
-                setDeleted(true);
+            onClick={async () => {
+                await dispatch(removeUserFromChannelThunk(channelId, userId));
+                await dispatch(fetchOrgDataThunk(currOrg.id));
             }}
             style={{
                 display: currUser.id === ownerId ? 'block' : 'none',

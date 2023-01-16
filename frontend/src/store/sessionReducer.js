@@ -1,7 +1,5 @@
 const initialState = {
-  user: null,
-  createdOrg: false,
-  deletedOrg: false
+  user: null
 };
 
 const SET_USER = 'session/SET_USER';
@@ -9,7 +7,6 @@ const REMOVE_USER = 'session/REMOVE_USER';
 
 
 // ACTION CREATORS
-
 
 const setUser = (user) => {
   return {
@@ -21,20 +18,6 @@ const setUser = (user) => {
 const removeUser = () => {
   return {
     type: REMOVE_USER
-  };
-};
-
-export const setCreatedOrg = (boolean) => {
-  return {
-    type: 'SET_CREATED_ORG',
-    payload: boolean
-  };
-};
-
-export const setDeletedOrg = (boolean) => {
-  return {
-    type: 'SET_DELETED_ORG',
-    payload: boolean
   };
 };
 
@@ -166,18 +149,6 @@ const sessionReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER: {
       currentState.user = action.payload;
-
-      return currentState;
-    };
-
-    case 'SET_CREATED_ORG': {
-      currentState.createdOrg = action.payload;
-
-      return currentState;
-    };
-
-    case 'SET_DELETED_ORG': {
-      currentState.deletedOrg = action.payload;
 
       return currentState;
     };

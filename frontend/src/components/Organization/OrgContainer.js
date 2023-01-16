@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { ExpandMore } from '@styled-icons/material-sharp/ExpandMore';
 import { ExpandLess } from '@styled-icons/material-twotone/ExpandLess';
 
-import { getUserThunk, setCreatedOrg, setDeletedOrg } from '../../store/sessionReducer.js';
+import { getUserThunk } from '../../store/sessionReducer.js';
 import { createOrgThunk } from '../../store/organizationReducer.js';
 
 import Organization from "./Organization.js";
@@ -13,31 +13,12 @@ const OrgContainer = () => {
     const dispatch = useDispatch();
 
     const currUser = useSelector(state => state.session.user);
-    const session = useSelector(state => state.session);
 
     const [clickedCreateOrg, setClickedCreateOrg] = useState(false);
     const [clickedExpand, setClickedExpand] = useState(false);
 
     const [orgName, setOrgName] = useState('');
     const [img, setImg] = useState('');
-
-
-    useEffect(() => {
-        if (session.createdOrg === true) {
-            dispatch(getUserThunk(currUser.id));
-
-            dispatch(setCreatedOrg(false));
-        };
-    }, [dispatch, session, currUser.id]);
-
-    useEffect(() => {
-        if (session.deletedOrg === true) {
-            dispatch(getUserThunk(currUser.id));
-
-            dispatch(setDeletedOrg(false));
-        };
-    }, [dispatch, session, currUser.id]);
-
 
     return (
         <div style={{ maxWidth: '16vw' }}>
@@ -149,23 +130,23 @@ const OrgContainer = () => {
                     </input>
 
                     <div
-                        onClick={() => {
-                            dispatch(createOrgThunk(orgName, currUser.id, img));
-                            dispatch(setCreatedOrg(true));
+                    onClick={async () => {
+                        await dispatch(createOrgThunk(orgName, currUser.id, img));
+                        await dispatch(getUserThunk(currUser.id));
 
-                            setImg('');
-                            setOrgName('');
-                            setClickedCreateOrg(false);
-                            setClickedExpand(false);
-                        }}
-                        className='flex-center buzz-btn'
-                        style={{
-                            marginTop: '2vh',
-                            marginBottom: '3vh',
-                            lineHeight: '4vh',
-                            width: '12vw',
-                            height: '4vh'
-                        }}>
+                        setImg('');
+                        setOrgName('');
+                        setClickedCreateOrg(false);
+                        setClickedExpand(false);
+                    }}
+                    className='flex-center buzz-btn'
+                    style={{
+                        marginTop: '2vh',
+                        marginBottom: '3vh',
+                        lineHeight: '4vh',
+                        width: '12vw',
+                        height: '4vh'
+                    }}>
                         Create
                     </div>
                 </div>

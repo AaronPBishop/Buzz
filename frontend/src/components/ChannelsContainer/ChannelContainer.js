@@ -22,26 +22,6 @@ const ChannelContainer = () => {
 
     const [clickedCreateChannel, setClickedCreateChannel] = useState(false);
     const [clickedExpand, setClickedExpand] = useState(false);
-    const [clickedCreate, setClickedCreate] = useState(false);
-
-    useEffect(() => {
-        if (clickedCreate === true) {
-            dispatch(fetchOrgDataThunk(currentOrg.id));
-            dispatch(clearUserEmails());
-
-            setClickedCreate(false);
-        };
-    }, [dispatch, clickedCreate, currentOrg.id]);
-
-    // const handleKeyDown = e => {
-    //     if (e.key === "Enter") {
-    //             dispatch(clearUserEmails());
-    //             dispatch(createChannelThunk(channelName, currentOrg.id, currentUser.id, isPublic, userEmails));
-
-    //             setClickedCreate(true);
-    //             setClickedCreateChannel(false);
-    //             setClickedExpand(false);
-    // }}
 
     if (!currentUser) return <div>Loading...</div>
 
@@ -121,7 +101,6 @@ const ChannelContainer = () => {
                         id='search-input'
                         autoComplete='off'
                         placeholder={`Channel name`}
-                        // onKeyDown={handleKeyDown}
                         onChange={e => setChannelName(e.target.value)}
                         value={channelName}
                         className='flex-center'
@@ -163,29 +142,30 @@ const ChannelContainer = () => {
                     </div>
 
                     <div
-                        onClick={() => {
-                            dispatch(createChannelThunk(channelName, currentOrg.id, currentUser.id, isPublic, userEmails));
+                    onClick={async () => {
+                        await dispatch(createChannelThunk(channelName, currentOrg.id, currentUser.id, isPublic, userEmails));
+                        await dispatch(fetchOrgDataThunk(currentOrg.id));
+                        await dispatch(clearUserEmails());
 
-                            setClickedCreate(true);
-                            setClickedCreateChannel(false);
-                            setClickedExpand(false);
-                            setChannelName('');
-                            setIsPublic(false);
-                        }}
-                        className='flex-center'
-                        style={{
-                            marginTop: '2vh',
-                            marginBottom: '3vh',
-                            fontWeight: 'bold',
-                            color: 'black',
-                            lineHeight: '4vh',
-                            borderRadius: '8px',
-                            backgroundColor: 'rgb(240, 210, 10)',
-                            borderBottom: '4px solid rgb(165, 165, 0)',
-                            width: '12vw',
-                            height: '4vh',
-                            cursor: 'pointer'
-                        }}>
+                        setClickedCreateChannel(false);
+                        setClickedExpand(false);
+                        setChannelName('');
+                        setIsPublic(false);
+                    }}
+                    className='flex-center'
+                    style={{
+                        marginTop: '2vh',
+                        marginBottom: '3vh',
+                        fontWeight: 'bold',
+                        color: 'black',
+                        lineHeight: '4vh',
+                        borderRadius: '8px',
+                        backgroundColor: 'rgb(240, 210, 10)',
+                        borderBottom: '4px solid rgb(165, 165, 0)',
+                        width: '12vw',
+                        height: '4vh',
+                        cursor: 'pointer'
+                    }}>
                         Create
                     </div>
                 </div>
@@ -199,8 +179,11 @@ const ChannelContainer = () => {
 
             {
                 currentOrg && currentOrg.organization_channels && currentOrg.organization_channels.length > 0 &&
-                currentOrg.organization_channels.map((el, i) => (el.channel_users.includes(currentUser.username) && !el.isPublic) &&
-                <Channel channelId={el.id} channelName={el.name} ownerId={el.owner_id} messages={el.channel_cm} totalUsers={el.channel_users.length} key={i} />)
+                currentOrg.organization_channels.map((el, i) => {
+                    const channelUsers = el.channel_users.map(user => user.username);
+
+                    if (el.isPublic === false && channelUsers.includes(currentUser.username)) return <Channel channelId={el.id} channelName={el.name} ownerId={el.owner_id} messages={el.channel_cm} totalUsers={el.channel_users.length} usersArr={el.channel_users} key={i} />
+                })
             }
         </div>
     );
