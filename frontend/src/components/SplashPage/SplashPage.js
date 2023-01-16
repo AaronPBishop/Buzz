@@ -14,6 +14,7 @@ const SplashPage = () => {
     useEffect(() => {
         const htmlElement = document.querySelector("html");
         htmlElement.style.backgroundColor = 'rgb(240, 210, 10)';
+        htmlElement.style.paddingTop = '6vh';
     }, []);
 
     return (
@@ -29,10 +30,10 @@ const SplashPage = () => {
                 minHeight: "60vh",
                 maxHeight: 'auto',
                 margin: "auto",
-                marginTop: '16vh'
+                paddingBottom: '6vh'
             }}>
             {!clickedLogIn && !clickedSignUp ? (
-                <div style={{ display: "flex", justifyContent: "start", flexDirection: 'column' }}>
+                <div style={{ display: "flex", flexDirection: 'column' }}>
                     <p className="buzz_txt">
                         Buzz
                     </p>
