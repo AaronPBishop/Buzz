@@ -25,10 +25,11 @@ const SplashPage = () => {
                 border: "1px black solid",
                 borderRadius: "20px",
                 boxShadow: "0px 0px 8px black",
-                width: "28vw",
-                height: "auto",
+                width: "44vw",
+                minHeight: "80vh",
+                maxHeight: 'auto',
                 margin: "auto",
-                marginTop: '23vh'
+                marginTop: '6vh'
             }}>
             {!clickedLogIn && !clickedSignUp ? (
                 <div style={{ display: "flex", justifyContent: "start", flexDirection: 'column' }}>

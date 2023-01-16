@@ -119,8 +119,7 @@ const Message = ({ message, sessionUser }) => {
                             display: !clicked ? "block" : "none",
                             justifySelf: "center",
                             alignSelf: "center",
-                            position: "relative", wordBreak: "break-all"
-
+                            wordBreak: "break-all"
                         }}>
                             {message.message}
                         </p>
