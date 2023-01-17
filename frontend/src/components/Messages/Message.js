@@ -73,7 +73,9 @@ const Message = ({ message, sessionUser }) => {
                 <div style={{ display: "flex", marginLeft: "12px" , }}>
                     <img
                     style={{
-                        height: "60px",
+                        height: "8vh",
+                        width: '4vw',
+                        marginTop: '1vh',
                         borderRadius: "10px",
                         marginLeft: '0.5vw',
                         marginRight: '1vw',
