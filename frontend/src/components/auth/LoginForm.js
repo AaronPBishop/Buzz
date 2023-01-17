@@ -30,22 +30,26 @@ const LoginForm = () => {
     if (user) return <Redirect to="/home" />;
 
     return (
-        <form onSubmit={onLogin} className="formWrapper">
-            <div className="formTitle">Log In</div>
+        <form onSubmit={onLogin} className="formWrapper flex-center">
+            <div style={{textAlign: 'center', fontWeight: 'bold', color: 'yellow'}}>
+                Log In
+            </div>
             <div style={{paddingBottom: '8px'}}>
-                {errors.map((error, ind) => (
+                {
+                    errors.map((error, ind) => (
                     <div
-                        style={{
-                            color: "white",
-                            fontSize: "12px",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                        }}
-                        key={ind}>
+                    style={{
+                        color: "white",
+                        fontSize: "12px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center"
+                    }}
+                    key={ind}>
                         {error}
                     </div>
-                ))}
+                    ))
+                }
             </div>
 
             <div className="fieldWrapper">
@@ -56,9 +60,14 @@ const LoginForm = () => {
                     placeholder="Email"
                     value={email}
                     onChange={updateEmail}
-                    className="inputFields"
+                    className="buzz-input"
+                    style={{
+                        height: '4vh',
+                        marginTop: '2vh'
+                    }}
                 />
             </div>
+
             <div className="fieldWrapper">
                 <label htmlFor="password"></label>
                 <input
@@ -67,11 +76,18 @@ const LoginForm = () => {
                     placeholder="Password"
                     value={password}
                     onChange={updatePassword}
-                    className="inputFields"
+                    className="buzz-input"
+                    style={{
+                        height: '4vh',
+                        marginBottom: '2vh'
+                    }}
                 />
             </div>
 
-            <button type="submit" className="submitButton">
+            <button 
+            type="submit" 
+            className="buzz-btn"
+            style={{height: '5vh'}}>
                 Login
             </button>
         </form>

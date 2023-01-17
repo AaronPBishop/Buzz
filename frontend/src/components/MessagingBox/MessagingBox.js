@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Send } from '@styled-icons/boxicons-solid/Send';
 import { Delete } from '@styled-icons/fluentui-system-filled/Delete';
-import { Bold } from '@styled-icons/boxicons-regular/Bold';
-import { Italic } from '@styled-icons/boxicons-regular/Italic';
+// import { Bold } from '@styled-icons/boxicons-regular/Bold';
+// import { Italic } from '@styled-icons/boxicons-regular/Italic';
 import { ImageAdd } from '@styled-icons/boxicons-regular/ImageAdd';
 
 import { createDmMessageThunk, createChannelMessageThunk, clearMessageImgs } from '../../store/messagesReducer.js';
@@ -64,7 +64,7 @@ const MessagingBox = () => {
                 <div
                 className='buzz-btn'
                 onClick={() => setClickedAddImg(false)}
-                style={{display: clickedAddImg ? 'block' : 'none', height: '2.5vh', width: '3vw', marginLeft: '0.5vw', lineHeight: '2.7vh'}}>
+                style={{display: clickedAddImg ? 'block' : 'none', height: '2.5vh', minWidth: '4vw', marginLeft: '0.5vw', lineHeight: '2.7vh'}}>
                     Back
                 </div>
 
@@ -82,14 +82,28 @@ const MessagingBox = () => {
                 onClick={() => setClickedAddImg(true)}
                 style={{display: !clickedAddImg ? 'block' : 'none', backgroundColor: italic && 'rgb(60, 60, 60)', borderRadius: '2px', marginLeft: '1vw', cursor: 'pointer' }}>
 
-                </ImageAdd> {images.length === 0 ? (
-                    <p></p>
-                ) : (
-                    images.length > 0 && (
-                        <p style={{marginLeft: '0.5vw',fontSize: '11px', color: 'yellow', fontWeight: 'bold', fontStyle: 'italic'}}> img total = {images.length}</p>
-                    )
-                )}
-
+                </ImageAdd> 
+                
+                {
+                    images.length > 0 &&
+                    <div
+                    className='buzz-btn' 
+                    style={{
+                        position: 'relative',
+                        bottom: clickedAddImg ? '0vh' : '0.2vh',
+                        marginLeft: clickedAddImg ? '9.5vw' : '1.5vw', 
+                        fontSize: '12px', 
+                        fontStyle: 'italic',
+                        minWidth: '6vw',
+                        height: clickedAddImg ? '2.5vh' : '2vh',
+                        borderBottom: clickedAddImg ? '4px solid rgb(165, 165, 0)' : 'none',
+                        borderRadius: clickedAddImg ? '8px' : '4px',
+                        lineHeight: clickedAddImg ? '2.7vh' : '2vh',
+                        cursor: 'default'
+                    }}> 
+                        Images: {images.length}
+                    </div>
+                }
 
             </div>
 
@@ -114,8 +128,7 @@ const MessagingBox = () => {
                         width: '75vw',
                         height: '11.5vh',
                         border: '2px solid transparent',
-                        borderRadius: '8px',
-
+                        borderRadius: '8px'
                     }}
                     className="flex-center">
                     </input>

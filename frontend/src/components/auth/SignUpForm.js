@@ -37,38 +37,51 @@ const SignUpForm = () => {
             );
 
             if (data) setErrors(data);
-        }
-        if (password !== repeatPassword) {
+        };
 
-            setPassError("Both password must match!");
-        }
+        if (password !== repeatPassword) setPassError("Both passwords must match.");
     };
 
     if (user) return <Redirect to="/home" />;
 
     return (
-        <form onSubmit={onSignUp} className="formWrapper">
-            <div className="formTitle">Sign Up</div>
+        <form onSubmit={onSignUp} className="formWrapper flex-center">
+            <div style={{textAlign: 'center', fontWeight: 'bold', color: 'yellow'}}>
+                Sign Up
+            </div>
+
             <div>
-                {errors.map((error, ind) => (
-                    <div key={ind} style={{
-                        color: "white",
-                        fontSize: "12px",
-                        display: "flex",
-                        justifyContent: "center",
-                        // fontWeight: 'bold',
-                        alignItems: "center",paddingBottom: "2px"
-                    }}>{error} </div>
-                ))}
-                {passError.length > 0 && (<div style={{
+                {
+                    errors.map((error, ind) => (
+                    <div 
+                    key={ind} 
+                    style={{
                         color: "white",
                         fontSize: "12px",
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
-                       
                         paddingBottom: "2px"
-                    }}>{passError}</div>)}
+                    }}>
+                        {error} 
+                    </div>
+                    ))
+                }
+
+                {
+                    passError.length > 0 && 
+                    <div 
+                    style={{
+                        color: "white",
+                        fontSize: "12px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        paddingBottom: "2px"
+                    }}>
+                        {passError}
+                    </div>
+                }
 
             </div>
 
@@ -80,7 +93,12 @@ const SignUpForm = () => {
                     placeholder="Username"
                     value={username}
                     required
-                    className="inputFields"></input>
+                    className="buzz-input flex-center"
+                    style={{
+                        height: '4vh',
+                        minWidth: '16vw',
+                        marginTop: '2vh'
+                    }}></input>
             </div>
 
             <div className="fieldWrapper">
@@ -91,7 +109,11 @@ const SignUpForm = () => {
                     placeholder="First Name"
                     value={firstName}
                     required
-                    className="inputFields"></input>
+                    className="buzz-input flex-center"
+                    style={{
+                        height: '4vh',
+                        minWidth: '16vw'
+                    }}></input>
             </div>
 
             <div className="fieldWrapper">
@@ -102,7 +124,11 @@ const SignUpForm = () => {
                     placeholder="Last Name"
                     value={lastName}
                     required
-                    className="inputFields"></input>
+                    className="buzz-input flex-center"
+                    style={{
+                        height: '4vh',
+                        minWidth: '16vw'
+                    }}></input>
             </div>
 
             <div className="fieldWrapper">
@@ -113,7 +139,11 @@ const SignUpForm = () => {
                     placeholder="Email"
                     required
                     value={email}
-                    className="inputFields"></input>
+                    className="buzz-input flex-center"
+                    style={{
+                        height: '4vh',
+                        minWidth: '16vw'
+                    }}></input>
             </div>
 
             <div className="fieldWrapper">
@@ -123,8 +153,11 @@ const SignUpForm = () => {
                     onChange={e => setBio(e.target.value)}
                     placeholder="Bio"
                     value={bio}
-                    // required={true}
-                    className="inputFields"></input>
+                    className="buzz-input flex-center"
+                    style={{
+                        height: '4vh',
+                        minWidth: '16vw'
+                    }}></input>
             </div>
 
             <div className="fieldWrapper">
@@ -135,7 +168,11 @@ const SignUpForm = () => {
                     placeholder="Profile Image"
                     value={profile_img}
                     required
-                    className="inputFields"></input>
+                    className="buzz-input flex-center"
+                    style={{
+                        height: '4vh',
+                        minWidth: '16vw'
+                    }}></input>
             </div>
 
             <div className="fieldWrapper">
@@ -146,7 +183,11 @@ const SignUpForm = () => {
                     placeholder="Password"
                     value={password}
                     required
-                    className="inputFields"></input>
+                    className="buzz-input flex-center"
+                    style={{
+                        height: '4vh',
+                        minWidth: '16vw'
+                    }}></input>
             </div>
 
             <div className="fieldWrapper">
@@ -157,11 +198,26 @@ const SignUpForm = () => {
                     placeholder="Repeat Password"
                     value={repeatPassword}
                     required
-                    className="inputFields"></input>
+                    className="buzz-input flex-center"
+                    style={{
+                        height: '4vh',
+                        minWidth: '16vw',
+                        marginBottom: '2vh'
+                    }}></input>
             </div>
 
-            <button type="submit" className="submitButton" onClick={()=> {setErrors([]);
-                    setPassError('')}}>
+            <button 
+            style={{
+                lineHeight: '3.5vh',
+                height: '5vh',
+                minWidth: '18vw'
+            }}
+            type="submit" 
+            className="buzz-btn flex-center" 
+            onClick={()=> {
+                setErrors([]);
+                setPassError('');
+            }}>
                 Sign Up
             </button>
         </form>

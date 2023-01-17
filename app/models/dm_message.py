@@ -30,6 +30,7 @@ class DmMessage(db.Model):
         return {
             'id': self.id,
             'user_name': self.dm_message_user.user_name,
+            'user_profile_img': self.dm_message_user.profile_img,
             'first_name': self.dm_message_user.first_name,
             'last_name': self.dm_message_user.last_name,
             'message': self.message,
@@ -43,9 +44,14 @@ class DmMessage(db.Model):
     def basic_dict(self):
         return {
             'id': self.id,
-            'user_id': self.user_id,
             'user_name': self.dm_message_user.user_name,
+            'user_profile_img': self.dm_message_user.profile_img,
+            'first_name': self.dm_message_user.first_name,
+            'last_name': self.dm_message_user.last_name,
             'message': self.message,
-            'last_updated': self.last_update,
-            'dm_message_images': [image.to_dict() for image in self.dm_message_image]
+            'dm_message_channel_id': self.dm_message_channel_id,
+            'user_id': self.user_id,
+            'last_update': self.last_update,
+            'created_date': self.created_date,
+            'images': [image.to_dict() for image in self.dm_message_image]
         }

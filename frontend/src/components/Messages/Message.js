@@ -73,14 +73,16 @@ const Message = ({ message, sessionUser }) => {
                 <div style={{ display: "flex", marginLeft: "12px" , }}>
                     <img
                     style={{
-                        height: "60px",
+                        height: "8vh",
+                        width: '4vw',
+                        marginTop: '1vh',
                         borderRadius: "10px",
                         marginLeft: '0.5vw',
                         marginRight: '1vw',
                         display: "flex",
                         alignSelf: "center",
                     }}
-                    src={sessionUser.profile_img}/>
+                    src={message.user_profile_img}/>
 
                     <div style={{ paddingLeft: "10px"
                     }}>
@@ -93,7 +95,7 @@ const Message = ({ message, sessionUser }) => {
                                 style={{
                                     color: "gray",
                                     fontWeight: "300",
-                                    marginLeft: "4px",
+                                    marginLeft: "1vw",
                                     fontSize: "10px",
                                     paddingBottom: "10px",
                                 }}>
@@ -106,7 +108,7 @@ const Message = ({ message, sessionUser }) => {
                                     style={{
                                         color: "gray",
                                         fontWeight: "300",
-                                        marginLeft: "4px",
+                                        marginLeft: "1vw",
                                         fontSize: "10px",
                                         paddingBottom: "10px",
                                     }}>
