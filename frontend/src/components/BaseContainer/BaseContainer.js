@@ -11,7 +11,7 @@ import ChannelContainer from "../ChannelsContainer/ChannelContainer.js";
 import UserProfileCardContainer from "../UserProfile/UserProfileCardContainer.js";
 import Logo from "../Logo/Logo.js";
 
-import { CloseOutline } from '@styled-icons/evaicons-outline/CloseOutline';
+import { CloseCircle } from "@styled-icons/evaicons-solid/CloseCircle";
 
 import { clearCurrImgUrl } from "../../store/messagesReducer.js";
 
@@ -106,16 +106,24 @@ const BaseContainer = () => {
                                 width: '80vw',
                                 overflowY: 'auto'
                             }}>
-                                <CloseOutline
+                                <CloseCircle
                                 onClick={() => dispatch(clearCurrImgUrl())}
-                                style={{color: 'white', marginTop: '0.2vh', height: '4vh', cursor: 'pointer'}}>
-                                </CloseOutline>
+                                style={{
+                                    position: 'relative',
+                                    right: '17.5vw',
+                                    color: 'yellow', 
+                                    marginTop: '0.2vh', 
+                                    height: '4vh', 
+                                    cursor: 'pointer'
+                                }}>
+                                </CloseCircle>
                                 <img
                                 style={{
                                     marginTop: '0.5vh',
                                     borderRadius: '12px',
                                     height: '69vh',
-                                    width: '69vw'
+                                    minWidth: '40vw',
+                                    maxWidth: '40vw'
                                 }}
                                 src={currImgViewing}>
                                 </img>

@@ -101,5 +101,4 @@ def react_root(path):
 # ! create custom error handling html page to render below.
 @app.errorhandler(404)
 def not_found(e):
-    # return app.send_static_file('index.html')
-    return app.send_static_file('404_error_page.html')
+    return app.send_static_file('index.html')

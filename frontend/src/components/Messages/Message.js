@@ -168,10 +168,10 @@ const Message = ({ message, sessionUser }) => {
                             style={{
                                 marginTop: '0.1vh',
                                 marginRight: '1vw',
-                                minHeight: '3vh',
-                                maxHeight: '14.4vh',
-                                minWidth: '2vw',
-                                maxWidth: '10vw',
+                                minHeight: '14vh',
+                                maxHeight: '14vh',
+                                minWidth: '8vw',
+                                maxWidth: '8vw',
                                 borderRadius: '6px',
                                 cursor: 'pointer'
                             }}
