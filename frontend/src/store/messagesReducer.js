@@ -119,7 +119,7 @@ export const createChannelMessageThunk = (userId, channelId, message, images) =>
             last_update: Date(),
             currChannelId: channelId,
             userId: userId,
-            images,
+            images: images
         }),
     });
 
@@ -135,7 +135,7 @@ export const editChannelMessageThunk = (channelMessageId, channelMessageToEdit) 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             message: channelMessageToEdit,
-            last_update: Date(),
+            last_update: Date()
         }),
     });
 
@@ -163,7 +163,7 @@ export const createDmMessageChannelThunk = (ownerId, organizationId, userEmails)
         body: JSON.stringify({
             ownerId: ownerId,
             organization_id: organizationId,
-            users: userEmails,
+            users: userEmails
         }),
     });
 
@@ -184,7 +184,7 @@ export const createDmMessageThunk = (userId, dm_message_channelId, message, imag
             last_update: Date(),
             currChannelId: dm_message_channelId,
             userId: userId,
-            images,
+            images: images
         }),
     });
 
@@ -200,7 +200,7 @@ export const editDmMessageThunk = (dm_messageId, dm_messageToEdit) => async disp
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             message: dm_messageToEdit,
-            last_update: Date(),
+            last_update: Date()
         }),
     });
 

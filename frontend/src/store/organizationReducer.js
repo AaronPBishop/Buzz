@@ -41,8 +41,8 @@ export const createChannelThunk = (channelName, associatedOrgId, ownerId, isPubl
         body: JSON.stringify({
             name: channelName,
             organization_id: associatedOrgId,
-            ownerId,
-            isPublic,
+            ownerId: ownerId,
+            isPublic: isPublic,
             users: userEmails
         })
     });
@@ -54,7 +54,7 @@ export const addUserToChannelThunk = (channelId, userToAddId) => async (dispatch
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-            channelId,
+            channelId: channelId,
             userId: userToAddId
         }),
     });
@@ -117,7 +117,7 @@ export const createOrgThunk = (name, ownerId, img) => async (dispatch) => {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-            name,
+            name: name,
             userId: ownerId,
             orgImage: img
         })
@@ -135,7 +135,7 @@ export const addUserToOrgThunk = (orgId, userToAddEmail) => async (dispatch) => 
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-            orgId,
+            orgId: orgId,
             email: userToAddEmail
         })
     });

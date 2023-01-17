@@ -25,7 +25,12 @@ const UserProfileCardContainer = () => {
         }}>
             {
                 currentUser &&
-                <img className='profile_img' src={`${currentUser.profile_img}`} onClick={(e) => handleClickProfileImage(e)} style={{
+                <img className='profile_img' src={`${currentUser.profile_img}`} onClick={(e) => handleClickProfileImage(e)} 
+                style={{
+                    minWidth: '2.8vw',
+                    maxWidth: '2.8vw',
+                    minHeight: '5.5vh',
+                    maxHeight: '5.5vh',
                     borderRadius: '10px',
                     cursor: 'pointer'
                 }}>
