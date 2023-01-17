@@ -1,27 +1,21 @@
 .formWrapper {
-    border: 2px solid rgb(240, 210, 10);
-    border-radius: 20px;
-    display: flex;
+    border: 3px solid rgb(240, 210, 10);
+    border-radius: 12px;
+
     flex-direction: column;
+
     margin-top: 5vh;
     margin-bottom: 5vh;
+
     height: auto;
     padding: 30px;
-    align-self: center;
-    justify-content: center;
-}
 
-.formTitle {
-    color: rgb(240, 210, 10);
-    font-size: 20px;
-    display: flex;
-    justify-content: space-between;
-    margin: 0 auto 30px auto;
+    align-self: center;
 }
 
 .fieldWrapper {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     padding: 0 10px 10px;
 }
 

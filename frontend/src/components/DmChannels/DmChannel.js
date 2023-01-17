@@ -52,7 +52,7 @@ const DmChannel = ({ messages, users, ownerId, id }) => {
             borderTop: '2px solid rgb(30, 30, 30)',
             borderBottom: '2px solid rgb(30, 30, 30)'
         }}>
-            {users.length > 2 ? formatNames(users.filter(el => el !== user.username)) : users[0]}
+            {users.length > 2 ? formatNames(users.filter(el => el !== user.username)) : users.filter(el => el !== user.username)}
 
             <CloseCircle
             onClick={async e => {

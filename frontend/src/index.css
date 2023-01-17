@@ -28,6 +28,7 @@ html {
     font-family: 'Roboto';
     font-size: 14px;
     letter-spacing: 1px;
+    text-align: center;
 
     color: white;
     background-color: rgb(20, 20, 20);
@@ -41,10 +42,17 @@ html {
 }
 
 .buzz-input::placeholder {
+    text-align: left;
     font-style: italic;
     
     position: relative;
     left: 0.5vw;
+}
+
+input:-webkit-autofill {
+    -webkit-text-fill-color: white;
+    -webkit-box-shadow: 0 0 0px 1000px rgb(20, 20, 20) inset;
+    border: 1.6px solid yellow;
 }
 
 .buzz-btn {
