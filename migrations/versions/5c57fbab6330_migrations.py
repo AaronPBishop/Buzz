@@ -1,8 +1,8 @@
 """migrations
 
-Revision ID: 665892cd32db
+Revision ID: 5c57fbab6330
 Revises: 
-Create Date: 2023-01-16 15:17:58.725902
+Create Date: 2023-01-17 13:13:53.878877
 
 """
 from alembic import op
