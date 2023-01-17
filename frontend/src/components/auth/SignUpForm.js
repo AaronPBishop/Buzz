@@ -45,7 +45,7 @@ const SignUpForm = () => {
     if (user) return <Redirect to="/home" />;
 
     return (
-        <form onSubmit={onSignUp} className="formWrapper flex-center">
+        <form className="formWrapper flex-center">
             <div style={{textAlign: 'center', fontWeight: 'bold', color: 'yellow'}}>
                 Sign Up
             </div>
@@ -206,20 +206,21 @@ const SignUpForm = () => {
                     }}></input>
             </div>
 
-            <button 
+            <div 
             style={{
-                lineHeight: '3.5vh',
-                height: '5vh',
+                lineHeight: '4vh',
+                height: '4vh',
                 minWidth: '18vw'
             }}
-            type="submit" 
             className="buzz-btn flex-center" 
-            onClick={()=> {
+            onClick={e => {
                 setErrors([]);
                 setPassError('');
+
+                onSignUp(e);
             }}>
                 Sign Up
-            </button>
+            </div>
         </form>
     );
 };

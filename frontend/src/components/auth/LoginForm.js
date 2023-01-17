@@ -14,9 +14,8 @@ const LoginForm = () => {
     const onLogin = async e => {
         e.preventDefault();
         const data = await dispatch(login(email, password));
-        if (data) {
-            setErrors(data);
-        }
+
+        if (data) setErrors(data);
     };
 
     const updateEmail = e => {
@@ -84,12 +83,12 @@ const LoginForm = () => {
                 />
             </div>
 
-            <button 
-            type="submit" 
+            <div 
+            onClick={e => onLogin(e)}
             className="buzz-btn"
-            style={{height: '5vh'}}>
+            style={{height: '3.5vh', lineHeight: '3.6vh'}}>
                 Login
-            </button>
+            </div>
         </form>
     );
 };

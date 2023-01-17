@@ -17,8 +17,10 @@ const DemoLogin = () => {
         className="buzz-btn" 
         style={{marginTop: '6vh', padding: '0.5vw', width: '18vw', height: '5.4vh'}} 
         onClick={handleButtonClick}>
-            <button
+            <div
+            className="flex-center"
             style={{
+                lineHeight: '5.5vh',
                 fontSize: "16px",
                 fontWeight: "bold",
                 marginBottom: '1vh',
@@ -31,7 +33,7 @@ const DemoLogin = () => {
                 cursor: "pointer"
             }}>
                 Demo Login
-            </button>
+            </div>
         </div>
     );
 };

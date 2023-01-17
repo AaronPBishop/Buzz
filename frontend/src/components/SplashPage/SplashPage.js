@@ -37,7 +37,7 @@ const SplashPage = () => {
                     <p className="buzz_txt">
                         Buzz
                     </p>
-                    <img className="splash_img" src={require("../Logo/bee.png").default} ></img>
+                    <img className="splash_img" src={require("../Logo/bee.png").default}></img>
                     <div style={{ display: "flex", flexDirection: "column" }}>
                         <div
                             style={{

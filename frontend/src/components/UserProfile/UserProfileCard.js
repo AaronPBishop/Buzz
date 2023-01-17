@@ -53,21 +53,22 @@ const UserProfileCard = ({ user, showUserCard }) => {
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
+                        height: '10vh'
                     }}>
-                        <button
+                        <div
                             onClick={() => {
                                 setShowEditForm(true);
                                 setShowCardDropDown(false);
                             }}
                             className="actionButtons buzz-btn">
                             Edit Profile
-                        </button>
+                        </div>
 
-                        <button
+                        <div
                             onClick={() => dispatch(logout())}
                             className="actionButtons buzz-btn">
                             Logout
-                        </button>
+                        </div>
                     </div>
                 </div>
             }
