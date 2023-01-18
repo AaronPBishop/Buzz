@@ -10,7 +10,7 @@ import { ExpandLess } from '@styled-icons/material-twotone/ExpandLess';
 import ChannelSearch from "./ChannelSearch.js";
 import ChannelUsersContainer from "./ChannelUsersContainer.js";
 
-const Channel = ({ channelId, channelName, ownerId, messages, totalUsers, usersArr }) => {
+const Channel = ({ orgId, channelId, channelName, ownerId, messages, totalUsers, usersArr }) => {
     const dispatch = useDispatch();
 
     const user = useSelector(state => state.session.user);
@@ -23,6 +23,21 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers, usersA
     
     const [clickedEdit, setClickedEdit] = useState(false);
     const [input, setInput] = useState(channelName);
+
+    useEffect(() => {
+        if (orgId !== currOrg.id) return;
+
+        if (messageState.currChannelId && messageState.currChannelId === channelId) {
+            const fetchInterval = setInterval(async () => {
+                await dispatch(fetchOrgDataThunk(currOrg.id));
+                await dispatch(populateCurrMessages(messages));
+            }, [2000]);
+
+            return () => clearInterval(fetchInterval);
+        } else {
+            return;
+        };
+    }, [messageState.currChannelId, currOrg.id]);
 
     const userNames = usersArr.map(user => user.username);
 
@@ -104,7 +119,9 @@ const Channel = ({ channelId, channelName, ownerId, messages, totalUsers, usersA
 
                     <div 
                     className="buzz-btn" 
-                    onClick={async () => {
+                    onClick={async e => {
+                        e.stopPropagation();
+
                         await dispatch(deleteChannelThunk(channelId));
                         await dispatch(clearChannel(channelId));
                         await dispatch(clearChannelMessageData());

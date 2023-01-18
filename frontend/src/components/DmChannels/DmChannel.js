@@ -5,13 +5,29 @@ import { getUserThunk } from '../../store/sessionReducer.js';
 import { deleteDmMessageChannelThunk, clearDmChannel, fetchOrgDataThunk } from '../../store/organizationReducer.js';
 
 import { CloseCircle } from '@styled-icons/ionicons-outline/CloseCircle';
+import { useEffect } from 'react';
 
-const DmChannel = ({ messages, users, ownerId, id }) => {
+const DmChannel = ({ orgId, messages, users, ownerId, id }) => {
     const dispatch = useDispatch();
 
     const user = useSelector(state => state.session.user);
     const messageState = useSelector(state => state.messages);
     const currOrg = useSelector(state => state.organization);
+
+    useEffect(() => {
+        if (orgId !== currOrg.id) return;
+
+        if (messageState.currChannelId && messageState.currChannelId === id) {
+            const fetchInterval = setInterval(async () => {
+                await dispatch(fetchOrgDataThunk(currOrg.id));
+                await dispatch(populateCurrMessages(messages));
+            }, [2000]);
+
+            return () => clearInterval(fetchInterval);
+        } else {
+            return;
+        };
+    }, [messageState.currChannelId, currOrg.id]);
 
     const formatNames = (names) => {
         let formatted = '';

@@ -6,6 +6,7 @@ import { ExpandLess } from '@styled-icons/material-twotone/ExpandLess';
 
 import { addUserToOrgThunk, fetchOrgDataThunk, deleteOrgThunk, editOrgThunk } from "../../store/organizationReducer";
 import { getUserThunk } from "../../store/sessionReducer.js";
+import { clearChannelMessageData } from "../../store/messagesReducer";
 
 import OrgUsersContainer from "./OrgUsersContainer.js";
 
@@ -58,7 +59,10 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
 
     return (
         <div
-        onClick={() => dispatch(fetchOrgDataThunk(orgId))}
+        onClick={() => {
+            dispatch(fetchOrgDataThunk(orgId));
+            dispatch(clearChannelMessageData());
+        }}
         className={(currOrg && currOrg.id) && (currOrg.id === orgId) && 'selected'}
         style={{
             textAlign: 'center',
@@ -129,6 +133,7 @@ const Organization = ({ orgId, orgName, orgOwnerId, totalUsers, totalChannels, t
                     onClick={async () => {
                         await dispatch(deleteOrgThunk(orgId));
                         await dispatch(getUserThunk(user.id));
+                        await dispatch(clearChannelMessageData());
                     }}
                     style={{width: '6vw', marginLeft: '1.4vw'}}>
                         Delete

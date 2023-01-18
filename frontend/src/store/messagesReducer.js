@@ -231,7 +231,7 @@ const messagesReducer = (state = initialState, action) => {
             currentState.currChannelId = action.payload;
 
             return currentState;
-        }
+        };
 
         case "SET_VIEWING_DM": {
             currentState.viewingChannel = false;
@@ -239,19 +239,19 @@ const messagesReducer = (state = initialState, action) => {
             currentState.currChannelId = action.payload;
 
             return currentState;
-        }
+        };
 
         case "POPULATE_CURRENT_MESSAGES": {
             currentState.currentMessages = action.payload;
 
             return currentState;
-        }
+        };
 
         case "ADD_MESSAGE": {
             currentState.currentMessages.push(action.payload);
 
             return currentState;
-        }
+        };
 
         case 'DELETE_MESSAGE': {
             const messagesCopy = [ ...currentState.currentMessages ];
@@ -276,19 +276,19 @@ const messagesReducer = (state = initialState, action) => {
             });
 
             return currentState;
-        }
+        };
 
         case "ADD_USER_EMAIL": {
             currentState.usersToAdd.push(action.payload);
 
             return currentState;
-        }
+        };
 
         case "ADD_MESSAGE_IMG": {
             currentState.imagesToAdd.push(action.payload);
 
             return currentState;
-        }
+        };
 
         case 'DELETE_MESSAGE_IMG': {
             for (let i = 0; i < currentState.imagesToAdd.length; i++) {
@@ -304,13 +304,13 @@ const messagesReducer = (state = initialState, action) => {
             currentState.usersToAdd = [];
 
             return currentState;
-        }
+        };
 
         case "CLEAR_MESSAGE_IMGS": {
             currentState.imagesToAdd = [];
 
             return currentState;
-        }
+        };
 
         case 'SET_CURR_IMG_URL': {
             currentState.currImgUrl = action.payload;
@@ -332,7 +332,7 @@ const messagesReducer = (state = initialState, action) => {
 
         default:
             return currentState;
-    }
+    };
 };
 
 export default messagesReducer;

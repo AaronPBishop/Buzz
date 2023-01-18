@@ -117,7 +117,7 @@ const DmChannelContainer = () => {
                 orgDmChannels && orgDmChannels.length > 0 &&
                 orgDmChannels.map((channel, i) => channel.dm_message_channel_users.includes(user.username) && (
                     <div className='flex-center' key={i}>
-                        <DmChannel messages={channel.dm_message_channel_dm_messages} users={channel.dm_message_channel_users} ownerId={channel.owner_id} id={channel.id} />
+                        <DmChannel orgId={channel.organization_id} messages={channel.dm_message_channel_dm_messages} users={channel.dm_message_channel_users} ownerId={channel.owner_id} id={channel.id} />
                     </div>
                 ))
             }

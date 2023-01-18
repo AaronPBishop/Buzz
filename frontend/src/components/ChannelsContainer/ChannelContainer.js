@@ -177,7 +177,7 @@ const ChannelContainer = () => {
             {
                 currentOrg && currentOrg.organization_channels && currentOrg.organization_channels.length > 0 &&
                 currentOrg.organization_channels.filter(el => el.isPublic).map((el, i) =>
-                <Channel channelId={el.id} channelName={el.name} ownerId={el.owner_id} messages={el.channel_cm} totalUsers={el.channel_users.length} usersArr={el.channel_users} key={i} />)
+                <Channel orgId={el.organization_id} channelId={el.id} channelName={el.name} ownerId={el.owner_id} messages={el.channel_cm} totalUsers={el.channel_users.length} usersArr={el.channel_users} key={i} />)
             }
 
             {
@@ -185,7 +185,7 @@ const ChannelContainer = () => {
                 currentOrg.organization_channels.map((el, i) => {
                     const channelUsers = el.channel_users.map(user => user.username);
 
-                    if (el.isPublic === false && channelUsers.includes(currentUser.username)) return <Channel channelId={el.id} channelName={el.name} ownerId={el.owner_id} messages={el.channel_cm} totalUsers={el.channel_users.length} usersArr={el.channel_users} key={i} />
+                    if (el.isPublic === false && channelUsers.includes(currentUser.username)) return <Channel orgId={el.organization_id} channelId={el.id} channelName={el.name} ownerId={el.owner_id} messages={el.channel_cm} totalUsers={el.channel_users.length} usersArr={el.channel_users} key={i} />
                 })
             }
         </div>
