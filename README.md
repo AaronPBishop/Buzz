@@ -1,14 +1,5 @@
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a name="readme-top"></a>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
-
-
 
 <!-- PROJECT SHIELDS -->
 <!--
@@ -37,7 +28,7 @@
   <h3 align="center">Buzz (Slack Clone)</h3>
 
   <p align="center">
-    This is a clone of the popular business messaging app <a href="Slack.com">Slack</a>. Users on Slack can share messages, images, setup communication channels for group collaborations, and take part in audio sessions within their organizations.
+    This is a spin-off of the popular business messaging application <a href="Slack.com">Slack</a>. Users on Slack can share messages, images, setup communication channels for group collaboration, and take part in audio sessions within their organizations.
     <br />
     <br />
     <br />
@@ -81,16 +72,9 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-![Untitled](https://user-images.githubusercontent.com/95322089/212579070-5f08882b-6486-4c29-95a6-af91d68caa5c.png)
-
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 ### Built With:
-
-
 * [![Javascript][Javascript]][Javascript-url]
 * [![HTML5][HTML5]][HTML-url]
 * [![CSS][CSS]][CSS-url]
@@ -108,6 +92,15 @@
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+
+# Images
+
+### Splash Page
+![image](https://user-images.githubusercontent.com/95946808/213060070-d3e22486-152d-4f27-8497-1c3457e7c3c2.png)
+
+
+### Base Messaging Container
+![image](https://user-images.githubusercontent.com/95946808/213062296-b1582d2b-5044-4202-83ab-cadcb2bb9900.png)
 
 
 <!-- GETTING STARTED -->
