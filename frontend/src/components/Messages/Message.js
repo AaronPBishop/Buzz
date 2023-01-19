@@ -10,31 +10,35 @@ import {
     setCurrImgUrl,
     deleteMessage
 } from "../../store/messagesReducer";
+import { fetchOrgDataThunk } from "../../store/organizationReducer";
 
 const Message = ({ message, sessionUser }) => {
+    const dispatch = useDispatch();
+
+    const messageState = useSelector(state => state.messages);
+    const currOrg = useSelector(state => state.organization);
+
     const [clicked, setClicked] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
     const [editMsg, setEditMsg] = useState(message.message);
     const [validOwner, setValidOwner] = useState(false);
 
-    const dispatch = useDispatch();
-
-    const messageState = useSelector(state => state.messages);
-
     useEffect(() => {
         if (sessionUser.id === message.user_id) setValidOwner(true);
     }, [sessionUser.id, message.user_id]);
 
-    const handleKeyDown = e => {
+    const handleKeyDown = async e => {
         if (e.key === "Enter") {
             if (messageState.viewingChannel === true) {
-                dispatch(editChannelMessageThunk(message.id, editMsg));
+                await dispatch(editChannelMessageThunk(message.id, editMsg));
                 setClicked(!clicked);
+                await dispatch(fetchOrgDataThunk(currOrg.id));
             };
 
             if (messageState.viewingDm === true) {
-                dispatch(editDmMessageThunk(message.id, editMsg));
+                await dispatch(editDmMessageThunk(message.id, editMsg));
                 setClicked(!clicked);
+                await dispatch(fetchOrgDataThunk(currOrg.id));
             };
         };
     };
@@ -156,8 +160,8 @@ const Message = ({ message, sessionUser }) => {
                     padding: '1vh',
                     maxWidth: '65vw',
                     overflowX: 'auto',
-                    justifyContent: 'center',
-                    alignItems: 'center'
+                    justifyContent: 'flex-start',
+                    marginLeft: '5vw'
                 }}>
                     {
                         message.images && message.images.length > 0 &&
@@ -167,7 +171,7 @@ const Message = ({ message, sessionUser }) => {
                             onClick={() => dispatch(setCurrImgUrl(img.url))}
                             style={{
                                 marginTop: '0.1vh',
-                                marginRight: '1vw',
+                                marginLeft: '1vw',
                                 minHeight: '14vh',
                                 maxHeight: '14vh',
                                 minWidth: '8vw',
@@ -212,11 +216,18 @@ const Message = ({ message, sessionUser }) => {
                         }}>
                             <button
                             className="buzz-btn"
-                            onClick={e => {
+                            onClick={async e => {
                                     e.stopPropagation()
 
-                                    if (clicked === true && messageState.viewingChannel === true) dispatch(editChannelMessageThunk(message.id, editMsg));
-                                    if (clicked === true &&messageState.viewingDm === true) dispatch(editDmMessageThunk(message.id, editMsg));
+                                    if (clicked === true && messageState.viewingChannel === true) {
+                                        await dispatch(editChannelMessageThunk(message.id, editMsg));
+                                        await dispatch(fetchOrgDataThunk(currOrg.id));
+                                    };
+
+                                    if (clicked === true &&messageState.viewingDm === true) {
+                                        await dispatch(editDmMessageThunk(message.id, editMsg));
+                                        await dispatch(fetchOrgDataThunk(currOrg.id));
+                                    };
 
                                     setClicked(!clicked);
                                 }}
@@ -244,17 +255,20 @@ const Message = ({ message, sessionUser }) => {
                         }}>
                             <button
                             className="buzz-btn"
-                            onClick={e => {
+                            onClick={async e => {
                                 e.stopPropagation()
+                                e.preventDefault();
 
                                 if (messageState.viewingChannel === true) {
-                                    dispatch(deleteChannelMessageDataThunk(message.id));
-                                    dispatch(deleteMessage(message.id));
+                                    await dispatch(deleteChannelMessageDataThunk(message.id));
+                                    await dispatch(deleteMessage(message.id));
+                                    await dispatch(fetchOrgDataThunk(currOrg.id));
                                 };
 
                                 if (messageState.viewingDm === true) {
-                                    dispatch(deleteDmMessageDataThunk(message.id));
-                                    dispatch(deleteMessage(message.id));
+                                    await dispatch(deleteDmMessageDataThunk(message.id));
+                                    await dispatch(deleteMessage(message.id));
+                                    await dispatch(fetchOrgDataThunk(currOrg.id));
                                 };
                             }}
                             style={{

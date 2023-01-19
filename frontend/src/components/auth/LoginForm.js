@@ -30,7 +30,7 @@ const LoginForm = () => {
 
     return (
         <form onSubmit={onLogin} className="formWrapper flex-center">
-            <div style={{textAlign: 'center', fontWeight: 'bold', color: 'yellow'}}>
+            <div style={{textAlign: 'center', fontWeight: 'bold', fontSize: '20px', color: 'yellow'}}>
                 Log In
             </div>
             <div style={{paddingBottom: '8px'}}>
@@ -62,7 +62,8 @@ const LoginForm = () => {
                     className="buzz-input"
                     style={{
                         height: '4vh',
-                        marginTop: '2vh'
+                        marginTop: '3vh',
+                        marginBottom: '1vh'
                     }}
                 />
             </div>
@@ -78,15 +79,15 @@ const LoginForm = () => {
                     className="buzz-input"
                     style={{
                         height: '4vh',
-                        marginBottom: '2vh'
+                        marginBottom: '3vh'
                     }}
                 />
             </div>
 
             <div 
             onClick={e => onLogin(e)}
-            className="buzz-btn"
-            style={{height: '3.5vh', lineHeight: '3.6vh'}}>
+            className="buzz-btn flex-center"
+            style={{height: '3.5vh', lineHeight: '3.6vh', width: '10vw'}}>
                 Login
             </div>
         </form>

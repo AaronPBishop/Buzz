@@ -39,10 +39,10 @@ const SearchBar = () => {
 
             <div style={{
                 display: clicked ? 'block' : 'none',
-                marginTop: '1vh',
-                marginLeft: '0.1vw',
+                marginTop: '1.2vh',
+                marginLeft: '-5.4vw',
                 position: 'absolute',
-                border: '2px solid rgb(30, 30, 30)',
+                border: '3px solid rgb(30, 30, 30)',
                 borderRadius: '8px',
                 backgroundColor: 'rgb(15, 15, 15)',
                 width: '60vw',

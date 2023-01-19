@@ -1,11 +1,9 @@
 .formWrapper {
-    border: 3px solid rgb(240, 210, 10);
     border-radius: 12px;
 
     flex-direction: column;
 
-    margin-top: 5vh;
-    margin-bottom: 5vh;
+    margin-top: 10vh;
 
     height: auto;
     padding: 30px;

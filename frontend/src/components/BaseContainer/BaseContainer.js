@@ -22,7 +22,6 @@ const BaseContainer = () => {
 
     useEffect(() => {
         const htmlElement = document.querySelector("html");
-        htmlElement.style.backgroundColor = 'black';
         htmlElement.style.paddingTop = '0vh';
     }, []);
 

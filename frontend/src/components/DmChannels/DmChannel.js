@@ -27,7 +27,7 @@ const DmChannel = ({ orgId, messages, users, ownerId, id }) => {
         } else {
             return;
         };
-    }, [messageState.currChannelId, currOrg.id]);
+    }, [messageState, messageState.currChannelId, currOrg.id]);
 
     const formatNames = (names) => {
         let formatted = '';

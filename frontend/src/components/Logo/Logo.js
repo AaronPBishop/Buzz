@@ -31,13 +31,13 @@ const Logo = () => {
             </div>
 
             <div
-                style={{
-                    fontStyle: "bold",
-                    fontSize: "20px",
-                    marginTop: "0.1vh",
-                    marginRight: "0.5vw",
-                    padding: "5px",
-                }}>
+            style={{
+                fontFamily: 'Monofett',
+                letterSpacing: '0.1vh',
+                fontSize: "24px",
+                marginRight: "0.2vw",
+                padding: "5px"
+            }}>
                 Buzz
             </div>
         </div>

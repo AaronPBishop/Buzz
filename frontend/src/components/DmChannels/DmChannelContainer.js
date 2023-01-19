@@ -40,7 +40,7 @@ const DmChannelContainer = () => {
                     fontSize: '16px',
                     marginTop: '1vh',
                 }}>
-                    <p style={{maxWidth: '8vw', fontWeight: 'bold', fontSize: '16px', textShadow: '0px 1px 2px yellow'}}>Direct Messages</p>
+                    <p style={{maxWidth: '8vw', fontWeight: 'bold', fontSize: '16px', marginLeft: '0.2vw'}}>Direct Messages</p>
 
                     <ExpandMore
                         onClick={e => {

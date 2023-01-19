@@ -45,8 +45,10 @@ const SignUpForm = () => {
     if (user) return <Redirect to="/home" />;
 
     return (
-        <form className="formWrapper flex-center">
-            <div style={{textAlign: 'center', fontWeight: 'bold', color: 'yellow'}}>
+        <form 
+        style={{flexDirection: 'column', paddingTop: '2vh', paddingBottom: '4vh'}}
+        className="flex-center">
+            <div style={{textAlign: 'center', fontWeight: 'bold', fontSize: '20px', color: 'yellow', marginBottom: '1vh'}}>
                 Sign Up
             </div>
 
@@ -209,8 +211,8 @@ const SignUpForm = () => {
             <div 
             style={{
                 lineHeight: '4vh',
-                height: '4vh',
-                minWidth: '18vw'
+                height: '3.5vh',
+                minWidth: '16vw'
             }}
             className="buzz-btn flex-center" 
             onClick={e => {

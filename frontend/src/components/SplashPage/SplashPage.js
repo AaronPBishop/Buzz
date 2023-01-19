@@ -13,31 +13,54 @@ const SplashPage = () => {
 
     useEffect(() => {
         const htmlElement = document.querySelector("html");
-        htmlElement.style.backgroundColor = 'rgb(240, 210, 10)';
-        htmlElement.style.paddingTop = '6vh';
+        htmlElement.style.paddingTop = '9vh';
     }, []);
 
     return (
         <div
+        style={{
+            display: "flex",
+            justifyContent: "center",
+            backgroundColor: 'rgb(240, 210, 10)',
+            borderRadius: "18px",
+            boxShadow: "0px 0px 6px 1px yellow",
+            width: "42vw",
+            minHeight: "60vh",
+            maxHeight: 'auto',
+            margin: "auto",
+            paddingTop: '7vh',
+            paddingBottom: '7vh'
+        }}>
+            <div 
             style={{
-                display: "flex",
-                justifyContent: "center",
-                backgroundColor: "black",
-                border: "1px black solid",
-                borderRadius: "20px",
-                boxShadow: "0px 0px 8px black",
-                width: "44vw",
-                minHeight: "60vh",
-                maxHeight: 'auto',
-                margin: "auto",
-                paddingBottom: '6vh'
+                backgroundColor: 'black',
+                width: '32vw',
+                borderRadius: '10px'
             }}>
+
             {!clickedLogIn && !clickedSignUp ? (
-                <div style={{ display: "flex", flexDirection: 'column' }}>
-                    <p className="buzz_txt">
+                <div style={{ display: "flex", flexDirection: 'column'}}>
+                    <div
+                    style={{
+                        fontFamily: 'Monofett',
+                        fontWeight: 'normal',
+                        fontSize: '24px',
+                        letterSpacing: '0.1vh',
+                        lineHeight: '4.5vh',
+                        marginTop: '4vh',
+                        marginBottom: '4vh',
+                        textAlign: 'center', 
+                        width: '14vw', 
+                        height: '5vh', 
+                        fontSize: '36px',
+                        cursor: 'default'
+                    }} 
+                    className="buzz_txt flex-center buzz-btn">
                         Buzz
-                    </p>
+                    </div>
+
                     <img className="splash_img" src={require("../Logo/bee.png").default}></img>
+
                     <div style={{ display: "flex", flexDirection: "column" }}>
                         <div
                             style={{
@@ -65,11 +88,10 @@ const SplashPage = () => {
                         <div
                             style={{
                                 display: "flex",
-                                alignSelf: "center",
-                                paddingTop: "3vh",
-                                marginBottom: "2vh",
-                                width: "auto",
-
+                                justifyContent: "center",
+                                margin: 'auto',
+                                marginTop: '-2vh',
+                                width: "20vw"
                             }}>
                             <DemoLogin />
                         </div>
@@ -80,6 +102,7 @@ const SplashPage = () => {
             ) : (
                 clickedSignUp && <SignUpForm />
             )}
+            </div>
         </div>
     );
 };

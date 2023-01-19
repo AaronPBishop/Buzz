@@ -51,14 +51,13 @@ const MessagingBox = () => {
         <div
             style={{
                 display: 'block',
-                width: '76.1vw',
-                marginTop: '1vh',
-                marginLeft: '0.6vw',
+                width: '76.3vw',
+                marginTop: '0.9vh',
+                marginLeft: '0.5vw',
                 height: 'inherit',
                 borderRadius: '12px',
                 backgroundColor: 'rgb(20, 20, 20)',
-                border: '2px solid transparent',
-                boxShadow: '0px 0px 4px yellow'
+                border: '3px solid rgb(30, 30, 30)'
             }}>
             <div style={{display: 'flex', justifyContent: 'flex-start', width: !clickedAddImg ? 'inherit' : '10vw', height: '2.4vh', padding: '2px' }}>
                 <div

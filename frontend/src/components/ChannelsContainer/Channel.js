@@ -37,7 +37,7 @@ const Channel = ({ orgId, channelId, channelName, ownerId, messages, totalUsers,
         } else {
             return;
         };
-    }, [messageState.currChannelId, currOrg.id]);
+    }, [messageState, messageState.currChannelId, currOrg.id]);
 
     const userNames = usersArr.map(user => user.username);
 
