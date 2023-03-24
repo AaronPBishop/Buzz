@@ -32,14 +32,13 @@
     <br />
     <br />
     <br />
-    <a href="https://buzz-vxv2.onrender.com/">Live Site</a>
+    <a href="https://buzz-vxv2.onrender.com/">Live Site (Average load time: 1 minute)</a>
     ·
     <a href="https://github.com/AaronPBishop/Buzz/wiki/DB-Schema">DB Schema</a>
     <!-- ·
     <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a> -->
   </p>
 </div>
-
 
 
 <!-- TABLE OF CONTENTS -->
